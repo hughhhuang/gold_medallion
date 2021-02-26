@@ -75,7 +75,7 @@ class Charts extends Component {
           </div>
 
           <div className="row">
-          <iframe src="https://public.tableau.com/views/COVID-19VaccinationTracker/Geography?:language=en&:embed=y&:embed_code_version=3&:loadOrderID=0&:display_count=y&:origin=viz_share_link?:showVizHome=no&:embed=true" width="800" height="800"></iframe>
+          <iframe src="https://public.tableau.com/views/COVID-19VaccinationTracker/Geography?:language=en&:embed=y&:embed_code_version=3&:loadOrderID=0&:display_count=y&:origin=viz_share_link?:showVizHome=no&:embed=true" width="705" height="1385"></iframe>
           </div>
         </div>
       </div>

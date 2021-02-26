@@ -23,6 +23,10 @@ code {
   line-height: 30px;
 }
 
+.title-font:hover, #ny-icon:hover{
+  transition: 0.3s !important;
+  filter: invert(.5) !important;
+}
 .navbar{
   background-color:	#0e1111;
   color: white;
@@ -32,15 +36,13 @@ code {
   color: white !important;
 }
 
+
 .main-panel{
   width: 100vw;
   float: none;
 }
 
-/* .content{
-  padding-left: 5%;
-  padding-right: 5%;
-} */
+
 
 .row{
   margin-left: 50px;
@@ -59,6 +61,7 @@ code {
   margin-top: 0px;
   padding-left: 5px;
 }
+
 
 @media (max-width: 991px){
   .navbar-brand {
@@ -134,4 +137,23 @@ code {
   background-color: rgb(0,0,0,.6);
   color: white;
   border: solid rgb(0,0,0,.6);
+}
+
+#opening-info{
+  padding-top: 40px;
+  text-align: center;
+}
+
+.icons{
+  font-size:40px;
+  height: 60px;
+  padding-bottom:10px;
+}
+
+#left-info-item{
+  border-right:2px solid grey;
+}
+
+#right-info-item{
+  border-left: 2px solid grey;
 }
