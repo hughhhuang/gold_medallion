@@ -29,6 +29,20 @@ class Charts extends Component {
       <div className="content">
         <div className="container-fluid">
             <div className="row">
+                <div className="card">
+                    <h4 className="display-4">Get your rate estimate by inputing the fields below.</h4>
+                    <div className="card-body">
+                        <form className="form-inline" id="query-selection">
+                            <label for="pickup">Pickup Zipcode:</label>
+                            <input type="text" id="pickup" name="pickup" placeholder="Enter pickup zipcode"></input>
+                            <label for="dropoff">Dropoff Zipcode:</label>
+                            <input type="text" id="dropoff" name="dropoff" placeholder="Enter dropoff zipcode"></input>
+                            <button type="submit">Get my estimate</button>                    
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
             <div className="col-md-4">
               <div className="card ">
                 <div className="card-header ">

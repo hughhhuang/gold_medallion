@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -40,6 +41,7 @@ code {
 .main-panel{
   width: 100vw;
   float: none;
+  background-color:white;
 }
 
 
@@ -62,6 +64,13 @@ code {
   padding-left: 5px;
 }
 
+.jumbotron{
+  animation: 3s ease-out 0s 1 fadeInJumbotron;
+  width: 90vw;
+  margin: 5vw 100px 5vw 100px;
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0px 0px 10px 0px #000000;
+}
 
 @media (max-width: 991px){
   .navbar-brand {
@@ -69,16 +78,27 @@ code {
   }
 }
 
+@media (min-width: 800px){
+  .jumbotron{
+    /* animation: 3s ease-out 0s 1 fadeInJumbotron; */
+    max-width: 30vw !important;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0px 0px 10px 0px #000000;
+  }
+}
+
 #background{
-  background-image: url("./assets/img/taxi.jpg");
+  background-image: url("./assets/img/taxi\ background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position-y: center;
+  background-color: white;
+  aspect-ratio: 16/9;
   width: 100vw;
-  min-height: 500px;
+  /* min-height: 500px; */
   margin-left:-50px;
   margin-top: -30px !important;
-  margin-right: -15px !important;
+  /* margin-right: -15px !important; */
 }
 
 @keyframes fadeInJumbotron {
@@ -107,7 +127,7 @@ code {
   box-shadow: 0px 0px 10px 0px #000000;
 }
 
-.jumbotron h1{
+.display-4{
   font-family: sans-serif;
   font-variant: small-caps;
   font-weight: bolder;
@@ -128,9 +148,9 @@ code {
 
 .jumbotron a, .jumbotron a:focus{
   animation: 3s ease-out 0s 1 hideButton;
-  background-color: black;
+  background-color: #FFB727;
   border: solid black;
-  color: white;
+  color: black;
 }
 
 .jumbotron a:hover{
@@ -139,9 +159,15 @@ code {
   border: solid rgb(0,0,0,.6);
 }
 
-#opening-info{
+#opening-info-2{
   padding-top: 40px;
-  text-align: center;
+  text-align: center !important;
+  background-color: white;
+}
+
+#opening-info-1{
+  text-align: center !important;
+  background-color: white;
 }
 
 .icons{
@@ -156,4 +182,15 @@ code {
 
 #right-info-item{
   border-left: 2px solid grey;
+}
+
+#query-selection label{
+  margin-right: 10px;
+  margin-left: 10px;
+  color: black;
+  font-weight: bolder;
+}
+
+#query-selection button{
+  margin-left: 20px;
 }

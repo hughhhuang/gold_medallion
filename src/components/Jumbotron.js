@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Calculations from './Calculations'
+
 class Jumbotron extends Component{
     render(){
         return(
@@ -10,7 +11,7 @@ class Jumbotron extends Component{
                 <hr className="my-4"></hr>
                 <p className="lead">
                     <Link className="btn btn-primary btn-lg" id='jumbo-button' to='/calculations'>
-                        Calculate my fare
+                        <b>Get started here</b>
                     </Link>
                 </p>
             </div>
