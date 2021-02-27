@@ -13,6 +13,10 @@ code {
     monospace;
 }
 
+.content{
+  max-width: 100vw;
+  overflow: hidden;
+}
 .title-font {
   font-family: 'Cinzel Decorative', cursive;
   padding: 5px 0px;
@@ -193,4 +197,15 @@ code {
 
 #query-selection button{
   margin-left: 20px;
+}
+
+.page-header{
+  font-size: 35px;
+  margin-left: 3vw;
+  margin-right: 3vw;
+}
+
+.nav-pills .nav-link.active, .show>.nav-pills .nav-link {
+  color: #fff !important;
+  background-color: #007bff !important;
 }
