@@ -49,62 +49,77 @@ class Query extends Component {
   }
   render() {
     return (
-    <div>
-      <form onSubmit={this.handleClick}>
-        <p>pickup</p>
-        <input type="text" size="6" id="pickup" name="pickup" placeholder="Enter here"></input>
-        <p>dropoff</p>
-        <input type="text" size="6" id="dropoff" name="dropoff" placeholder="Enter here"></input>
-        <button id="query-submit" type="submit">Get my estimate</button>
-      </form>
-      <label>Average Total Amount: ${this.state.averageTotalAmount}</label><br></br>
-      <label>Average MTA Amount: ${this.state.averageMtaAmount}</label><br></br>
-      <label>Average Tip Amount: ${this.state.averageTipAmount}</label><br></br>
-      <label>Average Fare Amount: ${this.state.averageFareAmount}</label>
-      </div>
-        // <div>
-        //     <textarea id="txtInput" placeholder="q)"></textarea>
-        //     <button id="cmdInput" onClick={this.handleClick} >Go</button>
-        //     <div id="txtOutput"></div>
-        //     <h4 className="display-4 page-header">Get your rate estimate by entering your information below</h4> 
-        //     <div className="card" id="query-card">
-        //         <div className="card-body">
-        //             <form id="query-selection">
-        //                 <div className = "form-row justify-content-center">
-        //                     <div className="col-md-3 text-center">
-        //                         <label for="pickup">Pickup Zipcode:</label>
-        //                         <input type="text" size="6" id="pickup" name="pickup" placeholder="Enter here"></input>
-        //                     </div>
-        //                     <div className="col-md-3 text-center">
-        //                         <label for="dropoff">Dropoff Zipcode:</label>
-        //                         <input type="text" size="6" id="dropoff" name="dropoff" placeholder="Enter here"></input>                        
-        //                     </div>
-        //                     <div className="col-md-4 text-center">
-        //                         <label for="month">Select Month of Travel:</label>
-        //                         <select class="form-select" length="2" id="month" name="month">
-        //                             <option value="Jan">January</option>
-        //                             <option value="Feb">February</option>
-        //                             <option value="March">March</option>
-        //                             <option value="April">April</option>
-        //                             <option value="May">May</option>
-        //                             <option value="June">June</option>
-        //                             <option value="July">July</option>
-        //                             <option value="August">August</option>
-        //                             <option value="September">September</option>
-        //                             <option value="October">October</option>
-        //                             <option value="November">November</option>
-        //                             <option value="December">December</option>
-        //                         </select>  
-        //                     </div>
-        //                 </div>
+    // <div>
+    //   <form onSubmit={this.handleClick}>
+    //     <p>pickup</p>
+    //     <input type="text" size="6" id="pickup" name="pickup" placeholder="Enter here"></input>
+    //     <p>dropoff</p>
+    //     <input type="text" size="6" id="dropoff" name="dropoff" placeholder="Enter here"></input>
+    //     <button id="query-submit" type="submit">Get my estimate</button>
+    //   </form>
+    //   <label>Average Total Amount: ${this.state.averageTotalAmount}</label><br></br>
+    //   <label>Average MTA Amount: ${this.state.averageMtaAmount}</label><br></br>
+    //   <label>Average Tip Amount: ${this.state.averageTipAmount}</label><br></br>
+    //   <label>Average Fare Amount: ${this.state.averageFareAmount}</label>
+    //   </div>
+        <div id="query-body">
+            {/* <textarea id="txtInput" placeholder="q)"></textarea>
+            <button id="cmdInput" onClick={this.handleClick} >Go</button>
+            <div id="txtOutput"></div>
+            <h4 className="display-4 page-header">Get your rate estimate by entering your information below</h4>  */}
+            <div className="card" id="query-card">
+                <div className="card-body">
+                    <form id="query-selection" onSubmit={this.handleClick}>
+                        <div className = "form-row justify-content-center">
+                            <div className="col-md-4 text-center">
+                                <label for="pickup">Pickup Zipcode:</label>
+                                <input type="text" size="6" id="pickup" name="pickup" placeholder="Enter here"></input>
+                            </div>
+                            <div className="col-md-4 text-center">
+                                <label for="dropoff">Dropoff Zipcode:</label>
+                                <input type="text" size="6" id="dropoff" name="dropoff" placeholder="Enter here"></input>                        
+                            </div>
+                            {/* <div className="col-md-4 text-center">
+                                <label for="month">Select Month of Travel:</label>
+                                <select class="form-select" length="2" id="month" name="month">
+                                    <option value="Jan">January</option>
+                                    <option value="Feb">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                </select>  
+                            </div> */}
+                        </div>
                        
-        //             <div className="form-row py-3 justify-content-center">
-        //                 <button id="query-submit" type="submit" onClick={this.handleClick}>Get my estimate</button>   
-        //             </div>
-        //             </form>
-        //         </div>
-        //     </div>    
-        // </div>
+                    <div className="form-row py-3 justify-content-center">
+                        <button id="query-submit" type="submit" onClick={this.handleClick}>Get my estimate</button>   
+                    </div>
+                    </form>
+                </div>
+            </div>   
+            <div className="row justify-content-center">
+                <div className="card" id="calc-card">
+                    <div className="card-body">
+                        <div className="row justify-content-center">
+                            <div className="col">
+                                <h6>Average Total Amount: ${this.state.averageTotalAmount}</h6><br></br>
+                                <h6>Average MTA Amount: ${this.state.averageMtaAmount}</h6><br></br>
+                                <h6>Average Tip Amount: ${this.state.averageTipAmount}</h6><br></br>
+                                <h6>Average Fare Amount: ${this.state.averageFareAmount}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+
+        </div>
        
         
     )

@@ -239,3 +239,15 @@ code {
 #query-card{
   box-shadow: 0px 0px 1px 0px #000000;
 }
+
+#query-body{
+  width: 100vw;
+  margin-right: 5vw;
+  margin-left: 5vw;
+  min-height: 100vh;
+}
+
+#calc-card{
+  width: 25rem;
+  text-align: center;
+}
