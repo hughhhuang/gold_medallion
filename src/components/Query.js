@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
+import ZoneData from './ZoneData';
 
 const client = new W3CWebSocket('ws://127.0.0.1:1234');
 
@@ -113,6 +114,7 @@ class Query extends Component {
                                 <h6>Average MTA Amount: ${this.state.averageMtaAmount}</h6><br></br>
                                 <h6>Average Tip Amount: ${this.state.averageTipAmount}</h6><br></br>
                                 <h6>Average Fare Amount: ${this.state.averageFareAmount}</h6>
+                                < ZoneData />
                             </div>
                         </div>
                     </div>
