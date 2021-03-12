@@ -1,21 +1,39 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
-import ZoneData from './ZoneData';
+import Select from 'react-select'
 
-const client = new W3CWebSocket('ws://127.0.0.1:1234');
+// ws://127.0.0.1:1234
+const client = new W3CWebSocket('ws://sp21-cs411-09.cs.illinois.edu:1234');
 
 
 class Query extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {isToggleOn: true, averageTotalAmount:"0",averageMtaAmount:"0",averageTipAmount:"0",averageFareAmount:"0"};
+    this.state = {
+        isToggleOn: true, 
+        averageTotalAmount:"0",
+        averageMtaAmount:"0",
+        averageTipAmount:"0",
+        averageFareAmount:"0",
+        zoneData: [],
+        pickupZone: 0,
+        dropoffZone: 0,
+    };
 
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
+
   }
-  componentWillMount() {
+async componentWillMount() {
+    const url = "http://172.22.152.9:8000/api/nygm/?format=json"
+    const response = await fetch(url);
+    const zones = await response.json();
+    this.setState(state=> ({
+        zoneData: zones,
+    }))
+
     client.onopen = () => {
       console.log('WebSocket Client Connected');
     };
@@ -33,6 +51,7 @@ class Query extends Component {
         //   wsResponse: message
         // }));
     };
+    
   }
 
   handleClick(e) {
@@ -44,11 +63,37 @@ class Query extends Component {
     //     "maxCount":"10",
     //     "fields":["pickup","dropoff"]
     // };
-    var inputObj = {"function":"getUserEstimatedFare","pl":e.target.pickup.value,"dl":e.target.dropoff.value}
+    var inputObj = {"function":"getUserEstimatedFare","pl": this.state.pickupZone.value.toString(),"dl": this.state.dropoffZone.value.toString()}
+    console.log(this.state.pickupZone.value)
     client.send(JSON.stringify(inputObj));
-
   }
+
+  handleChangePO = (pickupZone) => {
+    this.setState({ pickupZone });
+    console.log(`Option selected:`, pickupZone);
+  }
+
+  handleChangeDO = (dropoffZone) => {
+    this.setState({ dropoffZone });
+    console.log(`Option selected:`, dropoffZone);
+  }
+
   render() {
+    let zones = this.state.zoneData;
+    let zoneOptions = [
+        {}
+    ]
+    zones.map((zone) =>
+        zoneOptions.push({
+            value : zone.zoneid,
+            label : zone.zonename
+        })
+        // { value: zone.zoneid,}
+        // <option key={zone.zoneid} value={zone.zoneid}> {zone.zonename} </option>
+    );  
+    const { pickupZone } = this.state;
+    const { dropoffZone } = this.state;
+
     return (
     // <div>
     //   <form onSubmit={this.handleClick}>
@@ -64,21 +109,18 @@ class Query extends Component {
     //   <label>Average Fare Amount: ${this.state.averageFareAmount}</label>
     //   </div>
         <div id="query-body">
-            {/* <textarea id="txtInput" placeholder="q)"></textarea>
-            <button id="cmdInput" onClick={this.handleClick} >Go</button>
-            <div id="txtOutput"></div>
-            <h4 className="display-4 page-header">Get your rate estimate by entering your information below</h4>  */}
+          
             <div className="card" id="query-card">
                 <div className="card-body">
                     <form id="query-selection" onSubmit={this.handleClick}>
                         <div className = "form-row justify-content-center">
                             <div className="col-md-4 text-center">
-                                <label for="pickup">Pickup Zipcode:</label>
-                                <input type="text" size="6" id="pickup" name="pickup" placeholder="Enter here"></input>
+                                <label for="pickup">Pickup Zone:</label>
+                                <Select id="pickup" onChange = {this.handleChangePO} options={zoneOptions} />
                             </div>
                             <div className="col-md-4 text-center">
-                                <label for="dropoff">Dropoff Zipcode:</label>
-                                <input type="text" size="6" id="dropoff" name="dropoff" placeholder="Enter here"></input>                        
+                                <label for="dropoff">Dropoff Zone:</label>
+                                <Select id="dropoff" onChange = {this.handleChangeDO} options={zoneOptions} />                      
                             </div>
                             {/* <div className="col-md-4 text-center">
                                 <label for="month">Select Month of Travel:</label>
@@ -114,7 +156,6 @@ class Query extends Component {
                                 <h6>Average MTA Amount: ${this.state.averageMtaAmount}</h6><br></br>
                                 <h6>Average Tip Amount: ${this.state.averageTipAmount}</h6><br></br>
                                 <h6>Average Fare Amount: ${this.state.averageFareAmount}</h6>
-                                < ZoneData />
                             </div>
                         </div>
                     </div>
