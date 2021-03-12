@@ -8,8 +8,9 @@ class ZoneData extends Component {
 
     async componentDidMount(){
         const url = "http://172.22.152.9:8000/api/nygm/?format=json"
+        // const url = "https://api.randomuser.me/"
         const response = await fetch(url);
-        const data = await response.data;
+        const data = await response.json();
         console.log(data);
     }
     render() {
