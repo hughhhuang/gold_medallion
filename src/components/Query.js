@@ -100,7 +100,7 @@ class Query extends Component {
                         </div>
                        
                     <div className="form-row py-3 justify-content-center">
-                        <button id="query-submit" type="submit" onClick={this.handleClick}>Get my estimate</button>   
+                        <button id="query-submit" type="submit">Get my estimate</button>   
                     </div>
                     </form>
                 </div>
