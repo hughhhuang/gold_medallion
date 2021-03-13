@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import Select from 'react-select'
+import ChartistGraph from 'react-chartist'
 
 // ws://127.0.0.1:1234
 const client = new W3CWebSocket('ws://sp21-cs411-09.cs.illinois.edu:1234');
@@ -41,10 +42,10 @@ async componentWillMount() {
       console.log(message);
       var result=JSON.parse(message.data).data;
         this.setState(state => ({
-          averageTotalAmount: result.totalAmount,
-          averageMtaAmount: result.mtaTax,
-          averageTipAmount: result.tipAmount,
-          averageFareAmount: result.fareAmount
+          averageTotalAmount: parseFloat(result.totalAmount).toFixed(2),
+          averageMtaAmount: parseFloat(result.mtaTax).toFixed(2),
+          averageTipAmount: parseFloat(result.tipAmount).toFixed(2),
+          averageFareAmount: parseFloat(result.fareAmount).toFixed(2)
         }));
       // response=JSON.stringify(message);
         // this.setState(state => ({
@@ -79,6 +80,8 @@ async componentWillMount() {
   }
 
   render() {
+
+    // Creating zones for the select options
     let zones = this.state.zoneData;
     let zoneOptions = [
         {}
@@ -88,28 +91,46 @@ async componentWillMount() {
             value : zone.zoneid,
             label : zone.zonename
         })
-        // { value: zone.zoneid,}
-        // <option key={zone.zoneid} value={zone.zoneid}> {zone.zonename} </option>
     );  
     const { pickupZone } = this.state;
     const { dropoffZone } = this.state;
 
+    // Creating data for pie chart
+    let total = parseFloat(this.state.averageTotalAmount);
+    let mta = parseFloat(this.state.averageMtaAmount);
+    let tip = parseFloat(this.state.averageTipAmount);
+    let fare = parseFloat(this.state.averageFareAmount);
+    let misc = (total - (mta+tip+fare));
+
+    console.log([mta,tip,fare,misc]);
+    let dataPie = {
+      labels: ['$'+fare.toFixed(2).toString(),
+        '$'+mta.toFixed(2).toString(),
+        '$'+tip.toFixed(2).toString(),
+        '$'+misc.toFixed(2).toString()],
+      series: [
+        fare*100 / total,
+        mta*100 / total,
+        tip*100 / total,
+        misc*100 / total
+      ]
+    }
+    let pieOptions = {
+      chartPadding: 40,
+      labelOffset: 60,
+      labelDirection: 'explode',
+    }
+    let dataLine = {
+      labels: ["2018","2019","2020"],
+      series: [
+        [21,23,25],
+     ]
+    }
+    
+
+    
     return (
-    // <div>
-    //   <form onSubmit={this.handleClick}>
-    //     <p>pickup</p>
-    //     <input type="text" size="6" id="pickup" name="pickup" placeholder="Enter here"></input>
-    //     <p>dropoff</p>
-    //     <input type="text" size="6" id="dropoff" name="dropoff" placeholder="Enter here"></input>
-    //     <button id="query-submit" type="submit">Get my estimate</button>
-    //   </form>
-    //   <label>Average Total Amount: ${this.state.averageTotalAmount}</label><br></br>
-    //   <label>Average MTA Amount: ${this.state.averageMtaAmount}</label><br></br>
-    //   <label>Average Tip Amount: ${this.state.averageTipAmount}</label><br></br>
-    //   <label>Average Fare Amount: ${this.state.averageFareAmount}</label>
-    //   </div>
         <div id="query-body">
-          
             <div className="card" id="query-card">
                 <div className="card-body">
                     <form id="query-selection" onSubmit={this.handleClick}>
@@ -161,12 +182,41 @@ async componentWillMount() {
                     </div>
                 </div> 
             </div>
-
-        </div>
-       
-        
-    )
+            <div className="row">
+              <div className="col">
+                <div className="card">
+                <div className="card-header ">
+                    <h4 className="card-title">Breakdown of Total Cost</h4>
+                    <p className="card-category">Miscellaneous costs include toll, surcharge, and congestion cost</p>
+                  </div>
+                  <div className="card-body ">
+                    <ChartistGraph data={dataPie} options={pieOptions} type="Pie" />
+                    <div className="legend">
+                        <i className="fa fa-circle ct-series-a"></i> Fare 
+                        <i className="fa fa-circle ct-series-b"></i> MTA 
+                        <i className="fa fa-circle ct-series-c"></i> Tip 
+                        <i className="fa fa-circle ct-series-d"></i> Misc 
+                    </div>
+                    <hr />
+                  </div>
+                </div>
+              </div> 
+              <div className="col">
+                <div className="card">
+                  <div className="card-header ">
+                    <h4 className="card-title">Change in Fare Since 2018</h4>
+                    <p className="card-category">Average Total Fare Per Month</p>
+                  </div>
+                  <div className="card-body ">
+                    <ChartistGraph data={dataLine} type="Line" />
+                    <hr />
+                  </div>
+                </div>
+              </div>  
+            </div>
+        </div>        
+      )
+    }
   }
-}
 
 export default Query

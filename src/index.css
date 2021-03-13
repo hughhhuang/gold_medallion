@@ -251,3 +251,21 @@ code {
   width: 25rem;
   text-align: center;
 }
+
+.ct-series-a{
+  color: #1DC7EA;
+}
+
+.ct-series-b{
+  color: #FB404B;
+}
+.ct-series-c{
+  color: #FFA534;
+}
+.ct-series-d{
+  color: #9368E9;
+}
+
+.fa-circle{
+  margin-left: 10px;
+}
