@@ -15,9 +15,9 @@ class HomePage extends Component {
             <Jumbotron />
           </div>
           <div id="opening-info-1">
-            <h1 className="display-4">How we calculate our rates</h1> 
+            <h1 className="display-4 general-font" id="rate-message">How we calculate our rates</h1> 
+            < InfoTab />
           </div>
-          < InfoTab />
         </div>
       </div>
     )
