@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Calculations from './Calculations'
 
 class Jumbotron extends Component{
     render(){
@@ -10,7 +9,7 @@ class Jumbotron extends Component{
                 <p className="lead">Our powerful technology helps deliver you the best rates for your taxi travel in New York</p>
                 <hr className="my-4"></hr>
                 <p className="lead">
-                    <Link className="btn btn-primary btn-lg" id='jumbo-button' to='/calculations'>
+                    <Link className="btn btn-primary btn-lg" id='jumbo-button' to='/loginsignup'>
                         <b>Get started here</b>
                     </Link>
                 </p>
