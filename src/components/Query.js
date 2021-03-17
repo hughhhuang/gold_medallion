@@ -61,16 +61,21 @@ async componentWillMount() {
 
   handleClick(e) {
     e.preventDefault();
-    console.log("stan");
-    console.log(e);
-    // var inputObj = {
-    //     "function":"getTaxiData",
-    //     "maxCount":"10",
-    //     "fields":["pickup","dropoff"]
-    // };
-    var inputObj = {"function":"getUserEstimatedFare","pl": this.state.pickupZone.value.toString(),"dl": this.state.dropoffZone.value.toString()}
-    console.log(this.state.pickupZone.value)
-    client.send(JSON.stringify(inputObj));
+    try{
+      console.log("stan");
+      console.log(e);
+      // var inputObj = {
+      //     "function":"getTaxiData",
+      //     "maxCount":"10",
+      //     "fields":["pickup","dropoff"]
+      // };
+      var inputObj = {"function":"getUserEstimatedFare","pl": this.state.pickupZone.value.toString(),"dl": this.state.dropoffZone.value.toString()}
+      console.log(this.state.pickupZone.value)
+      client.send(JSON.stringify(inputObj));
+    }
+    catch(err){
+      alert("Please select a pickup and dropoff location")
+    }
   }
 
   handleChangePO = (pickupZone) => {
@@ -108,10 +113,7 @@ async componentWillMount() {
 
     console.log([mta,tip,fare,misc]);
     let dataPie = {
-      labels: ['$'+fare.toFixed(2).toString(),
-        '$'+mta.toFixed(2).toString(),
-        '$'+tip.toFixed(2).toString(),
-        '$'+misc.toFixed(2).toString()],
+      labels: [' ',' ',' ',' '],
       series: [
         fare*100 / total,
         mta*100 / total,
@@ -135,8 +137,8 @@ async componentWillMount() {
     
     return (
       <div className="content" id="query-page">
-        <div className="container-fluid">
-            <div id="query-body">
+        <div className="container-fluid pl-0 pr-0 ml-0 mr-0">
+            <div className="ml-0 mr-0" id="query-body">
               <div className="card" id="query-card">
                 <div className="card-body">
                   <form id="query-selection" onSubmit={this.handleClick}>
@@ -174,6 +176,7 @@ async componentWillMount() {
                   </form>
                 </div>
               </div> 
+              <div className="ml-0 pl-0">
               <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                 <Row>
                   <Col sm={3}>
@@ -212,7 +215,7 @@ async componentWillMount() {
                                 </div>
                             </div> 
                           </div> */}
-                          <div className="col">
+                          <div className="row ml-0">
                             <div className="card">
                               <div className="card-header ">
                                   <h4 className="card-title">Breakdown of Total Cost</h4>
@@ -242,8 +245,10 @@ async componentWillMount() {
                             <p className="card-category">Average Total Fare Per Month</p>
                           </div>
                           <div className="card-body ">
-                            <ChartistGraph data={dataLine} type="Line" />
-                            <hr />
+                            <div>
+                              <ChartistGraph data={dataLine} options={{fullWidth: true}} type="Line" />
+                              <hr />
+                            </div>
                           </div>
                         </div>
                       </div>  
@@ -252,6 +257,7 @@ async componentWillMount() {
                   </Col>
                 </Row>
               </Tab.Container>  
+              </div>
               
             </div>
           </div>        
