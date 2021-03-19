@@ -5,7 +5,6 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import HomePage from './Homepage'
 import UserProfile from './UserProfile'
 import Query from './Query'
-import Charts from './Charts'
 import LoginSignUp from './LoginSignUp'
 
 class Main extends Component {
@@ -15,7 +14,6 @@ class Main extends Component {
         <Navbar />
         <Switch>
           <Route path="/homepage" component={HomePage} />
-          <Route path="/charts" component={Charts} />
           <Route path="/profile" component={UserProfile} />
           <Route path="/query" component={Query} />
           <Route path="/loginsignup" component={LoginSignUp} />
