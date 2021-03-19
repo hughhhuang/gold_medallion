@@ -6,6 +6,7 @@ import HomePage from './Homepage'
 import UserProfile from './UserProfile'
 import Calculations from './Calculations'
 import Charts from './Charts'
+import AddUserRide from './AddUserRide'
 
 class Main extends Component {
   render() {
@@ -17,6 +18,7 @@ class Main extends Component {
           <Route path="/charts" component={Charts} />
           <Route path="/profile" component={UserProfile} />
           <Route path="/calculations" component={Calculations} />
+          <Route path="/adduserride" component={AddUserRide} />
           <Redirect from='*' to='/homepage' />
         </Switch>
         <Footer />

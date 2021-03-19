@@ -14,6 +14,11 @@ class Jumbotron extends Component{
                         <b>Get started here</b>
                     </Link>
                 </p>
+                <p className="lead">
+                    <Link className="btn btn-primary btn-lg" id='jumbo-button' to='/adduserride'>
+                        <b>Add Ride</b>
+                    </Link>
+                </p>
             </div>
         )
     }
