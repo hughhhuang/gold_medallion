@@ -4,9 +4,8 @@ import Footer from './Footer'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import HomePage from './Homepage'
 import UserProfile from './UserProfile'
-import Calculations from './Calculations'
-import Charts from './Charts'
-import AddUserRide from './AddUserRide'
+import Query from './Query'
+import LoginSignUp from './LoginSignUp'
 
 class Main extends Component {
   render() {
@@ -15,10 +14,9 @@ class Main extends Component {
         <Navbar />
         <Switch>
           <Route path="/homepage" component={HomePage} />
-          <Route path="/charts" component={Charts} />
           <Route path="/profile" component={UserProfile} />
-          <Route path="/calculations" component={Calculations} />
-          <Route path="/adduserride" component={AddUserRide} />
+          <Route path="/query" component={Query} />
+          <Route path="/loginsignup" component={LoginSignUp} />
           <Redirect from='*' to='/homepage' />
         </Switch>
         <Footer />
