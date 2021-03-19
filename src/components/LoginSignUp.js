@@ -45,7 +45,7 @@ class LoginSignUp extends Component {
                         <hr></hr>
                       </div>
                       <form className="pl-5">
-                        <div className="row ml-0">
+                        {/* <div className="row ml-0">
                           <div className="col">
                             <label for="first-name">First name:</label><br></br>
                             <input type="text" id="first-name" size="12"></input>
@@ -53,6 +53,12 @@ class LoginSignUp extends Component {
                           <div className="col">
                             <label for="last-name">Last name:</label><br></br>
                             <input type="text" id="last-name" size="12"></input>
+                          </div>
+                        </div> */}
+                        <div className="row ml-0">
+                          <div className="col">
+                            <label for="username">Username:</label><br></br>
+                            <input type="text" id="username" size="35"></input>
                           </div>
                         </div>
                         <div className="row ml-0">
@@ -72,16 +78,16 @@ class LoginSignUp extends Component {
                             <label for="password">Password:</label><br></br>
                             <input type="password" id="password" size="12"></input>
                           </div>
-                          <div className="col">
+                          {/* <div className="col">
                             <label for="confirm-password">Confirm Password:</label><br></br>
                             <input type="password" id="confirm-password" size="12"></input>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="row ml-0">
-                          <div className="col">
+                          {/* <div className="col">
                             <label for="home-burough">Name of Home Burough:</label><br></br>
                             <input type="text" id="home-burough" size="35"></input>
-                          </div>
+                          </div> */}
                           <div className="col">
                             <button type="submit" id="sign-up" className="btn btn-primary mt-4 yellow-btn">Sign Up</button>
                           </div>
