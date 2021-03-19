@@ -109,7 +109,7 @@ async componentWillMount() {
     let mta = parseFloat(this.state.averageMtaAmount);
     let tip = parseFloat(this.state.averageTipAmount);
     let fare = parseFloat(this.state.averageFareAmount);
-    let misc = (total - (mta+tip+fare));
+    let misc = parseFloat((total - (mta+tip+fare)),2);
 
     console.log([mta,tip,fare,misc]);
     let dataPie = {
@@ -132,8 +132,46 @@ async componentWillMount() {
         [21,23,25],
      ]
     }
-    
 
+    let month = [
+      {value:1, label:'January'},
+      {value:2, label:'February'},
+      {value:3, label:'March'},
+      {value:4, label:'April'},
+      {value:5, label:'May'},
+      {value:6, label:'June'},
+      {value:7, label:'July'},
+      {value:8, label:'August'},
+      {value:9, label:'September'},
+      {value:10, label:'October'},
+      {value:11, label:'November'},
+      {value:12, label:'December'}
+    ]
+
+    let time_1 = [
+      {value:1, label:'1:00'},
+      {value:2, label:'2:00'},
+      {value:3, label:'3:00'},
+      {value:4, label:'4:00'},
+      {value:5, label:'5:00'},
+      {value:6, label:'6:00'},
+      {value:7, label:'7:00'},
+      {value:8, label:'8:00'},
+      {value:9, label:'9:00'},
+      {value:10, label:'10:00'},
+      {value:11, label:'11:00'},
+      {value:12, label:'12:00'}
+    ]
+    
+    let time_2 = [
+      {value:'AM',label:'AM'},
+      {value:'PM',label:'PM'}
+    ]
+
+    let day = [
+      {value:'Weekday',label:'Weekday (Mon-Fri)'},
+      {value:'Weekend',label:'Weekend (Sat-Sun)'}
+    ]
     
     return (
       <div className="content" id="query-page">
@@ -151,114 +189,94 @@ async componentWillMount() {
                         <label for="dropoff">Dropoff Zone:</label>
                         <Select id="dropoff" onChange = {this.handleChangeDO} options={zoneOptions} />                      
                       </div>
-                              {/* <div className="col-md-4 text-center">
-                                  <label for="month">Select Month of Travel:</label>
-                                  <select class="form-select" length="2" id="month" name="month">
-                                      <option value="Jan">January</option>
-                                      <option value="Feb">February</option>
-                                      <option value="March">March</option>
-                                      <option value="April">April</option>
-                                      <option value="May">May</option>
-                                      <option value="June">June</option>
-                                      <option value="July">July</option>
-                                      <option value="August">August</option>
-                                      <option value="September">September</option>
-                                      <option value="October">October</option>
-                                      <option value="November">November</option>
-                                      <option value="December">December</option>
-                                  </select>  
-                              </div> */}
                     </div>
-                        
+                    <div className="form-row justify-content-center">
+                      <div className="col-6 mt-5">
+                        <h6 className="text-center">Specify optional time details below for more precise analytics</h6>
+                        <hr></hr>
+                      </div>
+                    </div>  
+                    <div className="form-row justify-content-center">
+                      <div className="col-3 text-center">
+                        <label for="month">Month of Travel</label>
+                        <Select id="month" onChange = {this.handleChangePO} options={month} />
+                      </div>
+                      <div className="col-3 text-center">
+                        <label for="time-1">Time</label>
+                        <Select id="time-2" onChange = {this.handleChangePO} options={time_1} />
+                      </div>
+                      <div className="col-2 text-center">
+                        <label for="time-2">AM/PM</label>  
+                        <Select id="time-2" onChange = {this.handleChangePO} options={time_2} />
+                      </div>
+                      <div className="col-2 text-center">
+                        <label for="day">Weekday/Weekend</label>  
+                        <Select id="day" onChange = {this.handleChangePO} options={day} />
+                      </div>
+                    </div>  
                     <div className="form-row py-3 justify-content-center">
                         <button id="query-submit" type="submit">Get my estimate</button>   
                     </div>
                   </form>
                 </div>
               </div> 
-              <div className="ml-0 pl-0">
-              <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-                <Row>
-                  <Col sm={3}>
-                    <Nav variant="pills" className="flex-column">
-                      <Nav.Item>
-                        <Nav.Link eventKey="first">Breakdown of Total Cost</Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link eventKey="second">Change in Fare Since 2018</Nav.Link>
-                      </Nav.Item>
-                    </Nav>
-                  </Col>
-                  <Col sm={9}>
-                    <Tab.Content>
-                      <Tab.Pane eventKey="first">
-                        <div className="row">
-                          <div className="general-font">
-                            <h4 className="general-font">The average total amount paid for this trip is ${this.state.averageTotalAmount}</h4>
-                            <ul>
-                              <li><i>Average MTA Amount: ${this.state.averageMtaAmount}</i></li>
-                              <li><i>Average Tip Amount: ${this.state.averageTipAmount}</i></li>
-                              <li><i>Average Fare Amount: ${this.state.averageFareAmount}</i></li>
-                            </ul>
-                          </div>
-                          {/* <div className="col">
-                            <div className="card" id="calc-card">
-                                <div className="card-body">
-                                    <div className="row justify-content-center">
-                                        <div className="col">
-                                            <h6>Average Total Amount: ${this.state.averageTotalAmount}</h6><br></br>
-                                            <h6>Average MTA Amount: ${this.state.averageMtaAmount}</h6><br></br>
-                                            <h6>Average Tip Amount: ${this.state.averageTipAmount}</h6><br></br>
-                                            <h6>Average Fare Amount: ${this.state.averageFareAmount}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                          </div> */}
-                          <div className="row ml-0">
-                            <div className="card">
-                              <div className="card-header ">
-                                  <h4 className="card-title">Breakdown of Total Cost</h4>
-                                  <p className="card-category">Miscellaneous costs include toll, surcharge, and congestion cost</p>
-                                </div>
-                                <div className="card-body ">
-                                  <ChartistGraph data={dataPie} options={pieOptions} type="Pie" />
-                                  <div className="legend">
-                                      <i className="fa fa-circle ct-series-a"></i> Fare 
-                                      <i className="fa fa-circle ct-series-b"></i> MTA 
-                                      <i className="fa fa-circle ct-series-c"></i> Tip 
-                                      <i className="fa fa-circle ct-series-d"></i> Misc 
-                                  </div>
-                                  <hr />
-                                </div>
-                              </div>
-                          </div>
-                        </div>
-
-
-                      </Tab.Pane>
-                      <Tab.Pane eventKey="second">
-                      <div className="col">
-                        <div className="card">
-                          <div className="card-header ">
-                            <h4 className="card-title">Change in Fare Since 2018</h4>
-                            <p className="card-category">Average Total Fare Per Month</p>
-                          </div>
-                          <div className="card-body ">
-                            <div>
-                              <ChartistGraph data={dataLine} options={{fullWidth: true}} type="Line" />
-                              <hr />
-                            </div>
-                          </div>
-                        </div>
-                      </div>  
-                      </Tab.Pane>
-                    </Tab.Content>
-                  </Col>
-                </Row>
-              </Tab.Container>  
+              <div className="row pb-4">
+                <div className="col justify-content-center">
+                  <h4 className="general-font text-center">The average total amount paid for this trip is ${this.state.averageTotalAmount}</h4>
+                </div>
               </div>
-              
+              {/* <div className="row justify-content-center">
+                <div className="col-4 text-center">
+                  <div className="card">
+                    <div className="card-body general-font">
+                        <li>Average MTA Amount: ${this.state.averageMtaAmount}</li>
+                        <li>Average Tip Amount: ${this.state.averageTipAmount}</li>
+                        <li>Average Fare Amount: ${this.state.averageFareAmount}</li>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+              <div className="row">
+                <div className="col-6">
+                  <div className="card">
+                    <div className="card-header ">
+                      <h4 className="card-title">Breakdown of Total Cost</h4>
+                      <p className="card-category">Miscellaneous costs include toll, surcharge, and congestion cost</p>
+                    </div>
+                    <div className="card-body ">
+                      <div className="row">
+                        <div className="col-8">
+                          <ChartistGraph data={dataPie} options={pieOptions} type="Pie" />
+                        </div>
+                        <div className="col-4 pt-5 mt-4">
+                          <div className="legend">
+                            <i className="fa fa-circle ct-series-a"></i> Fare: ${total.toFixed(2)}
+                            <br></br><i className="fa fa-circle ct-series-b"></i> MTA: ${mta.toFixed(2)}
+                            <br></br><i className="fa fa-circle ct-series-c"></i> Tip: ${tip.toFixed(2)} 
+                            <br></br><i className="fa fa-circle ct-series-d"></i> Misc: ${misc.toFixed(2)}
+                          </div>
+                        </div>
+                       
+                      </div>
+                      <hr />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div className="card">
+                    <div className="card-header ">
+                      <h4 className="card-title">Change in Fare Since 2018</h4>
+                      <p className="card-category">Average Total Fare Per Month</p>
+                    </div>
+                    <div className="card-body ">
+                      <div>
+                        <ChartistGraph data={dataLine} type="Line" />
+                        <hr />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>              
             </div>
           </div>        
         </div>
