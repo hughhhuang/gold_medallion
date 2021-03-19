@@ -25,6 +25,12 @@ class Query extends Component {
         zoneData: [],
         pickupZone: 0,
         dropoffZone: 0,
+        byDayGraphHeaders:['Sat','Sun','Mon','Tue','Wed','Thu','Fri'],
+        byDayGraphValues:[],
+        byMonthGraphHeaders:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+        byMonthGraphValues:[],
+        byHourGraphHeaders:['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
+        byHourGraphValues:[],
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -45,11 +51,42 @@ async componentWillMount() {
     client.onmessage = (message) => {
       console.log(message);
       var result=JSON.parse(message.data).data;
+      var dataByDay=JSON.parse(message.data).dataByDay.data;
+      var dataByMonth=JSON.parse(message.data).dataByMonth.data;
+      var dataByHour=JSON.parse(message.data).dataByHour.data;
+      var byDayGraphHeaders=[];
+      var byDayGraphValues=[];
+      var byMonthGraphHeaders=[];
+      var byMonthGraphValues=[];
+      var byHourGraphHeaders=[];
+      var byHourGraphValues=[];
+      
+      dataByDay.forEach(function(entry){
+        byDayGraphHeaders.push(entry.day);
+        byDayGraphValues.push(parseFloat(entry.totalAmount).toFixed(2));
+      });
+
+      dataByMonth.forEach(function(entry){
+        byMonthGraphHeaders.push(entry.month);
+        byMonthGraphValues.push(parseFloat(entry.totalAmount).toFixed(2));
+      });
+
+      dataByHour.forEach(function(entry){
+        byHourGraphHeaders.push(entry.hour);
+        byHourGraphValues.push(parseFloat(entry.totalAmount).toFixed(2));
+      });
+
         this.setState(state => ({
           averageTotalAmount: parseFloat(result.totalAmount).toFixed(2),
           averageMtaAmount: parseFloat(result.mtaTax).toFixed(2),
           averageTipAmount: parseFloat(result.tipAmount).toFixed(2),
-          averageFareAmount: parseFloat(result.fareAmount).toFixed(2)
+          averageFareAmount: parseFloat(result.fareAmount).toFixed(2),
+          byDayGraphHeaders:byDayGraphHeaders,
+          byDayGraphValues:byDayGraphValues,
+          byMonthGraphHeaders:byMonthGraphHeaders,
+          byMonthGraphValues:byMonthGraphValues,
+          byHourGraphHeaders:byHourGraphHeaders,
+          byHourGraphValues:byHourGraphValues
         }));
       // response=JSON.stringify(message);
         // this.setState(state => ({
@@ -173,6 +210,21 @@ async componentWillMount() {
       {value:'Weekend',label:'Weekend (Sat-Sun)'}
     ]
     
+    let byDayData = {
+      labels: this.state.byDayGraphHeaders,
+      series: [this.state.byDayGraphValues]
+    }
+
+    let byMonthData = {
+      labels: this.state.byMonthGraphHeaders,
+      series: [this.state.byMonthGraphValues]
+    }
+
+    let byHourData = {
+      labels: this.state.byHourGraphHeaders,
+      series: [this.state.byHourGraphValues]
+    }
+
     return (
       <div className="content" id="query-page">
         <div className="container-fluid pl-0 pr-0 ml-0 mr-0">
@@ -276,7 +328,45 @@ async componentWillMount() {
                     </div>
                   </div>
                 </div>
-              </div>              
+              </div> 
+              <div className="row">
+                <div className="col-4">
+                  <div className="card">
+                    <div className="card-header ">
+                      <h4 className="card-title">Total Amount by Month</h4>
+                      <p className="card-category">Average total trip amount by Month</p>
+                    </div>
+                    <div className="card-body ">
+                      <ChartistGraph data={byMonthData} type="Bar" />
+                      <hr />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="card">
+                    <div className="card-header ">
+                      <h4 className="card-title">Total Amount by Day of Week</h4>
+                      <p className="card-category">Average total trip amount by Day of Week</p>
+                    </div>
+                    <div className="card-body ">
+                      <ChartistGraph data={byDayData} type="Bar" />
+                      <hr />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="card">
+                    <div className="card-header ">
+                      <h4 className="card-title">Total Amount by Hour</h4>
+                      <p className="card-category">Average total trip amount by Hour</p>
+                    </div>
+                    <div className="card-body ">
+                      <ChartistGraph data={byHourData} type="Bar" />
+                      <hr />
+                    </div>
+                  </div>
+                </div>
+              </div>             
             </div>
           </div>        
         </div>
