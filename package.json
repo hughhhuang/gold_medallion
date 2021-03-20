@@ -16,6 +16,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.2",
     "react-select": "^4.2.1",
+    "react-star-rating": "^1.4.2",
+    "react-toast-notifications": "^2.4.3",
+    "react-toastify": "^7.0.3",
     "web-vitals": "^1.1.0",
     "websocket": "^1.0.33"
   },

@@ -6,6 +6,7 @@ import HomePage from './Homepage'
 import UserProfile from './UserProfile'
 import Query from './Query'
 import LoginSignUp from './LoginSignUp'
+import AddUserRide from './AddUserRide'
 
 class Main extends Component {
   render() {
@@ -17,6 +18,7 @@ class Main extends Component {
           <Route path="/profile" component={UserProfile} />
           <Route path="/query" component={Query} />
           <Route path="/loginsignup" component={LoginSignUp} />
+          <Route path="/AddUserRide" component={AddUserRide} />
           <Redirect from='*' to='/homepage' />
         </Switch>
         <Footer />
