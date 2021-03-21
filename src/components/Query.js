@@ -289,7 +289,7 @@ async componentWillMount() {
                 </div>
               </div> */}
               <div className="row">
-                <div className="col-6">
+                <div className="col-lg-6">
                   <div className="card">
                     <div className="card-header ">
                       <h4 className="card-title">Breakdown of Total Cost</h4>
@@ -308,13 +308,13 @@ async componentWillMount() {
                             <br></br><i className="fa fa-circle ct-series-d"></i> Misc: ${misc.toFixed(2)}
                           </div>
                         </div>
-                       
+                      
                       </div>
                       <hr />
                     </div>
                   </div>
                 </div>
-                <div className="col-6">
+                <div className="col-lg-6">
                   <div className="card">
                     <div className="card-header ">
                       <h4 className="card-title">Change in Fare Since 2018</h4>
@@ -330,7 +330,7 @@ async componentWillMount() {
                 </div>
               </div> 
               <div className="row">
-                <div className="col-4">
+                <div className="col-lg-4">
                   <div className="card">
                     <div className="card-header ">
                       <h4 className="card-title">Total Amount by Month</h4>
@@ -342,7 +342,7 @@ async componentWillMount() {
                     </div>
                   </div>
                 </div>
-                <div className="col-4">
+                <div className="col-lg-4">
                   <div className="card">
                     <div className="card-header ">
                       <h4 className="card-title">Total Amount by Day of Week</h4>
@@ -354,7 +354,7 @@ async componentWillMount() {
                     </div>
                   </div>
                 </div>
-                <div className="col-4">
+                <div className="col-lg-4">
                   <div className="card">
                     <div className="card-header ">
                       <h4 className="card-title">Total Amount by Hour</h4>
@@ -366,7 +366,7 @@ async componentWillMount() {
                     </div>
                   </div>
                 </div>
-              </div>             
+              </div>           
             </div>
           </div>        
         </div>
