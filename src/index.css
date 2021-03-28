@@ -354,3 +354,7 @@ code {
 .card{
   box-shadow: 0px 0px 2px 0px #000000;
 }
+
+.modal.show .modal-dialog {
+  transform: translate(0, 0);
+}
