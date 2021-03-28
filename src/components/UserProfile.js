@@ -56,6 +56,7 @@ class UserProfile extends Component {
                     <div className="row ml-4">
                       <h4 className="general-font">User Uploaded Rides</h4>
                     </div>
+                    
                     <hr></hr>
                     <div className="row ml-4">
                     <Form >

@@ -35,7 +35,7 @@ class LoginSignUp extends Component {
       <div className="container" id="login-screen">
         <div className="row justify-content-center mt-5">
           <div className="col text-align-center">
-            <div className="card">
+            <div className="card fade-in" id="sign-up-redirect">
               <div className="card-body">
                 <div className="row form-contents justify-content-center">
                   <form className="pl-5">
@@ -43,16 +43,18 @@ class LoginSignUp extends Component {
                       <div className="col text-center">
                         <h4 className="general-font text-center">Welcome this.username, let's get to know you a little better!</h4>
                         <hr></hr>
-                        <label for="first-name">Enter first name:</label><br></br>
-                        <input type="text" id="first-name" placeholder="Enter first name"></input><br></br>
-                        <label for="last-name">Enter last name:</label><br></br>
-                        <input type="text" id="last-name" placeholder="Enter last name"></input><br></br>
-                        <label for="last-name">Enter age:</label><br></br>
-                        <input type="text" id="age" placeholder="Enter age"></input>
-                        <div>
-                          <Link to="/query">
-                              <button type="submit" id="update-info" className="btn btn-primary mt-4 yellow-btn">Update Info</button>
-                          </Link>
+                        <div className="fade-in-form">
+                          <label for="first-name">Enter first name:</label><br></br>
+                          <input type="text" id="first-name" placeholder="Enter first name"></input><br></br>
+                          <label for="last-name">Enter last name:</label><br></br>
+                          <input type="text" id="last-name" placeholder="Enter last name"></input><br></br>
+                          <label for="last-name">Enter age:</label><br></br>
+                          <input type="text" id="age" placeholder="Enter age"></input>
+                          <div>
+                            <Link to="/query">
+                                <button type="submit" id="update-info" className="btn btn-primary mt-4 yellow-btn">Update Info</button>
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>

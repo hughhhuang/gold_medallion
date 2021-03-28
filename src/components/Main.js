@@ -14,15 +14,15 @@ class Main extends Component {
     return (
       <div className="main-panel">
         <Navbar />
-        <Switch>
-          <Route path="/homepage" component={HomePage} />
-          <Route path="/profile" component={UserProfile} />
-          <Route path="/query" component={Query} />
-          <Route path="/loginsignup" component={LoginSignUp} />
-          <Route path="/AddUserRide" component={AddUserRide} />
-          <Route path="/signUpRedirect" component={SignUpRedirect} />
-          <Redirect from='*' to='/homepage' />
-        </Switch>
+          <Switch>
+            <Route path="/homepage" component={HomePage} />
+            <Route path="/profile" component={UserProfile} />
+            <Route path="/query" component={Query} />
+            <Route path="/loginsignup" component={LoginSignUp} />
+            <Route path="/AddUserRide" component={AddUserRide} />
+            <Route path="/signUpRedirect" component={SignUpRedirect} />
+            <Redirect from='*' to='/homepage' />
+          </Switch>
         <Footer />
       </div>
     )

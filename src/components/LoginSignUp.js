@@ -56,7 +56,7 @@ class LoginSignUp extends Component {
                         <div className="row ml-0">
                           <div className="col">
                             {/* CHANGE THE TO LINK */}
-                            <Link to="/signupredirect">
+                            <Link to="/query">
                                <button type="submit" id="login" className="btn btn-primary mt-4 ml-5 yellow-btn">Login</button>
                             </Link>
                           </div>
@@ -84,25 +84,25 @@ class LoginSignUp extends Component {
                         <div className="row ml-0">
                           <div className="col">
                             <label for="username">Username:</label><br></br>
-                            <input type="text" id="username" size="35"></input>
+                            <input type="text" id="username" size="35" placeholder="Enter username"></input>
                           </div>
                         </div>
                         <div className="row ml-0">
                           <div className="col">
                             <label for="email">Email:</label><br></br>
-                            <input type="email" id="email" size="35"></input>
+                            <input type="email" id="email" size="35" placeholder="Enter email"></input>
                           </div>
                         </div>
                         <div className="row ml-0">
                           <div className="col">
                             <label for="confirm-email">Confirm Email:</label><br></br>
-                            <input type="email" id="confirm-email" size="35"></input>
+                            <input type="email" id="confirm-email" size="35" placeholder="Confirm email"></input>
                           </div>
                         </div>
                         <div className="row ml-0">
                           <div className="col">
                             <label for="password">Password:</label><br></br>
-                            <input type="password" id="password" size="12"></input>
+                            <input type="password" id="password" size="15" placeholder="Enter password"></input>
                           </div>
                           {/* <div className="col">
                             <label for="confirm-password">Confirm Password:</label><br></br>
@@ -115,7 +115,10 @@ class LoginSignUp extends Component {
                             <input type="text" id="home-burough" size="35"></input>
                           </div> */}
                           <div className="col">
-                            <button type="submit" id="sign-up" className="btn btn-primary mt-4 yellow-btn">Sign Up</button>
+                            <Link to="/signupRedirect">
+                              <button type="submit" id="sign-up" className="btn btn-primary mt-4 yellow-btn">Sign Up</button>
+                            </Link>
+                            
                           </div>
                         </div>
                       </form>
