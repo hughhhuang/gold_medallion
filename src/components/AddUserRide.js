@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import StarRating from 'react-star-rating'
 
-const client = new W3CWebSocket('ws://localhost:1234');
+const client = new W3CWebSocket('ws://sp21-cs411-09.cs.illinois.edu:1234');
 
 class AddUserRide extends Component {
 

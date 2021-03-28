@@ -4,6 +4,32 @@ import Tabs from 'react-bootstrap/Tabs'
 import { Link } from 'react-router-dom'
 
 class LoginSignUp extends Component {
+  handleClickSignUp(e) {
+    e.preventDefault();
+    try{
+      const url = "http://172.22.152.9:8000/api/auth/users/"
+      const response = fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: document.getElementById('username').value,
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value
+        })
+      })
+        .then(res => res.json())
+        
+        .then(data => console.log(data))      
+    }
+    catch(err){
+      alert(err)
+    }
+    
+
+  }
   render() {
     return (
       <div className="container" id="login-screen">
@@ -21,8 +47,8 @@ class LoginSignUp extends Component {
                       <form className="pl-5">
                         <div className="row ml-0">
                           <div className="col">
-                            <label for="user-email">Enter email address:</label><br></br>
-                            <input type="text" id="user-email" placeholder="Enter email"></input><br></br>
+                            <label for="user-username">Enter username:</label><br></br>
+                            <input type="text" id="user-username" placeholder="Enter username"></input><br></br>
                             <label for="user-password">Enter password:</label><br></br>
                             <input type="text" id="user-password" placeholder="Enter password"></input>
                           </div>
@@ -30,7 +56,7 @@ class LoginSignUp extends Component {
                         <div className="row ml-0">
                           <div className="col">
                             {/* CHANGE THE TO LINK */}
-                            <Link to="/query">
+                            <Link to="/signupredirect">
                                <button type="submit" id="login" className="btn btn-primary mt-4 ml-5 yellow-btn">Login</button>
                             </Link>
                           </div>
@@ -44,7 +70,7 @@ class LoginSignUp extends Component {
                         <h6 className="text-center">Please fill this form to create an account</h6>
                         <hr></hr>
                       </div>
-                      <form className="pl-5">
+                      <form className="pl-5" onSubmit={this.handleClickSignUp}>
                         {/* <div className="row ml-0">
                           <div className="col">
                             <label for="first-name">First name:</label><br></br>
