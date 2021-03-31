@@ -119,29 +119,8 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-class Zonedata(models.Model):
-    zoneid = models.IntegerField(db_column='zoneID', primary_key=True)  # Field name made lowercase.
-    boroughname = models.TextField(db_column='boroughName', blank=True, null=True)  # Field name made lowercase.
-    zonename = models.TextField(db_column='zoneName', blank=True, null=True)  # Field name made lowercase.
-    servicezone = models.TextField(db_column='serviceZone', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        #managed = False
-        db_table = 'zoneData'
-
-class Usertable(models.Model):
-    firstname = models.CharField(db_column='firstName', max_length=45, blank=True, null=True)  # Field name made lowercase.
-    lastname = models.CharField(db_column='lastName', max_length=45, blank=True, null=True)  # Field name made lowercase.
-    email = models.CharField(primary_key=True, max_length=45)
-    password = models.CharField(max_length=45, blank=True, null=True)
-    homeboroughname = models.CharField(db_column='homeBoroughName', max_length=45, blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'userTable'
-
 class Nycboroughs(models.Model):
-    neighborhood_name = models.TextField(db_column='ï»¿NEIGHBORHOOD_NAME', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    ï_neighborhood_name = models.TextField(db_column='ï»¿NEIGHBORHOOD_NAME', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     zcta_num = models.IntegerField(db_column='Zcta Num', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     at_least_1_dose = models.TextField(db_column='At least 1 dose', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     indicator = models.TextField(db_column='Indicator', blank=True, null=True)  # Field name made lowercase.
@@ -153,3 +132,29 @@ class Nycboroughs(models.Model):
     class Meta:
         managed = False
         db_table = 'nycBoroughs'
+
+
+class Usertable(models.Model):
+    username = models.CharField(primary_key=True, max_length=45)
+    firstname = models.CharField(db_column='firstName', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    lastname = models.CharField(db_column='lastName', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    age = models.IntegerField(db_column='Age', blank=True, null=True)  # Field name made lowercase.
+    homeboroughname = models.CharField(db_column='homeBoroughName', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    favborough = models.CharField(db_column='favBorough', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    prefride = models.CharField(db_column='prefRide', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    vaccine = models.CharField(max_length=45, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'userTable'
+
+
+class Zonedata(models.Model):
+    zoneid = models.IntegerField(db_column='zoneID', primary_key=True)  # Field name made lowercase.
+    boroughname = models.TextField(db_column='boroughName', blank=True, null=True)  # Field name made lowercase.
+    zonename = models.TextField(db_column='zoneName', blank=True, null=True)  # Field name made lowercase.
+    servicezone = models.TextField(db_column='serviceZone', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'zoneData'

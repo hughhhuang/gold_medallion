@@ -9,7 +9,7 @@ class ZonedataSerializer(serializers.ModelSerializer):
 class UsertableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usertable
-        fields = ('firstname', 'lastname', 'email', 'password', 'homeboroughname')
+        fields = ('username', 'firstname', 'lastname', 'age', 'homeboroughname', 'favborough', 'prefride', 'vaccine')
 
 class NycboroughsSerializer(serializers.ModelSerializer):
     class Meta:
