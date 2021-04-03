@@ -4,6 +4,32 @@ import Tabs from 'react-bootstrap/Tabs'
 import { Link } from 'react-router-dom'
 
 class LoginSignUp extends Component {
+  handleClickSignUp(e) {
+    e.preventDefault();
+    try{
+      const url = "http://172.22.152.9:8000/api/auth/users/"
+      const response = fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: document.getElementById('username').value,
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value
+        })
+      })
+        .then(res => res.json())
+        
+        .then(data => console.log(data))      
+    }
+    catch(err){
+      alert(err)
+    }
+    
+
+  }
   render() {
     return (
       <div className="container" id="login-screen">
@@ -21,8 +47,8 @@ class LoginSignUp extends Component {
                       <form className="pl-5">
                         <div className="row ml-0">
                           <div className="col">
-                            <label for="user-email">Enter email address:</label><br></br>
-                            <input type="text" id="user-email" placeholder="Enter email"></input><br></br>
+                            <label for="user-username">Enter username:</label><br></br>
+                            <input type="text" id="user-username" placeholder="Enter username"></input><br></br>
                             <label for="user-password">Enter password:</label><br></br>
                             <input type="text" id="user-password" placeholder="Enter password"></input>
                           </div>
@@ -44,7 +70,7 @@ class LoginSignUp extends Component {
                         <h6 className="text-center">Please fill this form to create an account</h6>
                         <hr></hr>
                       </div>
-                      <form className="pl-5">
+                      <form className="pl-5" onSubmit={this.handleClickSignUp}>
                         {/* <div className="row ml-0">
                           <div className="col">
                             <label for="first-name">First name:</label><br></br>
@@ -58,25 +84,25 @@ class LoginSignUp extends Component {
                         <div className="row ml-0">
                           <div className="col">
                             <label for="username">Username:</label><br></br>
-                            <input type="text" id="username" size="35"></input>
+                            <input type="text" id="username" size="35" placeholder="Enter username"></input>
                           </div>
                         </div>
                         <div className="row ml-0">
                           <div className="col">
                             <label for="email">Email:</label><br></br>
-                            <input type="email" id="email" size="35"></input>
+                            <input type="email" id="email" size="35" placeholder="Enter email"></input>
                           </div>
                         </div>
                         <div className="row ml-0">
                           <div className="col">
                             <label for="confirm-email">Confirm Email:</label><br></br>
-                            <input type="email" id="confirm-email" size="35"></input>
+                            <input type="email" id="confirm-email" size="35" placeholder="Confirm email"></input>
                           </div>
                         </div>
                         <div className="row ml-0">
                           <div className="col">
                             <label for="password">Password:</label><br></br>
-                            <input type="password" id="password" size="12"></input>
+                            <input type="password" id="password" size="15" placeholder="Enter password"></input>
                           </div>
                           {/* <div className="col">
                             <label for="confirm-password">Confirm Password:</label><br></br>
@@ -89,7 +115,10 @@ class LoginSignUp extends Component {
                             <input type="text" id="home-burough" size="35"></input>
                           </div> */}
                           <div className="col">
-                            <button type="submit" id="sign-up" className="btn btn-primary mt-4 yellow-btn">Sign Up</button>
+                            <Link to="/signupRedirect">
+                              <button type="submit" id="sign-up" className="btn btn-primary mt-4 yellow-btn">Sign Up</button>
+                            </Link>
+                            
                           </div>
                         </div>
                       </form>

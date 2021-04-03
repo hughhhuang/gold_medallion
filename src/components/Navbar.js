@@ -10,11 +10,11 @@ class Navbar extends Component {
           <a className="navbar-brand title-font" href="/">Gold Medallion<img id = 'ny-icon' src={ NY }></img></a>
           <div className="collapse navbar-collapse justify-content-end" id="navigation">
             <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to='/profile'>
-                <p className="nav-text"><span><i className="nc-icon nc-circle-09"></i></span> User Profile</p>
-              </Link>
-            </li>
+              <li className="nav-item">
+                <Link className="nav-link" to='/profile'>
+                  <span className="no-icon nav-text">User Profile</span>
+                </Link>
+              </li>
               <li className="nav-item">
                 <Link className="nav-link" to='/'>
                   <span className="no-icon nav-text">Log out</span>
