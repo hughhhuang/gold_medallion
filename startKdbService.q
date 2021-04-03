@@ -14,6 +14,15 @@ run:{
 	if[`addUserRide=`$userQuery[`function];
 		:@[addUserRide;(userQuery;userRides);(`function;`result)!(`addUserRide;`NOTOK)]
 		];
+	if[`getUserRides=`$userQuery[`function];
+		:@[getUserRides;`$userQuery[`userName];(`function;`result)!(`getUserRides;`NOTOK)]
+		];
+	if[`deleteUserRide=`$userQuery[`function];
+		:@[deleteUserRide;userQuery;(`function;`result)!(`deleteUserRide;`NOTOK)]
+		];
+	if[`editUserRide=`$userQuery[`function];
+		:@[editUserRide;userQuery;(`function;`result)!(`editUserRide;`NOTOK)]
+		];
 	}
 
 getTaxiData:{[maxCount;fields] 
@@ -53,16 +62,16 @@ getDataByHour:{[pl;dl]
 
 transformUserRideToValue:{[userRide]
 	res:();
-	if[not `~`$userRide[`pl];res,:(enlist `pl)!(enlist "i"$userRide[`pl])];
-	if[not `~`$userRide[`dl];res,:(enlist `dl)!(enlist "i"$userRide[`dl])];
-	if[not `~`$string userRide[`numOfPassengers];res,:(enlist `numOfPassengers)!(enlist "i"$userRide[`numOfPassengers])];
+	if[not `~`$string userRide[`pl];res,:(enlist `pl)!(enlist `$string userRide[`pl])];
+	if[not `~`$string userRide[`dl];res,:(enlist `dl)!(enlist `$string userRide[`dl])];
+	if[not `~`$string userRide[`numOfPassengers];res,:(enlist `numOfPassengers)!(enlist `$string userRide[`numOfPassengers])];
 	if[not `~`$userRide[`taxiType];res,:(enlist `taxiType)!(enlist `$userRide[`taxiType])];
-	if[not `~`$string userRide[`multiDestinationRide];res,:(enlist `multiDestinationRide)!(enlist "b"$userRide[`multiDestinationRide])];
-	if[not `~`$string userRide[`taxiRideExperience];res,:(enlist `taxiRideExperience)!(enlist "i"$userRide[`taxiRideExperience])];
-	if[not `~`$string userRide[`exposeRideToPublic];res,:(enlist `exposeRideToPublic)!(enlist "b"$userRide[`exposeRideToPublic])];
-	if[not `~`$string userRide[`totalRideAmount];res,:(enlist `totalRideAmount)!(enlist "F"$userRide[`totalRideAmount])];
-	if[not `~`$string userRide[`tipAmount];res,:(enlist `tipAmount)!(enlist "F"$userRide[`tipAmount])];
-	if[not `~`$string userRide[`totalRideTime];res,:(enlist `totalRideTime)!(enlist "F"$userRide[`totalRideTime])];
+	if[not `~`$string userRide[`multiDestinationRide];res,:(enlist `multiDestinationRide)!(enlist `$string userRide[`multiDestinationRide])];
+	if[not `~`$string userRide[`taxiRideExperience];res,:(enlist `taxiRideExperience)!(enlist `$string userRide[`taxiRideExperience])];
+	if[not `~`$string userRide[`exposeRideToPublic];res,:(enlist `exposeRideToPublic)!(enlist `$string userRide[`exposeRideToPublic])];
+	if[not `~`$string userRide[`totalRideAmount];res,:(enlist `totalRideAmount)!(enlist `$userRide[`totalRideAmount])];
+	if[not `~`$string userRide[`tipAmount];res,:(enlist `tipAmount)!(enlist `$userRide[`tipAmount])];
+	if[not `~`$string userRide[`totalRideTime];res,:(enlist `totalRideTime)!(enlist `$userRide[`totalRideTime])];
 	res
 	}
 
@@ -78,5 +87,28 @@ addUserRide:{[data]
 	userRides:data[1];
 	/ `userRides set userRides upsert (`pl`dl`numOfPassengers`taxiType`multiDestinationRide`taxiRideExperi)!(`$userRide[`pl];`$userRide[`dl];`$string userRide[`numOfPassengers];`$userRide[`taxiType]);
 	`userRides set (`uniqueKey xkey userRides) upsert enlist (`uniqueKey`userName`publicRide`rideDetails)!(first 1?0Ng;`$userRide[`userName];"b"$userRide[`exposeRideToPublic];transformUserRideToValue[userRide]);
+	save `:userRides;
 	:(`function;`result)!(`addUserRide;`OK)
+	}
+
+getUserRides:{[username]
+	data:0!select from userRides where userName=username;
+	publicData:0!select from userRides where not userName=username, publicRide=1b;
+	result:(`username`data`function`publicData`result)!(username;data;`getUserRides;publicData;`OK)
+	}
+
+deleteUserRide:{[data]
+	username:`$data[`userName];
+	rideId:"G"$data[`rideId];
+	delete from `userRides where userName=username, uniqueKey=rideId;
+	save `:userRides;
+	updatedUserRides:getUserRides[username];
+	:(`function;`result;`data;`publicData)!(`deleteUserRide;`OK;updatedUserRides`data;updatedUserRides`publicData)
+	}
+
+editUserRide:{[data]
+	userRide:data;
+	`userRides set (`uniqueKey xkey userRides) upsert enlist (`uniqueKey`userName`publicRide`rideDetails)!("G"$userRide[`rideId];`$userRide[`userName];"b"$userRide[`exposeRideToPublic];transformUserRideToValue[userRide]);
+	save `:userRides;
+	:(`function;`result)!(`editUserRide;`OK)
 	}
