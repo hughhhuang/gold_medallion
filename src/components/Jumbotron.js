@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Main from './Main'
+import { w3cwebsocket as W3CWebSocket } from "websocket";
+
+export const client = new W3CWebSocket('ws://localhost:1234');
 
 class Jumbotron extends Component{
     render(){
@@ -16,6 +20,9 @@ class Jumbotron extends Component{
                 <p className="lead">
                     <Link className="btn btn-primary btn-lg" id='jumbo-button' to='/adduserride'>
                         <b>Add Ride</b>
+                    </Link>
+                    <Link className="btn btn-primary btn-lg" id='jumbo-button' to='/getuserrides'>
+                        <b>See My Rides</b>
                     </Link>
                 </p>
             </div>
