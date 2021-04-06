@@ -1,9 +1,28 @@
 import React, { Component } from 'react'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+
 
 class LoginSignUp extends Component {
+  // Script for logging in
+  // state = {
+  //   username: '',
+  //   password: ''
+  // };
+
+  // handleClickLogIn = e => {
+  //   const name = e.target.name;
+  //   const value = e.target.value;
+  //   this.setState(prevstate => {
+  //     const newState = { ...prevstate };
+  //     newState[name] = value;
+  //     return newState;
+  //   });
+  // };
+
+
+  // Script for signing up
   handleClickSignUp(e) {
     e.preventDefault();
     try{
@@ -19,14 +38,19 @@ class LoginSignUp extends Component {
           email: document.getElementById('email').value,
           password: document.getElementById('password').value
         })
-      })
+      }).catch(error => {
+        console.log("check login")
+        })
         .then(res => res.json())
         
-        .then(data => console.log(data))      
+        .then(data => console.log(data))
+      window.location.href = "/signupRedirect";
     }
     catch(err){
       alert(err)
     }
+
+    
     
 
   }
@@ -44,6 +68,7 @@ class LoginSignUp extends Component {
                         <h6 className="text-center">Please enter your credentials below</h6>
                         <hr></hr>
                       </div>
+                      {/* <form className="pl-5" onSubmit={this.handleClickLogIn}></form> */}
                       <form className="pl-5">
                         <div className="row ml-0">
                           <div className="col">
@@ -71,16 +96,6 @@ class LoginSignUp extends Component {
                         <hr></hr>
                       </div>
                       <form className="pl-5" onSubmit={this.handleClickSignUp}>
-                        {/* <div className="row ml-0">
-                          <div className="col">
-                            <label for="first-name">First name:</label><br></br>
-                            <input type="text" id="first-name" size="12"></input>
-                          </div>
-                          <div className="col">
-                            <label for="last-name">Last name:</label><br></br>
-                            <input type="text" id="last-name" size="12"></input>
-                          </div>
-                        </div> */}
                         <div className="row ml-0">
                           <div className="col">
                             <label for="username">Username:</label><br></br>
@@ -104,21 +119,12 @@ class LoginSignUp extends Component {
                             <label for="password">Password:</label><br></br>
                             <input type="password" id="password" size="15" placeholder="Enter password"></input>
                           </div>
-                          {/* <div className="col">
-                            <label for="confirm-password">Confirm Password:</label><br></br>
-                            <input type="password" id="confirm-password" size="12"></input>
-                          </div> */}
                         </div>
                         <div className="row ml-0">
-                          {/* <div className="col">
-                            <label for="home-burough">Name of Home Burough:</label><br></br>
-                            <input type="text" id="home-burough" size="35"></input>
-                          </div> */}
                           <div className="col">
-                            <Link to="/signupRedirect">
-                              <button type="submit" id="sign-up" className="btn btn-primary mt-4 yellow-btn">Sign Up</button>
-                            </Link>
-                            
+                            <button type="submit" id="sign-up" className="btn btn-primary mt-4 yellow-btn" onClick="location-href = ">
+                              Sign Up
+                            </button>
                           </div>
                         </div>
                       </form>

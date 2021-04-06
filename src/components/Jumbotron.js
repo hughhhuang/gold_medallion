@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Main from './Main'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-export const client = new W3CWebSocket('ws://localhost:1234');
+export const client = new W3CWebSocket('ws://sp21-cs411-09.cs.illinois.edu:1234');
 
 class Jumbotron extends Component{
     render(){

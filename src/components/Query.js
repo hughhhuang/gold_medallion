@@ -18,6 +18,7 @@ class Query extends Component {
     super(props);
     this.state = {
         isToggleOn: true, 
+        toggleOnOpen: false,
         averageTotalAmount:"0",
         averageMtaAmount:"0",
         averageTipAmount:"0",
@@ -88,10 +89,6 @@ async componentWillMount() {
           byHourGraphHeaders:byHourGraphHeaders,
           byHourGraphValues:byHourGraphValues
         }));
-      // response=JSON.stringify(message);
-        // this.setState(state => ({
-        //   wsResponse: message
-        // }));
     };
     
   }
@@ -99,16 +96,16 @@ async componentWillMount() {
   handleClick(e) {
     e.preventDefault();
     try{
-      console.log("stan");
       console.log(e);
-      // var inputObj = {
-      //     "function":"getTaxiData",
-      //     "maxCount":"10",
-      //     "fields":["pickup","dropoff"]
-      // };
-      var inputObj = {"function":"getUserEstimatedFare","pl": this.state.pickupZone.value.toString(),"dl": this.state.dropoffZone.value.toString()}
+      var inputObj = {
+        "function":"getUserEstimatedFare",
+        "pl": this.state.pickupZone.value.toString(),
+        "dl": this.state.dropoffZone.value.toString()
+      }
       console.log(this.state.pickupZone.value)
       client.send(JSON.stringify(inputObj));
+      this.setState({ toggleOnOpen : true });
+      console.log(this.state.toggleOnOpen)
     }
     catch(err){
       alert("Please select a pickup and dropoff location")
@@ -272,101 +269,92 @@ async componentWillMount() {
                   </form>
                 </div>
               </div> 
-              <div className="row pb-4">
-                <div className="col justify-content-center">
-                  <h4 className="general-font text-center">The average total amount paid for this trip is ${this.state.averageTotalAmount}</h4>
-                </div>
-              </div>
-              {/* <div className="row justify-content-center">
-                <div className="col-4 text-center">
-                  <div className="card">
-                    <div className="card-body general-font">
-                        <li>Average MTA Amount: ${this.state.averageMtaAmount}</li>
-                        <li>Average Tip Amount: ${this.state.averageTipAmount}</li>
-                        <li>Average Fare Amount: ${this.state.averageFareAmount}</li>
-                    </div>
+              {this.state.toggleOnOpen && (<div>
+                <div className="row pb-4">
+                  <div className="col justify-content-center">
+                    <h4 className="general-font text-center">The average total amount paid for this trip is ${this.state.averageTotalAmount}</h4>
                   </div>
                 </div>
-              </div> */}
-              <div className="row">
-                <div className="col-lg-6">
-                  <div className="card">
-                    <div className="card-header ">
-                      <h4 className="card-title">Breakdown of Total Cost</h4>
-                      <p className="card-category">Miscellaneous costs include toll, surcharge, and congestion cost</p>
-                    </div>
-                    <div className="card-body ">
-                      <div className="row">
-                        <div className="col-8">
-                          <ChartistGraph data={dataPie} options={pieOptions} type="Pie" />
-                        </div>
-                        <div className="col-4 pt-5 mt-4">
-                          <div className="legend">
-                            <i className="fa fa-circle ct-series-a"></i> Fare: ${total.toFixed(2)}
-                            <br></br><i className="fa fa-circle ct-series-b"></i> MTA: ${mta.toFixed(2)}
-                            <br></br><i className="fa fa-circle ct-series-c"></i> Tip: ${tip.toFixed(2)} 
-                            <br></br><i className="fa fa-circle ct-series-d"></i> Misc: ${misc.toFixed(2)}
-                          </div>
-                        </div>
-                      
+                <div className="row">
+                  <div className="col-lg-6">
+                    <div className="card">
+                      <div className="card-header ">
+                        <h4 className="card-title">Breakdown of Total Cost</h4>
+                        <p className="card-category">Miscellaneous costs include toll, surcharge, and congestion cost</p>
                       </div>
-                      <hr />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6">
-                  <div className="card">
-                    <div className="card-header ">
-                      <h4 className="card-title">Change in Fare Since 2018</h4>
-                      <p className="card-category">Average Total Fare Per Month</p>
-                    </div>
-                    <div className="card-body ">
-                      <div>
-                        <ChartistGraph data={dataLine} type="Line" />
+                      <div className="card-body ">
+                        <div className="row">
+                          <div className="col-8">
+                            <ChartistGraph data={dataPie} options={pieOptions} type="Pie" />
+                          </div>
+                          <div className="col-4 pt-5 mt-4">
+                            <div className="legend">
+                              <i className="fa fa-circle ct-series-a"></i> Fare: ${total.toFixed(2)}
+                              <br></br><i className="fa fa-circle ct-series-b"></i> MTA: ${mta.toFixed(2)}
+                              <br></br><i className="fa fa-circle ct-series-c"></i> Tip: ${tip.toFixed(2)} 
+                              <br></br><i className="fa fa-circle ct-series-d"></i> Misc: ${misc.toFixed(2)}
+                            </div>
+                          </div>
+                        
+                        </div>
                         <hr />
                       </div>
                     </div>
                   </div>
-                </div>
-              </div> 
-              <div className="row">
-                <div className="col-lg-4">
-                  <div className="card">
-                    <div className="card-header ">
-                      <h4 className="card-title">Total Amount by Month</h4>
-                      <p className="card-category">Average total trip amount by Month</p>
-                    </div>
-                    <div className="card-body ">
-                      <ChartistGraph data={byMonthData} type="Bar" />
-                      <hr />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-4">
-                  <div className="card">
-                    <div className="card-header ">
-                      <h4 className="card-title">Total Amount by Day of Week</h4>
-                      <p className="card-category">Average total trip amount by Day of Week</p>
-                    </div>
-                    <div className="card-body ">
-                      <ChartistGraph data={byDayData} type="Bar" />
-                      <hr />
+                  <div className="col-lg-6">
+                    <div className="card">
+                      <div className="card-header ">
+                        <h4 className="card-title">Change in Fare Since 2018</h4>
+                        <p className="card-category">Average Total Fare Per Month</p>
+                      </div>
+                      <div className="card-body ">
+                        <div>
+                          <ChartistGraph data={dataLine} type="Line" />
+                          <hr />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-lg-4">
-                  <div className="card">
-                    <div className="card-header ">
-                      <h4 className="card-title">Total Amount by Hour</h4>
-                      <p className="card-category">Average total trip amount by Hour</p>
-                    </div>
-                    <div className="card-body ">
-                      <ChartistGraph data={byHourData} type="Bar" />
-                      <hr />
+                </div> 
+                <div className="row">
+                  <div className="col-lg-4">
+                    <div className="card">
+                      <div className="card-header ">
+                        <h4 className="card-title">Total Amount by Month</h4>
+                        <p className="card-category">Average total trip amount by Month</p>
+                      </div>
+                      <div className="card-body ">
+                        <ChartistGraph data={byMonthData} type="Bar" />
+                        <hr />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>           
+                  <div className="col-lg-4">
+                    <div className="card">
+                      <div className="card-header ">
+                        <h4 className="card-title">Total Amount by Day of Week</h4>
+                        <p className="card-category">Average total trip amount by Day of Week</p>
+                      </div>
+                      <div className="card-body ">
+                        <ChartistGraph data={byDayData} type="Bar" />
+                        <hr />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-lg-4">
+                    <div className="card">
+                      <div className="card-header ">
+                        <h4 className="card-title">Total Amount by Hour</h4>
+                        <p className="card-category">Average total trip amount by Hour</p>
+                      </div>
+                      <div className="card-body ">
+                        <ChartistGraph data={byHourData} type="Bar" />
+                        <hr />
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+              </div>)}         
             </div>
           </div>        
         </div>
