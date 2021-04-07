@@ -3,25 +3,59 @@ import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import { Link, useHistory } from 'react-router-dom'
 
+export const username = localStorage.getItem('username');
 
 class LoginSignUp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username : ' ',
+    };
+
+    this.handleClickSignUp = this.handleClickSignUp.bind(this);
+  }
   // Script for logging in
   // state = {
   //   username: '',
   //   password: ''
   // };
 
-  // handleClickLogIn = e => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-  //   this.setState(prevstate => {
-  //     const newState = { ...prevstate };
-  //     newState[name] = value;
-  //     return newState;
-  //   });
-  // };
+  handleClickLogIn(e) {
+    e.preventDefault();
+    try{
+      const userUsername = document.getElementById('user-username').value;
+      console.log(userUsername)
+      const userPassword = document.getElementById('user-password').value;
+      if (userUsername !== '' && userPassword !== ''){
+        localStorage.setItem('username', userUsername);
+        // window.location.href = "/query";
 
+        const url = "http://172.22.152.9:8000/api/auth/jwt/create"
+        const response = fetch(url, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: userUsername,
+            password: userPassword,
+          })
+        }).catch(error => {
+          alert(error)
+        })
+      }
+      else {
+        alert("Please specify a username and password before logging in")
+      }
 
+    }
+    catch(err){
+      alert(err)
+    }
+  };
+
+  
   // Script for signing up
   handleClickSignUp(e) {
     e.preventDefault();
@@ -39,20 +73,15 @@ class LoginSignUp extends Component {
           password: document.getElementById('password').value
         })
       }).catch(error => {
-        console.log("check login")
-        })
-        .then(res => res.json())
-        
-        .then(data => console.log(data))
+          console.log("check login")
+      })
+
       window.location.href = "/signupRedirect";
     }
     catch(err){
       alert(err)
     }
-
     
-    
-
   }
   render() {
     return (
@@ -68,22 +97,21 @@ class LoginSignUp extends Component {
                         <h6 className="text-center">Please enter your credentials below</h6>
                         <hr></hr>
                       </div>
-                      {/* <form className="pl-5" onSubmit={this.handleClickLogIn}></form> */}
-                      <form className="pl-5">
+                      <form className="pl-5" onSubmit={this.handleClickLogIn}>
                         <div className="row ml-0">
                           <div className="col">
                             <label for="user-username">Enter username:</label><br></br>
                             <input type="text" id="user-username" placeholder="Enter username"></input><br></br>
                             <label for="user-password">Enter password:</label><br></br>
-                            <input type="text" id="user-password" placeholder="Enter password"></input>
+                            <input type="password" id="user-password" placeholder="Enter password"></input>
                           </div>
                         </div>
                         <div className="row ml-0">
                           <div className="col">
                             {/* CHANGE THE TO LINK */}
-                            <Link to="/query">
-                               <button type="submit" id="login" className="btn btn-primary mt-4 ml-5 yellow-btn">Login</button>
-                            </Link>
+                            <button type="submit" id="login" className="btn btn-primary mt-4 yellow-btn">
+                              Log In
+                            </button>
                           </div>
                         </div>
                       </form>
@@ -122,7 +150,7 @@ class LoginSignUp extends Component {
                         </div>
                         <div className="row ml-0">
                           <div className="col">
-                            <button type="submit" id="sign-up" className="btn btn-primary mt-4 yellow-btn" onClick="location-href = ">
+                            <button type="submit" id="sign-up" className="btn btn-primary mt-4 yellow-btn">
                               Sign Up
                             </button>
                           </div>
@@ -139,5 +167,4 @@ class LoginSignUp extends Component {
     )
 }
 }
-
 export default LoginSignUp

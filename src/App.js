@@ -4,7 +4,9 @@ import Navbar from './components/Navbar'
 import Main from './components/Main'
 
 class App extends Component {
-
+  state = {
+    username : 'test',
+  };
 
   render() {
     // let url = "http://172.22.152.9:8000/api/auth/jwt/create";

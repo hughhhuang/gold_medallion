@@ -10,6 +10,7 @@ class SignUpRedirect extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        // username: this.state.username,
         zoneData: [],
         favoriteZone: "",
         homeZipCode: 12345,
@@ -20,6 +21,7 @@ class SignUpRedirect extends Component {
 
   }
   async componentWillMount() {
+    // console.log(username);
     const url = "http://172.22.152.9:8000/api/nygm/?format=json"
     const response = await fetch(url);
     const zones = await response.json();
@@ -34,7 +36,7 @@ class SignUpRedirect extends Component {
       console.log(message);
       var result=JSON.parse(message.data).data;
     };
-    
+    console.log(this.state.username);
   }
 
   handleChangeFavZone = (favoriteZone) => {
@@ -46,11 +48,11 @@ class SignUpRedirect extends Component {
     this.setState({ homeZipCode });
     console.log(`Option selected:`, homeZipCode);
   }
-  
+
   handleClickSignUp(e) {
     e.preventDefault();
     try{
-      const url = "http://172.22.152.9:8000/api/auth/users/"
+      const url = "http://172.22.152.9:8000/api/usertable/"
       const response = fetch(url, {
         method: 'POST',
         headers: {
