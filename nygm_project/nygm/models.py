@@ -1,6 +1,3 @@
-from django.db import models
-
-# Create your models here.
 # This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
@@ -8,6 +5,8 @@ from django.db import models
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from django.db import models
+
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -75,6 +74,16 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
+class AuthtokenToken(models.Model):
+    key = models.CharField(primary_key=True, max_length=40)
+    created = models.DateTimeField()
+    user = models.OneToOneField(AuthUser, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'authtoken_token'
+
+
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
     object_id = models.TextField(blank=True, null=True)
@@ -120,8 +129,8 @@ class DjangoSession(models.Model):
 
 
 class Nycboroughs(models.Model):
-    ï_neighborhood_name = models.TextField(db_column='ï»¿NEIGHBORHOOD_NAME', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    zcta_num = models.IntegerField(db_column='Zcta Num', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    neighborhood_name = models.TextField(db_column='NEIGHBORHOOD_NAME', blank=True, null=True)  # Field name made lowercase.
+    zcta_num = models.IntegerField(db_column='Zcta Num', primary_key=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     at_least_1_dose = models.TextField(db_column='At least 1 dose', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     indicator = models.TextField(db_column='Indicator', blank=True, null=True)  # Field name made lowercase.
     n_fully_vaccinated_cumulative = models.TextField(db_column='N_FULLY_VACCINATED_CUMULATIVE', blank=True, null=True)  # Field name made lowercase.
@@ -139,10 +148,11 @@ class Usertable(models.Model):
     firstname = models.CharField(db_column='firstName', max_length=45, blank=True, null=True)  # Field name made lowercase.
     lastname = models.CharField(db_column='lastName', max_length=45, blank=True, null=True)  # Field name made lowercase.
     age = models.IntegerField(db_column='Age', blank=True, null=True)  # Field name made lowercase.
-    homeboroughname = models.CharField(db_column='homeBoroughName', max_length=45, blank=True, null=True)  # Field name made lowercase.
-    favborough = models.CharField(db_column='favBorough', max_length=45, blank=True, null=True)  # Field name made lowercase.
     prefride = models.CharField(db_column='prefRide', max_length=45, blank=True, null=True)  # Field name made lowercase.
     vaccine = models.CharField(max_length=45, blank=True, null=True)
+    zoneid = models.ForeignKey('Zonedata',  models.DO_NOTHING, related_name='userzoneid', db_column='zoneId', blank=True, null=True)  # Field name made lowercase.
+    zipcode = models.ForeignKey(Nycboroughs, models.DO_NOTHING, db_column='zipcode', blank=True, null=True)
+    favzoneid = models.ForeignKey('Zonedata', models.DO_NOTHING, related_name='favzoneid', db_column='favZoneId', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
