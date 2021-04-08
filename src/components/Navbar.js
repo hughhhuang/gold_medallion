@@ -39,11 +39,32 @@ class Navbar extends Component {
           <a className="navbar-brand title-font" href="/">Gold Medallion<img id = 'ny-icon' src={ NY }></img></a>
           <div className="collapse navbar-collapse justify-content-end" id="navigation">
             <ul className="navbar-nav ml-auto">
-              {this.state.loggedIn && (
+              {/* {this.state.loggedIn && (
                 <li className="nav-item">
                   <Link className="nav-link" to='/profile'>
                     <span className="no-icon nav-text">User Profile</span>
                   </Link>
+                </li>
+              )} */}
+              {this.state.loggedIn && (
+                <li className="nav-item">
+                <Link className="nav-link" to='/adduserride'>
+                  <span className="no-icon nav-text">Add Ride</span>
+                </Link>
+                </li>
+              )}
+              {this.state.loggedIn && (
+                <li className="nav-item">
+                <Link className="nav-link" to='/getuserrides'>
+                  <span className="no-icon nav-text">See My Rides</span>
+                </Link>
+                </li>
+              )}
+              {this.state.loggedIn && (
+                <li className="nav-item">
+                <Link className="nav-link" to='/query'>
+                  <span className="no-icon nav-text">Search Ride</span>
+                </Link>
                 </li>
               )}
               {this.state.loggedIn && (

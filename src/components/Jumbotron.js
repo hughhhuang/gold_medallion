@@ -53,14 +53,14 @@ class Jumbotron extends Component{
                     </Link>)
                     }                       
                 </p>
-                <p className="lead">
+                {/* <p className="lead">
                     <Link className="btn btn-primary btn-lg" id='jumbo-button' to='/adduserride'>
                         <b>Add Ride</b>
                     </Link>
                     <Link className="btn btn-primary btn-lg" id='jumbo-button' to='/getuserrides'>
                         <b>See My Rides</b>
                     </Link>
-                </p>
+                </p> */}
             </div>
         )
     }

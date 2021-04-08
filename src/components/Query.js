@@ -289,7 +289,7 @@ async componentWillMount() {
                           </div>
                           <div className="col-4 pt-5 mt-4">
                             <div className="legend">
-                              <i className="fa fa-circle ct-series-a"></i> Fare: ${total.toFixed(2)}
+                              <i className="fa fa-circle ct-series-a"></i> Fare: ${fare.toFixed(2)}
                               <br></br><i className="fa fa-circle ct-series-b"></i> MTA: ${mta.toFixed(2)}
                               <br></br><i className="fa fa-circle ct-series-c"></i> Tip: ${tip.toFixed(2)} 
                               <br></br><i className="fa fa-circle ct-series-d"></i> Misc: ${misc.toFixed(2)}
@@ -304,20 +304,18 @@ async componentWillMount() {
                   <div className="col-lg-6">
                     <div className="card">
                       <div className="card-header ">
-                        <h4 className="card-title">Change in Fare Since 2018</h4>
-                        <p className="card-category">Average Total Fare Per Month</p>
+                        <h4 className="card-title">Total Amount by Hour</h4>
+                        <p className="card-category">Average total trip amount by Hour</p>
                       </div>
                       <div className="card-body ">
-                        <div>
-                          <ChartistGraph data={dataLine} type="Line" />
-                          <hr />
-                        </div>
+                        <ChartistGraph data={byHourData} type="Bar" />
+                        <hr />
                       </div>
                     </div>
                   </div>
                 </div> 
                 <div className="row">
-                  <div className="col-lg-4">
+                  <div className="col-lg-6">
                     <div className="card">
                       <div className="card-header ">
                         <h4 className="card-title">Total Amount by Month</h4>
@@ -329,7 +327,7 @@ async componentWillMount() {
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-4">
+                  <div className="col-lg-6">
                     <div className="card">
                       <div className="card-header ">
                         <h4 className="card-title">Total Amount by Day of Week</h4>
@@ -337,18 +335,6 @@ async componentWillMount() {
                       </div>
                       <div className="card-body ">
                         <ChartistGraph data={byDayData} type="Bar" />
-                        <hr />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-4">
-                    <div className="card">
-                      <div className="card-header ">
-                        <h4 className="card-title">Total Amount by Hour</h4>
-                        <p className="card-category">Average total trip amount by Hour</p>
-                      </div>
-                      <div className="card-body ">
-                        <ChartistGraph data={byHourData} type="Bar" />
                         <hr />
                       </div>
                     </div>

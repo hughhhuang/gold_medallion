@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import StarRating from 'react-star-rating'
 import { client } from './Jumbotron';
+import {username} from "./LoginSignUp"
 
 class AddUserRide extends Component {
 
@@ -49,7 +50,7 @@ class AddUserRide extends Component {
       "totalRideAmount": this.state.form.totalRideAmount,
       "tipAmount": this.state.form.tipAmount,
       "totalRideTime": this.state.form.totalRideTime,
-      "userName":"vvanka2@illinois.edu"
+      "userName":username
       };
     client.send(JSON.stringify(inputObj));
   }
