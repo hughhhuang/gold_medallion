@@ -10,8 +10,10 @@ class LoginSignUp extends Component {
     super(props);
     this.state = {
       username : ' ',
+      res: ' ',
     };
 
+    this.handleClickLogIn = this.handleClickLogIn.bind(this);
     this.handleClickSignUp = this.handleClickSignUp.bind(this);
   }
   // Script for logging in
@@ -24,12 +26,8 @@ class LoginSignUp extends Component {
     e.preventDefault();
     try{
       const userUsername = document.getElementById('user-username').value;
-      console.log(userUsername)
       const userPassword = document.getElementById('user-password').value;
       if (userUsername !== '' && userPassword !== ''){
-        localStorage.setItem('username', userUsername);
-        // window.location.href = "/query";
-
         const url = "http://172.22.152.9:8000/api/auth/jwt/create"
         const response = fetch(url, {
           method: 'POST',
@@ -41,9 +39,22 @@ class LoginSignUp extends Component {
             username: userUsername,
             password: userPassword,
           })
-        }).catch(error => {
+        }).then(response => response.json())
+        .then(data => {
+          console.log(data.detail)
+          if (data.detail === "No active account found with the given credentials"){
+            alert('Please log in with a valid username/password.');
+          }
+          else{
+            localStorage.setItem('username', userUsername);
+            window.location.href = "/query";
+          }
+        }       
+        )
+        .catch(error => {
           alert(error)
         })
+
       }
       else {
         alert("Please specify a username and password before logging in")
@@ -72,11 +83,14 @@ class LoginSignUp extends Component {
           email: document.getElementById('email').value,
           password: document.getElementById('password').value
         })
-      }).catch(error => {
+      })
+      .then(res => {
+        localStorage.setItem('username', document.getElementById('username').value);
+        window.location.href = "/query";
+      })
+      .catch(error => {
           console.log("check login")
       })
-
-      window.location.href = "/signupRedirect";
     }
     catch(err){
       alert(err)
@@ -108,7 +122,6 @@ class LoginSignUp extends Component {
                         </div>
                         <div className="row ml-0">
                           <div className="col">
-                            {/* CHANGE THE TO LINK */}
                             <button type="submit" id="login" className="btn btn-primary mt-4 yellow-btn">
                               Log In
                             </button>

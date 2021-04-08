@@ -162,13 +162,16 @@ class UserProfile extends Component {
                     <Link className="btn btn-primary yellow-btn" id='jumbo-button' to='/adduserride'>
                       <b>Add Ride</b>
                     </Link>
+                    <Link className="btn btn-primary ml-4 yellow-btn" id='jumbo-button' to='/getuserrides'>
+                      <b>Update Rides</b>
+                    </Link>
                     <Link className="btn btn-primary ml-4 yellow-btn" id='jumbo-button' to='/query'>
                       <b>Search Rides</b>
                     </Link>
                   </div>
                 </div>
               </div>
-              <div className="row">
+              {/* <div className="row">
                 <div className="card">
                   <div className="card-body">
                     <div className="row ml-4">
@@ -197,7 +200,7 @@ class UserProfile extends Component {
                     <Link className="btn btn-primary yellow-btn"  onClick={this.openModal}>
                       <b>Update Selected Ride</b>
                     </Link>
-                    </Form>
+                    </Form> */}
                     {/* <Modal show={this.state.isOpen} onHide={this.closeModal}>
                       <Modal.Header closeButton>
                         <Modal.Title>Update Ride From: this.ridefrom to this.rideto</Modal.Title>
@@ -269,11 +272,11 @@ class UserProfile extends Component {
                         </Button>
                       </Modal.Footer>
                     </Modal> */}
-                    
+{/*                     
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
