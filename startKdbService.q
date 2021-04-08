@@ -1,6 +1,7 @@
 system"l kdbData"
 \p 1234
 connectedClients:();
+`taxiData set update `g#pickup,`g#dropoffLoc from taxiData;
 if[`userRides in tables[];`userRides set `uniqueKey xkey select from userRides];
 if[not `userRides in tables[];`userRides set enlist (`uniqueKey`userName`publicRide`rideDetails)!(first 0Ng;`;0b;enlist ())]
 .z.ws:{connectedClients,:.z.w;neg[.z.w].j.j @[value;x;run x]}
