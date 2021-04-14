@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { NavDropdown } from 'react-bootstrap'
+import DropdownItem from 'react-bootstrap/esm/DropdownItem'
+import { Link, Dropdown } from 'react-router-dom'
 import NY from "../assets/img/ny-icon.png"
 import {username} from "./LoginSignUp"
 
@@ -62,17 +64,24 @@ class Navbar extends Component {
               )}
               {this.state.loggedIn && (
                 <li className="nav-item">
-                <Link className="nav-link" to='/query'>
-                  <span className="no-icon nav-text">Search Ride</span>
-                </Link>
+                  <Link className="nav-link" to='/query'>
+                    <span className="no-icon nav-text">Search Ride</span>
+                  </Link>
                 </li>
+
               )}
               {this.state.loggedIn && (
-              <li className="nav-item">
-                <Link className="nav-link" onClick={this.handleLoginLogout}>
-                  <span className="no-icon nav-text">Log out</span>
-                </Link>
-              </li>
+              // <Dropdown className="nav-item" title={username}>
+              //   <DropdownItem>
+              //     <Link className="nav-link" onClick={this.handleLoginLogout}>
+              //       <span className="no-icon nav-text">Log out</span>
+              //     </Link>
+              //   </DropdownItem>
+              // </Dropdown>
+              <NavDropdown id="username-dropdown" title={username}>
+                <NavDropdown.Item href="/profile">User Profile</NavDropdown.Item>
+                <NavDropdown.Item onClick={this.handleLoginLogout}>Log Out</NavDropdown.Item>
+              </NavDropdown>
               )}
               {this.state.loggedOut && (
               <li className="nav-item">

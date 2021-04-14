@@ -17,30 +17,19 @@ class UserProfile extends Component {
     //TODO need to add date as an additional field
     // var rideToEdit=JSON.parse(props.location.state)
     this.state = {
-      isOpen: false,
-      zoneData:[],
-      serviceResponse: "N/A", 
-      // rideId: rideToEdit.uniqueKey,
-      // form:{
-      //   isToggleOn: true,
-      //   pickupZone: parseInt(rideToEdit.rideDetails.pl),
-      //   dropoffZone: parseInt(rideToEdit.rideDetails.dl),
-      //   numOfPassengers: parseInt(rideToEdit.rideDetails.numOfPassengers),
-      //   taxiType: rideToEdit.rideDetails.taxiType,
-      //   multiDestinationRide: (rideToEdit.rideDetails.multiDestinationRide==='1'),
-      //   taxiRideExperience: parseInt(rideToEdit.rideDetails.taxiRideExperience),
-      //   exposeRideToPublic: (rideToEdit.rideDetails.exposeRideToPublic==='1'),
-      //   totalRideAmount: rideToEdit.rideDetails.totalRideAmount,
-      //   tipAmount: rideToEdit.rideDetails.tipAmount,
-      //   totalRideTime: rideToEdit.rideDetails.totalRideTime
-      }
-    // This binding is necessary to make `this` work in the callback
+      firstname: ' ',
+      lastname: ' ',
+      age: 0,
+      prefride: ' ',
+      vaccine: ' ',
+      zoneid: ' ',
+      zipcode: ' ',
+      favzoneid: ' '
+    }
+     
     this.handleClick = this.handleClick.bind(this);
   }
 
-  // state = {
-  //   isOpen: false
-  // };
 
   openModal = () => this.setState({ isOpen: true });
   closeModal = () => this.setState({ isOpen: false });
@@ -65,26 +54,25 @@ class UserProfile extends Component {
     client.send(JSON.stringify(inputObj));
   }
 
-  handleChange = (e,field) => {
-    let currState = this.state.form;
-    if(field=="tipAmount" || field=="totalRideAmount" || field=="totalRideTime"){
-        currState[field] = e.target.value;
-    }
-    else{
-        currState[field] = e.value;
-    }
-    this.setState({ form:currState });
-  }
 
   async componentWillMount() {
-  	// let zones=this.state.zoneData;
 
-    const url = "http://172.22.152.9:8000/api/nygm/?format=json"
+    const url = "http://172.22.152.9:8000/api/usertable/?format=json";
     const response = await fetch(url);
-    const zones = await response.json();
-    this.setState(state=> ({
-        zoneData: zones,
-    }))
+    const user = await response.json();
+    if (user.username === username){
+      this.setState(state=> ({
+        firstname: user.firstname,
+        lastname: user.lastname,
+        age: user.age,
+        prefride: user.prefride,
+        vaccine: user.vaccine,
+        zoneid: user.zoneid,
+        zipcode: user.zipcode,
+        favzoneid: user.favzoneid
+      }))
+    }
+
 
     client.onopen = () => {
       console.log('WebSocket Client Connected');
@@ -92,85 +80,97 @@ class UserProfile extends Component {
     client.onmessage = (message) => {
       console.log(message);
       var result=JSON.parse(message.data);
-      if(result.function=="editUserRide"){
-        if(result.result=="OK"){
-            //print success
-            toast("Successfully updated ride");
-            // this.state.serviceResponse="Successfully added ride";
-        }
-        else{
-            //print unccessful message
-            toast("Failed to update ride");
-            // this.state.serviceResponse="Failed to add ride";
-        }
-      }
     };
   }
 
   render() {
-    // Creating zones for the select options
-    let zones = this.state.zoneData;
-    let zoneOptions = [{}];
-    zones.map((zone) =>
-        zoneOptions.push({
-            value : zone.zoneid,
-            label : zone.zonename
-        })
-    );
 
-    let numOfPassengers = [{value:1,label:1},{value:2,label:2},{value:3,label:3},{value:4,label:4},{value:5,label:5},{value:6,label:6}];
-    let taxiType = [{value:'Sedan',label:'Sedan'},{value:'SUV',label:'SUV'},{value:'Compact SUV',label:'Compact SUV'}];
-    let multiDestinationRide = [{value:true,label:'Yes'},{value:false,label:'No'}];
-    let taxiRideExperience = [{value:1,label:'1 Star'},{value:2,label:'2 Stars'},{value:3,label:'3 Stars'},{value:4,label:'4 Stars'},{value:5,label:'5 Stars'}];
-    let exposeRideToPublic = [{value:true,label:'Yes'},{value:false,label:'No'}];
-    let totalRideTime = [{value:1,label:1},{value:2,label:2},{value:3,label:3},{value:4,label:4},{value:5,label:5},{value:6,label:6}];
-    let tipAmount = [{value:1,label:1},{value:2,label:2},{value:3,label:3},{value:4,label:4},{value:5,label:5},{value:6,label:6}];
-    let totalRideAmount = [{value:1,label:1},{value:2,label:2},{value:3,label:3},{value:4,label:4},{value:5,label:5},{value:6,label:6}];
-
-    const { form:pickupZone } = this.state;
-    const { form:dropoffZone } = this.state;
-    // const { form:tipAmount } = this.state;
-
-    const notify = () => toast(this.state.serviceResponse);  
     return (
       <div className="content"> 
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-4">
+          <div className="row justify-content-center">
+            <div className="col-lg-8 text-align-center">
               <div className="card card-user">
                 <div className="card-image">
                   <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
                 </div>
                 <div className="card-body">
                   <div className="author">
-                    <Link to='/'>
                       <img className="avatar border-gray" src={face0} alt="..." />
-                      <h5 className="title">this.firstName + this.lastName</h5>
-                    </Link>
-                    <p className="description">
-                      {username}
-                    </p>
+                      <h3 className="general-font">{this.firstname} {this.lastname}</h3>
+                    <h5>
+                      <b>{username}</b>
+                    </h5>
+                    <h5 className="mt-5"><u>View My Information</u></h5>
+                    <div className="row">
+                      <div className="col">
+                        <table>
+                          <tr>
+                            <td className="tr">
+                              <h5>Age:</h5>
+                            </td>
+                            <td>
+                              <h5>{this.age}</h5>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="tr">
+                              <h5>Preferred Ride:</h5>
+                            </td>
+                            <td className="tl">
+                              <h5>{this.prefride}</h5>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="tr">
+                              <h5>Vaccine Status:</h5>
+                            </td>
+                            <td className="tl">
+                              <h5>{this.vaccine}</h5>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="tr">
+                              <h5>Home Zone:</h5>
+                            </td>
+                            <td className="tl">
+                              <h5>{this.zoneid}</h5>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="tr">
+                              <h5>Home Zip Code:</h5>
+                            </td>
+                            <td className="tl">
+                              <h5>{this.zipcode}</h5>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="tr">
+                              <h5>Favorite Zone to Travel To:</h5>
+                            </td>
+                            <td className="tl">
+                              <h5>{this.favzoneid}</h5>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <div className="row mt-4">
+                      <div className="col">
+                        <Link className="btn btn-primary yellow-btn">
+                          <b>Edit User Information</b>
+                        </Link>
+                      </div>
+                    </div>
+                  
+                    
                   </div>
                 </div>
                 <hr /> 
               </div>
             </div>
-            <div className="col-md">
-              <div className="row">
-                <div className="card">
-                  <div className="card-body">
-                    <Link className="btn btn-primary yellow-btn" id='jumbo-button' to='/adduserride'>
-                      <b>Add Ride</b>
-                    </Link>
-                    <Link className="btn btn-primary ml-4 yellow-btn" id='jumbo-button' to='/getuserrides'>
-                      <b>Update Rides</b>
-                    </Link>
-                    <Link className="btn btn-primary ml-4 yellow-btn" id='jumbo-button' to='/query'>
-                      <b>Search Rides</b>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              
               {/* <div className="row">
                 <div className="card">
                   <div className="card-body">
@@ -277,7 +277,6 @@ class UserProfile extends Component {
                   </div>
                 </div>
               </div> */}
-            </div>
           </div>
         </div>
       </div>

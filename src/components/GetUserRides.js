@@ -5,7 +5,7 @@ import Select from 'react-select'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import StarRating from 'react-star-rating'
-
+import { username } from './LoginSignUp';
 import { client } from './Jumbotron';
 
 class GetUserRides extends Component {
@@ -38,7 +38,7 @@ class GetUserRides extends Component {
     e.preventDefault();
     var inputObj = {
       "function":"getUserRide",
-      "userName":"vvanka2@illinois.edu",
+      "userName":username,
       "rideId":e.target.id
       };
     client.send(JSON.stringify(inputObj));
