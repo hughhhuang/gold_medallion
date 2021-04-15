@@ -318,7 +318,17 @@ code {
 .fa-circle{
   margin-left: 10px;
 }
+#up{
+  float: center;
+}
 
+.tl{
+  text-align:left;
+}
+
+.tr{
+  text-align: right;
+}
 #login-signup{
   width: 500px;
   margin: 0 auto;
@@ -390,4 +400,10 @@ code {
 
 .modal.show .modal-dialog {
   transform: translate(0, 0);
+}
+
+#username-dropdown{
+  font-weight: bold;
+  font-style: italic;
+  color: white;
 }

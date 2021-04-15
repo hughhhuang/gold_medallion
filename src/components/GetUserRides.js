@@ -5,7 +5,7 @@ import Select from 'react-select'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import StarRating from 'react-star-rating'
-
+import { username } from './LoginSignUp';
 import { client } from './Jumbotron';
 import { username } from './LoginSignUp';
 
