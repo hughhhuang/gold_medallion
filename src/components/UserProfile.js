@@ -60,7 +60,7 @@ class UserProfile extends Component {
       "totalRideAmount": this.state.form.totalRideAmount,
       "tipAmount": this.state.form.tipAmount,
       "totalRideTime": this.state.form.totalRideTime,
-      "userName":"vvanka2@illinois.edu"
+      "userName":username
       };
     client.send(JSON.stringify(inputObj));
   }

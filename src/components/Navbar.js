@@ -63,7 +63,7 @@ class Navbar extends Component {
               {this.state.loggedIn && (
                 <li className="nav-item">
                 <Link className="nav-link" to='/query'>
-                  <span className="no-icon nav-text">Search Ride</span>
+                  <span className="no-icon nav-text">Plan Ride</span>
                 </Link>
                 </li>
               )}
