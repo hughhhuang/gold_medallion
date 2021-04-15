@@ -24,7 +24,8 @@ class UserProfile extends Component {
       vaccine: ' ',
       zoneid: ' ',
       zipcode: ' ',
-      favzoneid: ' '
+      favzoneid: ' ',
+      zoneData: []
     }
      
     this.handleClick = this.handleClick.bind(this);
@@ -35,31 +36,56 @@ class UserProfile extends Component {
   closeModal = () => this.setState({ isOpen: false });
 
   handleClick(e) {
+    // Updating the user's information in the user table
     e.preventDefault();
-    var inputObj = {
-      "function":"editUserRide",
-      "rideId": this.state.rideId,
-      "pl": this.state.form.pickupZone,
-      "dl": this.state.form.dropoffZone,
-      "numOfPassengers": this.state.form.numOfPassengers,
-      "taxiType": this.state.form.taxiType,
-      "multiDestinationRide": this.state.form.multiDestinationRide,
-      "taxiRideExperience": this.state.form.taxiRideExperience,
-      "exposeRideToPublic": this.state.form.exposeRideToPublic,
-      "totalRideAmount": this.state.form.totalRideAmount,
-      "tipAmount": this.state.form.tipAmount,
-      "totalRideTime": this.state.form.totalRideTime,
-      "userName":"vvanka2@illinois.edu"
-      };
-    client.send(JSON.stringify(inputObj));
+    try{
+      const url = "http://172.22.152.9:8000/api/usertable/"+{username};
+      const response = fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: username,
+          firstname: document.getElementById('new-firstname').value,
+          lastname: document.getElementById('new-lastname').value,
+          age: document.getElementById('new-age').value,
+          prefride: document.getElementById('new-prefride').value.toString(),
+          vaccine: document.getElementById('new-vaccine').value.toString(),
+          zoneid: document.getElementById('new-homezone').value.toString(),
+          zipCode: document.getElementById('new-zipcode').value.toString(),
+          favzoneid: document.getElementById('new-favzone').value.toString(),
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {alert(error)})  
+            
+    }
+    catch(err){
+      alert(err)
+    }
   }
 
 
   async componentWillMount() {
 
-    const url = "http://172.22.152.9:8000/api/usertable/?format=json";
-    const response = await fetch(url);
-    const user = await response.json();
+    // Getting data for zones
+    const zonesUrl = "http://172.22.152.9:8000/api/nygm/?format=json"
+    const zonesRes = await fetch(zonesUrl);
+    const zones = await zonesRes.json();
+    
+    this.setState(state=> ({
+        zoneData: zones,
+    }))
+
+    // Getting user data from the user table
+    const userTableUrl = "http://172.22.152.9:8000/api/usertable/?format=json";
+    const userTableRes = await fetch(userTableUrl);
+    const user = await userTableRes.json();
     if (user.username === username){
       this.setState(state=> ({
         firstname: user.firstname,
@@ -72,8 +98,6 @@ class UserProfile extends Component {
         favzoneid: user.favzoneid
       }))
     }
-
-
     client.onopen = () => {
       console.log('WebSocket Client Connected');
     };
@@ -84,6 +108,19 @@ class UserProfile extends Component {
   }
 
   render() {
+
+    let taxiType = [{value:'Sedan',label:'Sedan'},{value:'SUV',label:'SUV'},{value:'Compact SUV',label:'Compact SUV'}];
+    let vaccineOptions = []
+    // Creating zones for the select options
+    let zones = this.state.zoneData;
+    let zoneOptions = [{}];
+    zones.map((zone) =>
+        zoneOptions.push({
+            value : zone.zoneid,
+            label : zone.zonename
+        })
+    );
+
 
     return (
       <div className="content"> 
@@ -131,18 +168,18 @@ class UserProfile extends Component {
                           </tr>
                           <tr>
                             <td className="tr">
-                              <h5>Home Zone:</h5>
-                            </td>
-                            <td className="tl">
-                              <h5>{this.zoneid}</h5>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="tr">
                               <h5>Home Zip Code:</h5>
                             </td>
                             <td className="tl">
                               <h5>{this.zipcode}</h5>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="tr">
+                              <h5>Home Zone:</h5>
+                            </td>
+                            <td className="tl">
+                              <h5>{this.zoneid}</h5>
                             </td>
                           </tr>
                           <tr>
@@ -158,7 +195,7 @@ class UserProfile extends Component {
                     </div>
                     <div className="row mt-4">
                       <div className="col">
-                        <Link className="btn btn-primary yellow-btn">
+                        <Link className="btn btn-primary yellow-btn" onClick={this.openModal}>
                           <b>Edit User Information</b>
                         </Link>
                       </div>
@@ -201,77 +238,63 @@ class UserProfile extends Component {
                       <b>Update Selected Ride</b>
                     </Link>
                     </Form> */}
-                    {/* <Modal show={this.state.isOpen} onHide={this.closeModal}>
+                    <Modal show={this.state.isOpen} onHide={this.closeModal}>
                       <Modal.Header closeButton>
-                        <Modal.Title>Update Ride From: this.ridefrom to this.rideto</Modal.Title>
+                        <Modal.Title>Updating User Information for <i><b>{username}</b></i></Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
                         <form id="query-selection" onSubmit={this.handleClick}>
                           <div className = "form-row justify-content-center">
                             <div className="col-md-6 text-center">
-                                <label for="pickupZone">Pickup Zone:</label>
-                                <Select id="pickupZone" onChange = {(e)=> this.handleChange(e,'pickupZone')} options={zoneOptions.filter(({value}) => value === this.state.form.pickupZone)} />                             
+                                <label for="new-firstname">First Name</label>
+                                <input id="new-firstname" value={this.firstname}></input>
                             </div>
                             <div className="col-md-6 text-center">
-                                <label for="dropoffZone">Dropoff Zone:</label>
-                                <Select id="dropoffZone" onChange = {(e)=> this.handleChange(e,'dropoffZone')} options={zoneOptions} value={zoneOptions.filter(({value}) => value === this.state.form.dropoffZone)} /> 
+                                <label for="new-lastname">Last Name</label>
+                                <input id="new-lastname" value={this.lastname}></input>                            
                             </div>
                           </div>
                           <div className = "form-row justify-content-center">
-                              <div className="col-md-6 text-center">
-                                  <label for="numOfPassengers">Number of Passengers</label>
-                                  <Select id="numOfPassengers" onChange = {(e)=> this.handleChange(e,'numOfPassengers')} options={numOfPassengers} value={numOfPassengers.filter(({value}) => value === this.state.form.numOfPassengers)}  />
-                              </div>
-                              <div className="col-md-6 text-center">
-                                  <label for="taxiType">Taxi Type</label>
-                                  <Select id="taxiType" onChange = {(e)=> this.handleChange(e,'taxiType')} options={taxiType} value={taxiType.filter(({value}) => value === this.state.form.taxiType)} />   
-                              </div>
+                            <div className="col-md-6 text-center">
+                                <label for="new-age">Age</label>
+                                <input id="new-age" value={this.age}></input>
+                            </div>
+                            <div className="col-md-6 text-center">
+                                <label for="new-zipcode">Home Zip Code</label>
+                                <input id="new-zipcode" value={this.zipcode}></input>
+                            </div>
                           </div>
                           <div className = "form-row justify-content-center">
-                              <div className="col-md-6 text-center">
-                                  <label for="multiDestinationRide">Multi Destination Ride</label>
-                                  <Select id="multiDestinationRide" onChange = {(e)=> this.handleChange(e,'multiDestinationRide')} options={multiDestinationRide} value={multiDestinationRide.filter(({value}) => value === this.state.form.multiDestinationRide)} />
-                              </div>
-                              <div className="col-md-6 text-center">
-                                  <label for="taxiRideExperience">Ride Experience</label>
-                                  <Select id="taxiRideExperience" onChange = {(e)=> this.handleChange(e,'taxiRideExperience')} options={taxiRideExperience} value={taxiRideExperience.filter(({value}) => value === this.state.form.taxiRideExperience)} />
-                              </div>
+                            <div className="col-md-6 text-center">
+                                <label for="new-vaccine">Vaccine Status</label>
+                                <Select id="new-vaccine" options={vaccineOptions} />
+                            </div>
+                            <div className="col-md-6 text-center">
+                                <label for="new-prefride">Preferred Ride</label>
+                                <Select id="new-prefride" options={taxiType} />                         
+                            </div>
                           </div>
                           <div className = "form-row justify-content-center">
-                              <div className="col-md-6 text-center">
-                                  <label for="exposeRideToPublic">Expose Ride To Public</label>
-                                  <Select id="exposeRideToPublic" onChange = {(e)=> this.handleChange(e,'exposeRideToPublic')} options={exposeRideToPublic} value={exposeRideToPublic.filter(({value}) => value === this.state.form.exposeRideToPublic)} />
-                              </div>
-                          </div>
-                          <div className = "form-row justify-content-center">
-                              <div className="col-md-3 text-center">
-                                <label for="tipAmount">Tip Amount</label>
-                                <input type="text" id="tipAmount" size="10" placeholder="$"  onChange = {(e)=> this.handleChange(e,'tipAmount')} defaultValue={this.state.form.tipAmount}></input>
-                              </div>
-                              <div className="col-md-3 text-center">
-                                <label for="totalRideAmount">Total Ride Amount</label>
-                                <input type="text" id="totalRideAmount" size="10" placeholder="$"  onChange = {(e)=> this.handleChange(e,'totalRideAmount')} defaultValue={this.state.form.totalRideAmount} ></input>
-                              </div>
-                              <div className="col-md-3 text-center">
-                                  <label for="totalRideTime">Total Ride Time</label>
-                                  <input type="text" id="totalRideTime" size="10"  onChange = {(e)=> this.handleChange(e,'totalRideTime')} defaultValue={this.state.form.totalRideTime} ></input>
-                              </div>
+                            <div className="col-md-6 text-center">
+                                <label for="new-homezone">Home Zone</label>
+                                <Select id="new-homezone" options={zoneOptions} />                         
+                            </div>
+                            <div className="col-md-6 text-center">
+                                <label for="new-favzone">Favorite Zone to Travel To</label>
+                                <Select id="new-favzone" options={zoneOptions} />                         
+                            </div>
                           </div>
                           <div className="form-row py-3 justify-content-center">
-                              <button id="query-submit" type="submit">Update Ride</button>   
+                              <button id="query-submit" type="submit">Update User Information</button>   
                           </div>
                         </form>
-                        <div>
-                          <button onClick={notify}>Notify</button>
-                          <ToastContainer />
-                        </div>
                       </Modal.Body>
                       <Modal.Footer>
                         <Button variant="secondary" onClick={this.closeModal}>
                           Close
                         </Button>
                       </Modal.Footer>
-                    </Modal> */}
+                    </Modal>
 {/*                     
                     </div>
                   </div>
