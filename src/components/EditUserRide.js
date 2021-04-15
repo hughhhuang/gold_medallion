@@ -178,7 +178,7 @@ class EditUserRide extends Component {
                             </div>
                             <div className="col-md-4 text-center">
                                 <label for="totalRideTime">Total Ride Time</label>
-                                <input type="text" id="totalRideTime" placeholder="$"  onChange = {(e)=> this.handleChange(e,'totalRideTime')} defaultValue={this.state.form.totalRideTime} ></input><br></br>
+                                <input type="text" id="totalRideTime" placeholder="min"  onChange = {(e)=> this.handleChange(e,'totalRideTime')} defaultValue={this.state.form.totalRideTime} ></input><br></br>
                             </div>
                         </div>
                        

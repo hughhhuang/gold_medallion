@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { username } from './LoginSignUp';
 import { client } from './Jumbotron';
 
+// export const client = new W3CWebSocket('ws://sp21-cs411-09.cs.illinois.edu:1234');
+
 class GetUserRides extends Component {
 
   constructor(props) {
@@ -28,7 +30,7 @@ class GetUserRides extends Component {
     e.preventDefault();
     var inputObj = {
       "function":"deleteUserRide",
-      "userName":"vvanka2@illinois.edu",
+      "userName":username,
       "rideId":e.target.id
       };
     client.send(JSON.stringify(inputObj));
@@ -64,14 +66,11 @@ class GetUserRides extends Component {
         zoneData: zones,
     }));
 
-    client.onopen = () => {
-      console.log('WebSocket Client Connected');
-        var inputObj = {
+    var inputObj = {
       "function":"getUserRides",
-      "userName":"vvanka2@illinois.edu"
+      "userName":username
       };
     client.send(JSON.stringify(inputObj));
-    };
     client.onmessage = (message) => {
       console.log(message);
       var result=JSON.parse(message.data);
@@ -136,7 +135,7 @@ class GetUserRides extends Component {
                                 <p>Public Ride? {userRide.rideDetails.exposeRideToPublic}</p>
                                 <p>Total Ride Amount: ${userRide.rideDetails.totalRideAmount}</p>
                                 <p>Tip Amount: ${userRide.rideDetails.tipAmount}</p>
-                                <p>Total Ride Time: ${userRide.rideDetails.totalRideTime}</p>
+                                <p>Total Ride Time: {userRide.rideDetails.totalRideTime} minutes</p>
                                 <a href="#" class="btn btn-primary" id={userRide.uniqueKey} onClick={this.handleDeleteRide}>Delete This Ride</a>
                                 <Link className="btn btn-primary btn-lg" to={{pathname:"/edituserride", state:JSON.stringify(userRide)}}>
                                     <b>Edit This Ride</b>
@@ -150,8 +149,8 @@ class GetUserRides extends Component {
                           {this.state.publicRidesData.map(userRide => (
                             <div class="card">
                               <div class="card-body">
-                                <p class="card-title">From: {userRide.rideDetails.pl}</p>
-                                <p class="card-title">To: {userRide.rideDetails.dl}</p>
+                                <p class="card-title">From: {zoneOptions[userRide.rideDetails.pl]}</p>
+                                <p class="card-title">To: {zoneOptions[userRide.rideDetails.dl]}</p>
                                 <p>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -159,10 +158,9 @@ class GetUserRides extends Component {
                                 {userRide.rideDetails.numOfPassengers} 
                                 </p>
                                 <p>Ride Experience {userRide.rideDetails.taxiRideExperience} stars</p>
-                                <p>Public Ride? {userRide.rideDetails.exposeRideToPublic}</p>
                                 <p>Total Ride Amount: ${userRide.rideDetails.totalRideAmount}</p>
                                 <p>Tip Amount: ${userRide.rideDetails.tipAmount}</p>
-                                <p>Total Ride Time: ${userRide.rideDetails.totalRideTime}</p>
+                                <p>Total Ride Time: {userRide.rideDetails.totalRideTime} minutes</p>
                               </div>
                             </div>
                             ))}
