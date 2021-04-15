@@ -407,3 +407,8 @@ code {
   font-style: italic;
   color: white;
 }
+
+.rc-slider{
+  width: 60% !important;
+}
+

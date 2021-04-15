@@ -7,6 +7,8 @@ import Col from 'react-bootstrap/Col'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import Select from 'react-select'
 import ChartistGraph from 'react-chartist'
+import Slider, { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 // ws://127.0.0.1:1234
 const client = new W3CWebSocket('ws://sp21-cs411-09.cs.illinois.edu:1234');
@@ -222,6 +224,12 @@ async componentWillMount() {
       series: [this.state.byHourGraphValues]
     }
 
+    // Adding marks for slider
+    const marks = {
+      0: '$0', 5: '$5', 10: '$10', 15: '$15', 20: '$20', 25: '$25', 30: '$30', 35: '$35', 40: '$40', 45: '$45', 50: '$50',
+      55: '$55', 60: '$60', 65: '$65', 70: '$70', 75: '$75', 80: '$80', 85: '$85', 90: '$90', 95: '$95', 100: '$100',
+    }
+
     return (
       <div className="content" id="query-page">
         <div className="container-fluid pl-0 pr-0 ml-0 mr-0">
@@ -263,7 +271,11 @@ async componentWillMount() {
                         <Select id="day" onChange = {this.handleChangePO} options={day} />
                       </div>
                     </div>  
-                    <div className="form-row py-3 justify-content-center">
+                    <div className="form-row py-5 justify-content-center">
+                      <label className="text-center" for="budget">Planning a trip on a budget? Try our new feature to get personalized trip suggestions!</label>
+                      <Slider id='budget' marks={marks}></Slider> 
+                    </div>
+                    <div className="form-row py-4 justify-content-center">
                         <button id="query-submit" type="submit">Get my estimate</button>   
                     </div>
                   </form>
