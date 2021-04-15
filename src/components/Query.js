@@ -273,7 +273,7 @@ async componentWillMount() {
                     </div>  
                     <div className="form-row py-5 justify-content-center">
                       <label className="text-center" for="budget">Planning a trip on a budget? Try our new feature to get personalized trip suggestions!</label>
-                      <Slider id='budget' marks={marks}></Slider> 
+                      <Slider.Range id='budget' marks={marks} defaultValue={[20, 40]}></Slider.Range> 
                     </div>
                     <div className="form-row py-4 justify-content-center">
                         <button id="query-submit" type="submit">Get my estimate</button>   

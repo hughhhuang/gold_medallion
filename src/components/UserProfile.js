@@ -160,7 +160,7 @@ class UserProfile extends Component {
                           </tr>
                           <tr>
                             <td className="tr">
-                              <h5>Vaccine Status:</h5>
+                              <h5>Preferred % Vaccinated of Destination Zone:</h5>
                             </td>
                             <td className="tl">
                               <h5>{this.vaccine}</h5>
@@ -266,11 +266,11 @@ class UserProfile extends Component {
                           </div>
                           <div className = "form-row justify-content-center">
                             <div className="col-md-6 text-center">
-                                <label for="new-vaccine">Vaccine Status</label>
-                                <Select id="new-vaccine" options={vaccineOptions} />
+                                <label for="new-vaccine">Preferred % Vaccinated of Destination Zone</label>
+                                <input type="text" value={this.vaccine} id="new-vaccine"></input>
                             </div>
                             <div className="col-md-6 text-center">
-                                <label for="new-prefride">Preferred Ride</label>
+                                <br/><label for="new-prefride">Preferred Ride</label><br/>
                                 <Select id="new-prefride" options={taxiType} />                         
                             </div>
                           </div>
