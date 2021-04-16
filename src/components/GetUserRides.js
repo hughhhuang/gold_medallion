@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 // import StarRating from 'react-star-rating'
 import { username } from './LoginSignUp';
 import { client } from './Jumbotron';
-import { username } from './LoginSignUp';
 
 // export const client = new W3CWebSocket('ws://sp21-cs411-09.cs.illinois.edu:1234');
 
