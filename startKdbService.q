@@ -1,7 +1,7 @@
 system"l kdbData"
 \p 1234
 connectedClients:();
-`taxiData set update `g#pickup,`g#dropoffLoc from taxiData;
+`taxiData set update `g#pickup,`g#dropoffLoc,month:("i"$"m"$pickup) mod 12,startTime:`hh$pickup,day:?[1<(`date$pickup) mod 7;0i;1i] from taxiData;
 if[`userRides in tables[];`userRides set `uniqueKey xkey select from userRides];
 if[not `userRides in tables[];`userRides set enlist (`uniqueKey`userName`publicRide`rideDetails)!(first 0Ng;`;0b;enlist ())]
 .z.ws:{connectedClients,:.z.w;neg[.z.w].j.j @[value;x;run x]}
@@ -10,7 +10,7 @@ run:{
 	userQuery:.j.k x;
 	show userQuery;
 	if[`getUserEstimatedFare=`$userQuery[`function];
-		:getUserEstimatedFare["I"$userQuery[`pl];"I"$userQuery[`dl]]
+		:getUserEstimatedFare["I"$userQuery[`pl];"I"$userQuery[`dl];parseOptionalFields[userQuery]]
 		];
 	if[`addUserRide=`$userQuery[`function];
 		:@[addUserRide;(userQuery;userRides);(`function;`result)!(`addUserRide;`NOTOK)]
@@ -31,9 +31,31 @@ getTaxiData:{[maxCount;fields]
 	result:(`maxcount;`data)!(maxCount;data)
 	}
 
+parseOptionalFields:{[usrQuery]
+	res:();
+	if[(`month in key usrQuery) and not `~`$string usrQuery[`month];res,:(enlist `month)!(enlist  "I"$usrQuery[`month])];
+	if[(`startTime in key usrQuery) and not `~`$string usrQuery[`startTime];res,:(enlist `startTime)!(enlist "I"$usrQuery[`startTime])];
+	if[(`day in key usrQuery) and not `~`$string usrQuery[`day];res,:(enlist `day)!(enlist "I"$usrQuery[`day])];
+	res
+	}
 
-getUserEstimatedFare:{[pl;dl] 
-	data:first select avg totalAmount,avg mtaTax,avg tipAmount,avg fareAmount from taxiData where pickupLoc=pl, dropoffLoc=dl;
+
+getUserEstimatedFare:{[pl;dl;optionalFields]
+	/ data:first select avg totalAmount,avg mtaTax,avg tipAmount,avg fareAmount from taxiData where pickupLoc=pl, dropoffLoc=dl;
+	requiredConds:((=;`pickupLoc;pl);(=;`dropoffLoc;dl));
+	if[count optionalFields;
+		if[`month in key optionalFields;
+			requiredConds,:enlist (=;`month;first optionalFields[`month])
+			];
+		if[`startTime in key optionalFields;
+			requiredConds,:enlist (=;`startTime;first optionalFields[`startTime])
+			];
+		if[(`day in key optionalFields) and (optionalFields[`day]>-1);
+			requiredConds,:enlist (=;`day;first optionalFields[`day])
+			];
+		];
+	
+	data:first ?[`taxiData;requiredConds;0b;(`totalAmount`mtaTax`tipAmount`fareAmount)!((avg;`totalAmount);(avg;`mtaTax);(avg;`tipAmount);(avg;`fareAmount))];
 	result:(`pl`dl`data)!(pl;dl;data);
 	dataByMonth:getDataByMonth[pl;dl];
 	dataByDay:getDataByWeekDay[pl;dl];
