@@ -153,6 +153,9 @@ class Usertable(models.Model):
     zoneid = models.ForeignKey('Zonedata',  models.DO_NOTHING, related_name='userzoneid', db_column='zoneId', blank=True, null=True)  # Field name made lowercase.
     zipcode = models.ForeignKey(Nycboroughs, models.DO_NOTHING, db_column='zipcode', blank=True, null=True)
     favzoneid = models.ForeignKey('Zonedata', models.DO_NOTHING, related_name='favzoneid', db_column='favZoneId', blank=True, null=True)  # Field name made lowercase.
+    minspend = models.IntegerField(db_column='minSpend', blank=True, null=True)
+    maxspend = models.IntegerField(db_column='maxSpend', blank=True, null=True)
+    vaccpref = models.IntegerField(db_column='vaccPref', blank=True, null=True)
 
     class Meta:
         managed = False
