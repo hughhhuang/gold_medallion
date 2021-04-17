@@ -24,30 +24,44 @@ class editUserTable(generics.CreateAPIView):
     def post(self, request):
         if request.method == 'POST':
             serializer = self.get_serializer(data=request.data)
-            #if request.data['firstname'].lower()!= "null":
-                #firstname = '"' + request.data['firstname'] + '"'
-            #else:
-                #firstname = request.data['firstname']
-            firstname = request.data['firstname']
+            if request.data['firstname'].lower()!= "null":
+                firstname = '"' + request.data['firstname'] + '"'
+            else:
+                firstname = request.data['firstname']
+            if request.data['lastname'].lower()!= "null":
+                lastname = '"' + request.data['lastname'] + '"'
+            else:
+                lastname = request.data['lastname']
+            if request.data['prefride'].lower()!= "null":
+                prefride = '"' + request.data['prefride'] + '"'
+            else:
+                prefride = request.data['prefride']
+            if request.data['vaccine'].lower()!= "null":
+                vaccine = '"' + request.data['vaccine'] + '"'
+            else:
+                vaccine = request.data['vaccine']
+
             if serializer.is_valid():
                 cursor = connection.cursor()
-                cursor.execute('call update_userTable( "%s", %s, "%s", %s, "%s", "%s", %s, %s, %s)' % (request.data['username'], firstname, request.data['lastname'], request.data['age'], request.data['prefride'], request.data['vaccine'], request.data['zoneid'], request.data['zipcode'], request.data['favzoneid']))
+                cursor.execute('call update_userTable( "%s", %s, %s, %s, %s, %s, %s, %s, %s)' % (request.data['username'], firstname, lastname, request.data['age'], prefride, vaccine, request.data['zoneid'], request.data['zipcode'], request.data['favzoneid']))
                 return Response(serializer.data)
             else:
                 cursor = connection.cursor()
-                cursor.execute('call update_userTable( "%s", "%s", "%s", %s, "%s", "%s", %s, %s, %s)' % (request.data['username'], request.data['firstname'], request.data['lastname'], request.data['age'], request.data['prefride'], request.data['vaccine'], request.data['zoneid'], request.data['zipcode'], request.data['favzoneid']))
+                cursor.execute('call update_userTable( "%s", %s, %s, %s, %s, %s, %s, %s, %s)' % (request.data['username'], firstname, lastname, request.data['age'], prefride, vaccine, request.data['zoneid'], request.data['zipcode'], request.data['favzoneid']))
                 return Response(serializer.data)
 
-        #if request.method == 'POST':
-            #data = {
-                #'username': request.data['username'],
-                #'firstname': request.data['firstname'],
-                #'lastname': request.data['lastname'],
-                #'age': request.data['age'],
-                #'prefride': request.data['prefride'],
-                #'vaccine': request.data['vaccine'],
-                #'zoneid': request.data['zoneid'],
-                #'zipcode': request.data['zipcode'],
-                #'favzoneid': request.data['favzoneid']
-            #}
 
+class planRide(generics.CreateAPIView):
+    serializer_class = UsertableSerializer
+    def post(self, request):
+        if request.method == 'POST':
+            serializer = self.get_serializer(data=request.data)
+
+            if serializer.is_valid():
+                cursor = connection.cursor()
+                cursor.execute('call planRide("%s", %s, %s, %s);' % (request.data['username'], request.data['minspend'], request.data['maxspend'], request.data['vaccpref']))
+                return Response(serializer.data)
+            else:
+                cursor = connection.cursor()
+                cursor.execute('call planRide("%s", %s, %s, %s);' % (request.data['username'], request.data['minspend'], request.data['maxspend'], request.data['vaccpref']))
+                return Response(serializer.data)

@@ -6,4 +6,5 @@ urlpatterns = [
     path('api/usertable/', views.UsertableListCreate.as_view() ),
     path('api/nycBoroughs/', views.NycboroughsListCreate.as_view() ),
     path('api/editusertable/', views.editUserTable.as_view() ),
+    path('api/planRide/', views.planRide.as_view() ),
 ]
