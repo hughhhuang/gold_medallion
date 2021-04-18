@@ -12,8 +12,9 @@ class SignUpRedirect extends Component {
     super(props);
     this.state = {
         zoneData: [],
-        favoriteZone: "",
-        homeZone: "",
+        prefride: " ",
+        favzoneid: " ",
+        homezone: " ",
         homeZipCode: 12345,
     };
 
@@ -21,7 +22,8 @@ class SignUpRedirect extends Component {
     this.handleClickSignUp = this.handleClickSignUp.bind(this);
     this.handleChangeFavZone = this.handleChangeFavZone.bind(this);
     this.handleChangeHomeZone = this.handleChangeHomeZone.bind(this);
-    this.handleChangeZipCode = this.handleChangeZipCode.bind(this);
+    this.handleChangePrefRide = this.handleChangePrefRide.bind(this); 
+    
 
   }
   async componentWillMount() {
@@ -42,25 +44,25 @@ class SignUpRedirect extends Component {
     };
   }
 
-  handleChangeFavZone = (favoriteZone) => {
-    this.setState({ favoriteZone });
-    console.log(`Option selected:`, favoriteZone);
+  handleChangeFavZone = (favzoneid) => {
+    this.setState({ favzoneid });
+    console.log(`Option selected:`, favzoneid);
   }
 
-  handleChangeHomeZone = (homeZone) => {
-    this.setState({ homeZone });
-    console.log(`Option selected:`, homeZone);
+  handleChangeHomeZone = (homezone) => {
+    this.setState({ homezone });
+    console.log(`Option selected:`, homezone);
   }
 
-  handleChangeZipCode = (homeZipCode) => {
-    this.setState({ homeZipCode });
-    console.log(`Option selected:`, homeZipCode);
+  handleChangePrefRide = (prefride) => {
+    this.setState({ prefride });
+    console.log(`Option selected:`, prefride);
   }
 
   handleClickSignUp(e) {
     e.preventDefault();
     try{
-      const url = "http://172.22.152.9:8000/api/usertable/";
+      const url = "http://172.22.152.9:8000/api/editusertable/";
       const response = fetch(url, {
         method: 'POST',
         headers: {
@@ -69,28 +71,46 @@ class SignUpRedirect extends Component {
         },
         body: JSON.stringify({
           username: username,
-          firstname: document.getElementById('first-name').value,
-          lastname: document.getElementById('last-name').value,
-          age: document.getElementById('age').value,
-          zipCode: document.getElementById('home-zip').value,
-          favZone: document.getElementById('fav-zone').value,
+          firstname: document.getElementById("firstname").value,
+          lastname: document.getElementById("lastname").value,
+          age: document.getElementById("age").value,
+          prefride: this.state.prefride.value,
+          vaccine: document.getElementById("vaccine").value,
+          zoneid: this.state.homezone.value,
+          zipcode: parseInt(document.getElementById("zipcode").value),
+          favzoneid: this.state.favzoneid.value,
+          minspend:"null",
+          maxspend:"null",
+          vaccpref:"null"
         })
       })
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        // window.location.href = "/query";
+        window.location.href = "/query";
       })
-      .catch(error => {alert(error)})  
+      .catch(error => {
+        if (error.toString() === "SyntaxError: Unexpected token I in JSON at position 0"){
+          alert("Please enter a valid NYC zipcode");
+        }
+        else{
+          alert(error.toString())
+          console.log(error.toString())
+        }
+      })  
             
     }
     catch(err){
-      alert(err)
+      alert(err);
+      console.log(err)
     }
+    
     
 
   }
   render() {
+    let taxiType = [{value:'Sedan',label:'Sedan'},{value:'SUV',label:'SUV'},{value:'Compact SUV',label:'Compact SUV'}];
+
     // Creating zones for the select options
     let zones = this.state.zoneData;
     let zoneOptions = [{}];
@@ -114,26 +134,36 @@ class SignUpRedirect extends Component {
                         <h4 className="general-font text-center">Welcome {username}, let's get to know you a little better!</h4>
                         <hr></hr>
                         <div className="fade-in-form">
-                          <label for="first-name">Enter first name:</label><br></br>
-                          <input type="text" id="first-name" placeholder="Enter first name"></input><br></br>
-                          <label for="last-name">Enter last name:</label><br></br>
-                          <input type="text" id="last-name" placeholder="Enter last name"></input><br></br>
+                          <label for="firstname">Enter first name:</label><br></br>
+                          <input type="text" id="firstname" placeholder="Enter first name"></input><br></br>
+                          <label for="lastname">Enter last name:</label><br></br>
+                          <input type="text" id="lastname" placeholder="Enter last name"></input><br></br>
                           <label for="age">Enter age:</label><br></br>
                           <input type="text" id="age" placeholder="Enter age"></input><br></br>
-                          <label for="home-zip">Enter Home Zip Code:</label><br></br>
-                          <input type="text" id="home-zip" placeholder="Enter home zip code"></input>
+                          <label for="vaccine">Enter Preferred % Vaccinated of Destination Zone:</label><br></br>
+                          <input type="text" id="vaccine" placeholder="Enter % vaccinated"></input><br></br>
+                          <label for="zipcode">Enter Home Zip Code:</label><br></br>
+                          <input type="text" id="zipcode" placeholder="Enter home zip code"></input>
                           <div className="row justify-content-center">
                             <div className="col-5">
 
-                            <label for="home-zone">Select Home Zone:</label><br></br>
-                            <Select id="home-zone" onChange = {this.handleChangeHomeZone} options={zoneOptions} />
+                            <label for="prefride">Select Preferred Ride Type:</label><br></br>
+                            <Select id="prefride" onChange = {this.handleChangePrefRide} options={taxiType} />
+                            </div>
+                          </div>
+
+                          <div className="row justify-content-center">
+                            <div className="col-5">
+
+                            <label for="homezone">Select Home Zone:</label><br></br>
+                            <Select id="homezone" onChange = {this.handleChangeHomeZone} options={zoneOptions} />
                             </div>
                           </div>                          
                           <div className="row justify-content-center">
                             <div className="col-5">
 
-                            <label for="fav-zone">Select Favorite Zone To Visit:</label><br></br>
-                            <Select id="fav-zone" onChange = {this.handleChangeFavZone} options={zoneOptions} />
+                            <label for="favzoneid">Select Favorite Zone To Visit:</label><br></br>
+                            <Select id="favzoneid" onChange = {this.handleChangeFavZone} options={zoneOptions} />
                             </div>
                           </div>
 

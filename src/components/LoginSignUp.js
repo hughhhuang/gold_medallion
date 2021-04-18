@@ -86,7 +86,7 @@ class LoginSignUp extends Component {
       })
       .then(res => {
         localStorage.setItem('username', document.getElementById('username').value);
-        window.location.href = "/query";
+        window.location.href = "/signupRedirect";
       })
       .catch(error => {
           console.log("check login")
@@ -95,8 +95,8 @@ class LoginSignUp extends Component {
     catch(err){
       alert(err)
     }
-    
   }
+  
   render() {
     return (
       <div className="container" id="login-screen">

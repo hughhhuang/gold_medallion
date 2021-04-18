@@ -17,18 +17,25 @@ class UserProfile extends Component {
     //TODO need to add date as an additional field
     // var rideToEdit=JSON.parse(props.location.state)
     this.state = {
+      username: username,
       firstname: ' ',
       lastname: ' ',
       age: 0,
       prefride: ' ',
+      newPrefride: ' ',
       vaccine: ' ',
-      zoneid: ' ',
-      zipcode: ' ',
+      homezone: ' ',
+      newHomezone: ' ',
+      zipcode: 0,
       favzoneid: ' ',
+      newFavzoneid: ' ',
       zoneData: []
     }
      
     this.handleClick = this.handleClick.bind(this);
+    this.handleChangeFavZone = this.handleChangeFavZone.bind(this);
+    this.handleChangeHomeZone = this.handleChangeHomeZone.bind(this);
+    this.handleChangePrefRide = this.handleChangePrefRide.bind(this);  
   }
 
 
@@ -39,7 +46,7 @@ class UserProfile extends Component {
     // Updating the user's information in the user table
     e.preventDefault();
     try{
-      const url = "http://172.22.152.9:8000/api/usertable/"+{username};
+      const url = "http://172.22.152.9:8000/api/editusertable/";
       const response = fetch(url, {
         method: 'POST',
         headers: {
@@ -47,27 +54,54 @@ class UserProfile extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          username: username,
-          firstname: document.getElementById('new-firstname').value,
-          lastname: document.getElementById('new-lastname').value,
-          age: document.getElementById('new-age').value,
-          prefride: document.getElementById('new-prefride').value.toString(),
-          vaccine: document.getElementById('new-vaccine').value.toString(),
-          zoneid: document.getElementById('new-homezone').value.toString(),
-          zipCode: document.getElementById('new-zipcode').value.toString(),
-          favzoneid: document.getElementById('new-favzone').value.toString(),
+          username: this.state.username,
+          firstname: document.getElementById("new-firstname").value,
+          lastname: document.getElementById("new-lastname").value,
+          age: document.getElementById("new-age").value,
+          prefride: this.state.newPrefride.value,
+          vaccine: document.getElementById("new-vaccine").value,
+          zoneid: this.state.newHomezone.value,
+          zipcode: parseInt(document.getElementById("new-zipcode").value),
+          favzoneid: this.state.newFavzoneid.value,
+          minspend:"null",
+          maxspend:"null",
+          vaccpref:"null"
         })
       })
       .then(res => res.json())
       .then(data => {
         console.log(data);
+        window.location.href = '/profile';
       })
-      .catch(error => {alert(error)})  
+      .catch(error => {
+        if (error.toString() === "SyntaxError: Unexpected token I in JSON at position 0"){
+          alert("Please enter a valid NYC zipcode");
+        }
+        else{
+          alert(error.toString())
+          console.log(error.toString())
+        }
+      })  
             
     }
     catch(err){
       alert(err)
+      console.log(err)
     }
+  }
+
+  handleChangePrefRide = (newPrefride) => {
+    this.setState({ newPrefride });
+    console.log(`Option selected:`, newPrefride);
+  }
+
+  handleChangeHomeZone = (newHomezone) => {
+    this.setState({ newHomezone });
+    console.log(`Option selected:`, newHomezone);
+  }
+
+  handleChangeFavZone = (newFavzoneid) => {
+    this.setState({ newFavzoneid });
   }
 
 
@@ -81,22 +115,27 @@ class UserProfile extends Component {
     this.setState(state=> ({
         zoneData: zones,
     }))
+    console.log(this.state.zoneData);
 
     // Getting user data from the user table
     const userTableUrl = "http://172.22.152.9:8000/api/usertable/?format=json";
     const userTableRes = await fetch(userTableUrl);
     const user = await userTableRes.json();
-    if (user.username === username){
-      this.setState(state=> ({
-        firstname: user.firstname,
-        lastname: user.lastname,
-        age: user.age,
-        prefride: user.prefride,
-        vaccine: user.vaccine,
-        zoneid: user.zoneid,
-        zipcode: user.zipcode,
-        favzoneid: user.favzoneid
-      }))
+    for (var u in user){
+      console.log(user[u].username);
+      if (user[u].username === this.state.username){
+        console.log('ture');
+        this.setState(state=> ({
+          firstname: user[u].firstname,
+          lastname: user[u].lastname,
+          age: user[u].age,
+          prefride: user[u].prefride,
+          vaccine: user[u].vaccine,
+          zoneid: this.state.zoneData[user[u].zoneid-1].zonename,
+          zipcode: user[u].zipcode,
+          favzoneid: this.state.zoneData[user[u].favzoneid-1].zonename
+        }))
+      }
     }
     client.onopen = () => {
       console.log('WebSocket Client Connected');
@@ -134,7 +173,7 @@ class UserProfile extends Component {
                 <div className="card-body">
                   <div className="author">
                       <img className="avatar border-gray" src={face0} alt="..." />
-                      <h3 className="general-font">{this.firstname} {this.lastname}</h3>
+                      <h3 className="general-font">{this.state.firstname} {this.state.lastname}</h3>
                     <h5>
                       <b>{username}</b>
                     </h5>
@@ -146,8 +185,8 @@ class UserProfile extends Component {
                             <td className="tr">
                               <h5>Age:</h5>
                             </td>
-                            <td>
-                              <h5>{this.age}</h5>
+                            <td className="tl">
+                              <h5>{this.state.age}</h5>
                             </td>
                           </tr>
                           <tr>
@@ -155,7 +194,7 @@ class UserProfile extends Component {
                               <h5>Preferred Ride:</h5>
                             </td>
                             <td className="tl">
-                              <h5>{this.prefride}</h5>
+                              <h5>{this.state.prefride}</h5>
                             </td>
                           </tr>
                           <tr>
@@ -163,7 +202,7 @@ class UserProfile extends Component {
                               <h5>Preferred % Vaccinated of Destination Zone:</h5>
                             </td>
                             <td className="tl">
-                              <h5>{this.vaccine}</h5>
+                              <h5>{this.state.vaccine}</h5>
                             </td>
                           </tr>
                           <tr>
@@ -171,7 +210,7 @@ class UserProfile extends Component {
                               <h5>Home Zip Code:</h5>
                             </td>
                             <td className="tl">
-                              <h5>{this.zipcode}</h5>
+                              <h5>{this.state.zipcode}</h5>
                             </td>
                           </tr>
                           <tr>
@@ -179,7 +218,7 @@ class UserProfile extends Component {
                               <h5>Home Zone:</h5>
                             </td>
                             <td className="tl">
-                              <h5>{this.zoneid}</h5>
+                              <h5>{this.state.zoneid}</h5>
                             </td>
                           </tr>
                           <tr>
@@ -187,7 +226,7 @@ class UserProfile extends Component {
                               <h5>Favorite Zone to Travel To:</h5>
                             </td>
                             <td className="tl">
-                              <h5>{this.favzoneid}</h5>
+                              <h5>{this.state.favzoneid}</h5>
                             </td>
                           </tr>
                         </table>
@@ -247,41 +286,41 @@ class UserProfile extends Component {
                           <div className = "form-row justify-content-center">
                             <div className="col-md-6 text-center">
                                 <label for="new-firstname">First Name</label>
-                                <input id="new-firstname" value={this.firstname}></input>
+                                <input id="new-firstname" defaultValue={this.state.firstname}></input>
                             </div>
                             <div className="col-md-6 text-center">
                                 <label for="new-lastname">Last Name</label>
-                                <input id="new-lastname" value={this.lastname}></input>                            
+                                <input id="new-lastname" defaultValue={this.state.lastname}></input>                            
                             </div>
                           </div>
                           <div className = "form-row justify-content-center">
                             <div className="col-md-6 text-center">
                                 <label for="new-age">Age</label>
-                                <input id="new-age" value={this.age}></input>
+                                <input id="new-age" defaultValue={this.state.age}></input>
                             </div>
                             <div className="col-md-6 text-center">
                                 <label for="new-zipcode">Home Zip Code</label>
-                                <input id="new-zipcode" value={this.zipcode}></input>
+                                <input id="new-zipcode" defaultValue={this.state.zipcode}></input>
                             </div>
                           </div>
                           <div className = "form-row justify-content-center">
                             <div className="col-md-6 text-center">
                                 <label for="new-vaccine">Preferred % Vaccinated of Destination Zone</label>
-                                <input type="text" value={this.vaccine} id="new-vaccine"></input>
+                                <input type="text" defaultValue={this.state.vaccine} id="new-vaccine" ></input>
                             </div>
                             <div className="col-md-6 text-center">
                                 <br/><label for="new-prefride">Preferred Ride</label><br/>
-                                <Select id="new-prefride" options={taxiType} />                         
+                                <Select id="new-prefride" options={taxiType} onChange={this.handleChangePrefRide}/>                         
                             </div>
                           </div>
                           <div className = "form-row justify-content-center">
                             <div className="col-md-6 text-center">
                                 <label for="new-homezone">Home Zone</label>
-                                <Select id="new-homezone" options={zoneOptions} />                         
+                                <Select id="new-homezone" options={zoneOptions} onChange={this.handleChangeHomeZone} />                         
                             </div>
                             <div className="col-md-6 text-center">
                                 <label for="new-favzone">Favorite Zone to Travel To</label>
-                                <Select id="new-favzone" options={zoneOptions} />                         
+                                <Select id="new-favzone" options={zoneOptions} onChange={this.handleChangeFavZone} />                         
                             </div>
                           </div>
                           <div className="form-row py-3 justify-content-center">
