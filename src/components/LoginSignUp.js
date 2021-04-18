@@ -84,10 +84,21 @@ class LoginSignUp extends Component {
           password: document.getElementById('password').value
         })
       })
-      .then(res => {
-        localStorage.setItem('username', document.getElementById('username').value);
-        window.location.href = "/signupRedirect";
-      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        if (data.password === "The password is too similar to the username."){
+          alert('The password is too similar to the username. Please enter a new password.');
+        }
+        else if (data.username === "A user with that username already exists."){
+          alert("A user with that username already exists. Please enter a new username.")
+        }
+        else{
+          localStorage.setItem('username', document.getElementById('username').value);
+          window.location.href = "/signupRedirect";
+        }
+      }       
+      )
       .catch(error => {
           console.log("check login")
       })
