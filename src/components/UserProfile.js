@@ -5,6 +5,8 @@ import { Row, Form, Col, Modal, Button } from 'react-bootstrap';
 import Select from 'react-select'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Slider, { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
 // import StarRating from 'react-star-rating'
 
 import {username} from "./LoginSignUp";
@@ -76,6 +78,9 @@ class UserProfile extends Component {
       .catch(error => {
         if (error.toString() === "SyntaxError: Unexpected token I in JSON at position 0"){
           alert("Please enter a valid NYC zipcode");
+        }
+        else if (error.toString() === "SyntaxError: Unexpected token K in JSON at position 0"){
+          alert("Please select an option from the dropdown menu")
         }
         else{
           alert(error.toString())
@@ -159,13 +164,18 @@ class UserProfile extends Component {
             label : zone.zonename
         })
     );
-
+    
+    // Adding marks for slider
+    const marks = {
+      0: '$0', 10: '$10', 20: '$20', 30: '$30', 40: '$40', 50: '$50',
+      60: '$60', 70: '$70', 80: '$80', 90: '$90', 100: '$100',
+    }
 
     return (
       <div className="content"> 
         <div className="container-fluid">
-          <div className="row justify-content-center">
-            <div className="col-lg-8 text-align-center">
+          <div className="row">
+            <div className="col-lg-4 text-align-center">
               <div className="card card-user">
                 <div className="card-image">
                   <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..." />
@@ -178,7 +188,7 @@ class UserProfile extends Component {
                       <b>{username}</b>
                     </h5>
                     <h5 className="mt-5"><u>View My Information</u></h5>
-                    <div className="row">
+                    <div className="row ml-0 mr-0">
                       <div className="col">
                         <table>
                           <tr>
@@ -202,7 +212,7 @@ class UserProfile extends Component {
                               <h5>Preferred % Vaccinated of Destination Zone:</h5>
                             </td>
                             <td className="tl">
-                              <h5>{this.state.vaccine}</h5>
+                              <h5>{this.state.vaccine}%</h5>
                             </td>
                           </tr>
                           <tr>
@@ -244,6 +254,36 @@ class UserProfile extends Component {
                   </div>
                 </div>
                 <hr /> 
+              </div>
+            </div>
+            <div className="col-lg-8 text-align-center">
+              <div className="card card-user">
+                <div className="card-body">
+                  <div className="row">
+                    <h4 className="general-font text-center">
+                      Adjust the settings below to see personalized ride suggestions
+                    </h4>                    
+                  </div>
+                  <hr/>
+                  <div className="row">
+                    <div className="col">
+                      <label className="text-center" for="budget">Adjust budget for trip</label>
+                    </div>
+                    <Slider.Range id='budget' marks={marks} defaultValue={[20, 40]}></Slider.Range> 
+                  </div><br></br>
+                  <div className="row">
+                    <div className="col">
+                      <label for="miles" className="text-center pr-3">Specify maximum distance of trip (miles)</label>
+                      <input size="5" type="text" id="miles"></input>
+                    </div>
+                  </div>
+                  <div className="row pt-2">
+                    <div className="col">
+                      <label for="minutes" className="text-center pr-2">Specify maximum length of trip (minutes)</label>
+                      <input size="5" type="text" id="minutes"></input>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
               
