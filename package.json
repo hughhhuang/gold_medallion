@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.7.1",
     "bootstrap": "^4.6.0",
     "chartist": "^0.11.4",
+    "chartist-plugin-tooltips-updated": "^0.1.4",
     "rc-slider": "^9.7.2",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.0",

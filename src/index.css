@@ -413,3 +413,28 @@ code {
   width: 60% !important;
 }
 
+.chartist-tooltip {
+  opacity: 0;
+  position: absolute;
+  margin: 20px 0 0 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #FFF;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.chartist-tooltip.tooltip-show {
+  opacity: 1;
+}
+
+#month-data .ct-bar {
+  stroke-width: 40;
+}
+
+#day-data .ct-bar {
+  stroke-width: 40;
+}
+
+#hour-data .ct-bar {
+  stroke-width: 10;
+}
