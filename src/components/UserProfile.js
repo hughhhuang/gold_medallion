@@ -31,13 +31,21 @@ class UserProfile extends Component {
       zipcode: 0,
       favzoneid: ' ',
       newFavzoneid: ' ',
-      zoneData: []
+      zoneData: [],
+      minspend:"null",
+      maxspend:"null",
+      minDist:"null",
+      maxDist:"null",
+      maxTime:"null",
+      showSuggestions: false
     }
      
     this.handleClick = this.handleClick.bind(this);
     this.handleChangeFavZone = this.handleChangeFavZone.bind(this);
     this.handleChangeHomeZone = this.handleChangeHomeZone.bind(this);
-    this.handleChangePrefRide = this.handleChangePrefRide.bind(this);  
+    this.handleChangePrefRide = this.handleChangePrefRide.bind(this);
+    this.handleChangeSpend = this.handleChangeSpend(this);
+    this.handleChangeDistance = this.handleChangeDistance(this); 
   }
 
 
@@ -65,9 +73,11 @@ class UserProfile extends Component {
           zoneid: this.state.newHomezone.value,
           zipcode: parseInt(document.getElementById("new-zipcode").value),
           favzoneid: this.state.newFavzoneid.value,
-          minspend:"null",
-          maxspend:"null",
-          vaccpref:"null"
+          minspend: this.state.minspend,
+          maxspend: this.state.maxspend,
+          minRideDistance: this.state.minDist,
+          maxRideDistance: this.state.maxDist,
+          maxRideTime: this.state.maxTime
         })
       })
       .then(res => res.json())
@@ -105,8 +115,23 @@ class UserProfile extends Component {
     console.log(`Option selected:`, newHomezone);
   }
 
-  handleChangeFavZone = (newFavzoneid) => {
-    this.setState({ newFavzoneid });
+  handleChangeFavZone = (favzoneid) => {
+    this.setState({ favzoneid });
+    console.log(`Option selected:`, favzoneid);
+  }
+
+  handleChangeSpend = (spendRange) => {
+    this.setState({
+      minspend: spendRange[0],
+      maxspend: spendRange[1]
+    })
+  }
+
+  handleChangeDistance = (distRange) => {
+    this.setState({
+      minDist: distRange[0],
+      maxDist: distRange[1]
+    })
   }
 
 
@@ -166,11 +191,14 @@ class UserProfile extends Component {
     );
     
     // Adding marks for slider
-    const marks = {
+    const budgetMarks = {
       0: '$0', 10: '$10', 20: '$20', 30: '$30', 40: '$40', 50: '$50',
       60: '$60', 70: '$70', 80: '$80', 90: '$90', 100: '$100',
     }
 
+    const distanceMarks = {
+      0: '0', 10: '10', 20: '20', 30: '30', 40: '40', 50: '50'
+    }
     return (
       <div className="content"> 
         <div className="container-fluid">
@@ -269,13 +297,13 @@ class UserProfile extends Component {
                     <div className="col">
                       <label className="text-center" for="budget">Adjust budget for trip</label>
                     </div>
-                    <Slider.Range id='budget' marks={marks} defaultValue={[20, 40]}></Slider.Range> 
+                    <Slider.Range id='budget' marks={budgetMarks} defaultValue={[20, 40]} onChange={this.handleChangeSpend}></Slider.Range> 
                   </div><br></br>
                   <div className="row">
                     <div className="col">
                       <label for="miles" className="text-center pr-3">Specify maximum distance of trip (miles)</label>
-                      <input size="5" type="text" id="miles"></input>
                     </div>
+                    <Slider.Range id='distance' marks={distanceMarks} max={50} defaultValue={[10, 20]} onChange={this.handleChangeDistance}></Slider.Range> 
                   </div>
                   <div className="row pt-2">
                     <div className="col">
@@ -283,6 +311,14 @@ class UserProfile extends Component {
                       <input size="5" type="text" id="minutes"></input>
                     </div>
                   </div>
+                  <div className="row py-4">
+                    <div className="col text-center">
+                      <Link className="btn btn-primary yellow-btn">
+                        <b>See New Ride Suggestions</b>
+                      </Link>
+                    </div>
+                  </div>
+                  {}
                 </div>
               </div>
             </div>

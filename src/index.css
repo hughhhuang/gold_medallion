@@ -438,3 +438,15 @@ code {
 #hour-data .ct-bar {
   stroke-width: 10;
 }
+
+.rc-slider-handle{
+  border: 2px solid #FFB727;
+}
+
+.rc-slider-dot-active{
+  border-color: #FFB727;
+}
+
+.rc-slider-track{
+  background-color: #FFB727;
+}
