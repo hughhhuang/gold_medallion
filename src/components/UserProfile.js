@@ -26,26 +26,22 @@ class UserProfile extends Component {
       prefride: ' ',
       newPrefride: ' ',
       vaccine: ' ',
-      homezone: ' ',
-      newHomezone: ' ',
+      homezone: 0,
+      newHomezone: 0,
       zipcode: 0,
-      favzoneid: ' ',
-      newFavzoneid: ' ',
+      favzoneid: 0,
+      newFavzoneid: 0,
       zoneData: [],
-      minspend:"null",
-      maxspend:"null",
-      minDist:"null",
-      maxDist:"null",
-      maxTime:"null",
+      minspend:10,
+      maxspend:20,
+      minDist:20,
+      maxDist:40,
+      maxTime:20,
       showSuggestions: false
     }
      
     this.handleClick = this.handleClick.bind(this);
-    this.handleChangeFavZone = this.handleChangeFavZone.bind(this);
-    this.handleChangeHomeZone = this.handleChangeHomeZone.bind(this);
-    this.handleChangePrefRide = this.handleChangePrefRide.bind(this);
-    this.handleChangeSpend = this.handleChangeSpend(this);
-    this.handleChangeDistance = this.handleChangeDistance(this); 
+    this.handlePreferences = this.handlePreferences.bind(this);
   }
 
 
@@ -105,6 +101,59 @@ class UserProfile extends Component {
     }
   }
 
+  
+  handlePreferences(e) {
+    // Updating the user's information in the user table
+    this.setState({
+      maxRideTime: document.getElementById("minutes").value
+    });
+    console.log(this.state.username.value);
+    console.log(this.state.firstname);
+    console.log(this.state.lastname);
+    console.log(this.state.age);
+    console.log(this.state.prefride);
+    console.log(this.state.vaccine);
+    console.log(this.state.newHomezone);
+    console.log(this.state.zipcode);
+    console.log(this.state.newFavzoneid);
+    console.log(this.state.minspend);
+    console.log(this.state.maxspend);
+    console.log(this.state.minDist);
+    console.log(this.state.maxDist);
+    console.log(this.state.maxTime);
+    e.preventDefault();
+    try{
+      const url = "http://172.22.152.9:8000/api/planRide";
+      const response = fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          Username: this.state.username.toString(),
+          // minspend: this.state.minspend,
+          // maxspend: this.state.maxspend,
+          // minridedistance: this.state.minDist,
+          // maxridedistance: this.state.maxDist,
+          // maxridetime: this.state.maxTime
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        // window.location.href = '/profile';
+      })
+      .catch(error => {
+        alert(error.toString());
+      })  
+            
+    }
+    catch(err){
+      alert(err);
+    }
+  }
+
   handleChangePrefRide = (newPrefride) => {
     this.setState({ newPrefride });
     console.log(`Option selected:`, newPrefride);
@@ -115,9 +164,9 @@ class UserProfile extends Component {
     console.log(`Option selected:`, newHomezone);
   }
 
-  handleChangeFavZone = (favzoneid) => {
-    this.setState({ favzoneid });
-    console.log(`Option selected:`, favzoneid);
+  handleChangeFavZone = (newFavzoneid) => {
+    this.setState({ newFavzoneid });
+    console.log(`Option selected:`, newFavzoneid);
   }
 
   handleChangeSpend = (spendRange) => {
@@ -132,6 +181,7 @@ class UserProfile extends Component {
       minDist: distRange[0],
       maxDist: distRange[1]
     })
+    console.log(distRange);
   }
 
 
@@ -162,8 +212,10 @@ class UserProfile extends Component {
           prefride: user[u].prefride,
           vaccine: user[u].vaccine,
           zoneid: this.state.zoneData[user[u].zoneid-1].zonename,
+          newHomezone: this.state.zoneData[user[u].zoneid-1].zoneid,
           zipcode: user[u].zipcode,
-          favzoneid: this.state.zoneData[user[u].favzoneid-1].zonename
+          favzoneid: this.state.zoneData[user[u].favzoneid-1].zonename,
+          newFavzoneid: this.state.zoneData[user[u].favzoneid-1].zoneid
         }))
       }
     }
@@ -313,7 +365,7 @@ class UserProfile extends Component {
                   </div>
                   <div className="row py-4">
                     <div className="col text-center">
-                      <Link className="btn btn-primary yellow-btn">
+                      <Link className="btn btn-primary yellow-btn" onClick={this.handlePreferences}>
                         <b>See New Ride Suggestions</b>
                       </Link>
                     </div>

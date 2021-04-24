@@ -38,6 +38,7 @@ class Query extends Component {
 
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
+    this.handleReset = this.handleReset.bind(this);
 
   }
 async componentWillMount() {
@@ -106,38 +107,6 @@ async componentWillMount() {
         return ([plotHeaders,plotVals])
       }
 
-      // dataByDay.forEach(function(entry){
-      //   byDayGraphHeaders.push(entry.day);
-      //   fare.push(parseFloat(entry.fareAmount).toFixed(2));
-      //   mta.push(parseFloat(entry.mtaTax).toFixed(2));
-      //   tip.push(parseFloat(entry.tipAmount).toFixed(2));
-      //   misc.push(
-      //     (
-      //       parseFloat(entry.totalAmount,2) -
-      //       (
-      //         parseFloat(entry.fareAmount,2) +
-      //         parseFloat(entry.mtaTax,2) +
-      //         parseFloat(entry.tipAmount,2)
-      //       )
-      //     ).toFixed(2)
-      //   )
-      // });
-      // byDayGraphValues.push(
-      //   fare,mta,tip,misc
-      //   // [10,2,3,5,7,8,9],
-      //   // [3,5,8,1,2,48,9]
-      // );
-
-      // dataByMonth.forEach(function(entry){
-      //   byMonthGraphHeaders.push(entry.month);
-      //   byMonthGraphValues.push(parseFloat(entry.totalAmount).toFixed(2));
-      // });
-
-      // dataByHour.forEach(function(entry){
-      //   byHourGraphHeaders.push(entry.hour);
-      //   byHourGraphValues.push(parseFloat(entry.totalAmount).toFixed(2));
-      // });
-
         let dayData = assignStack(dataByDay,byDayGraphHeaders,byDayGraphValues,'day');
         let monthData = assignStack(dataByMonth,byMonthGraphHeaders,byMonthGraphValues,'month');
         let hourData = assignStack(dataByHour,byHourGraphHeaders,byHourGraphValues,'hour');
@@ -179,10 +148,10 @@ async componentWillMount() {
       console.log(this.state.pickupZone.value)
       client.send(JSON.stringify(inputObj));
       this.setState({ toggleOnOpen : true });
-      console.log(this.state.toggleOnOpen)
+      console.log(this.state.toggleOnOpen);
     }
     catch(err){
-      alert("Please select a pickup and dropoff location")
+      alert("Please select a pickup and dropoff location");
     }
   }
 
@@ -206,6 +175,18 @@ async componentWillMount() {
 
   handleChangeDay = (d) => {
     this.setState({ day:d });
+  }
+
+  handleReset(e){
+    e.preventDefault();
+    this.selectMonth.select.clearValue();
+    this.selectDay.select.clearValue();
+    this.selectTime.select.clearValue();
+    this.setState({
+      month: "",
+      time_1: "",
+      day: ""
+    })
   }
 
   render() {
@@ -335,7 +316,7 @@ async componentWillMount() {
             <div className="ml-0 mr-0" id="query-body">
               <div className="card" id="query-card">
                 <div className="card-body">
-                  <form id="query-selection" onSubmit={this.handleClick}>
+                  <form id="query-selection">
                     <div className = "form-row justify-content-center">
                       <div className="col-md-4 text-center">
                         <label for="pickup">Pickup Zone:</label>
@@ -355,20 +336,33 @@ async componentWillMount() {
                     <div className="form-row justify-content-center">
                       <div className="col-3 text-center">
                         <label for="month">Month of Travel</label>
-                        <Select id="month" onChange = {this.handleChangeMonth} options={month} />
+                        <Select id="month" onChange = {this.handleChangeMonth} options={month} 
+                                  ref={ref => {
+                                    this.selectMonth = ref;
+                                  }}
+                        />
                       </div>
                       <div className="col-3 text-center">
                         <label for="time-1">Time</label>
-                        <Select id="time-2" onChange = {this.handleChangeTime} options={time_1} />
+                        <Select id="time-2" onChange = {this.handleChangeTime} options={time_1} 
+                                  ref={ref => {
+                                    this.selectTime = ref;
+                                  }}
+                        />
                       </div>
                       <div className="col-2 text-center">
                         <label for="day">All Days/Weekday/Weekend</label>  
-                        <Select id="day" onChange = {this.handleChangeDay} options={day} />
+                        <Select id="day" onChange = {this.handleChangeDay} options={day} 
+                                  ref={ref => {
+                                    this.selectDay = ref;
+                                  }}
+                        />
                       </div>
                     </div>  
 
                     <div className="form-row py-4 justify-content-center">
-                        <button id="query-submit" type="submit">Get my estimate</button>   
+                      <button id="query-submit" onClick={this.handleClick}>Get my estimate</button> 
+                      <button id="query-submit" onClick={this.handleReset}>Reset Optional Filters</button>
                     </div>
                   </form>
                 </div>
