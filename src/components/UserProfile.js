@@ -103,27 +103,10 @@ class UserProfile extends Component {
 
   
   handlePreferences(e) {
-    // Updating the user's information in the user table
-    this.setState({
-      maxRideTime: document.getElementById("minutes").value
-    });
-    console.log(this.state.username.value);
-    console.log(this.state.firstname);
-    console.log(this.state.lastname);
-    console.log(this.state.age);
-    console.log(this.state.prefride);
-    console.log(this.state.vaccine);
-    console.log(this.state.newHomezone);
-    console.log(this.state.zipcode);
-    console.log(this.state.newFavzoneid);
-    console.log(this.state.minspend);
-    console.log(this.state.maxspend);
-    console.log(this.state.minDist);
-    console.log(this.state.maxDist);
-    console.log(this.state.maxTime);
+    // Updating the user's ride preferences in the user table
     e.preventDefault();
     try{
-      const url = "http://172.22.152.9:8000/api/planRide";
+      const url = "http://172.22.152.9:8000/api/planRide/";
       const response = fetch(url, {
         method: 'POST',
         headers: {
@@ -131,12 +114,13 @@ class UserProfile extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          Username: this.state.username.toString(),
-          // minspend: this.state.minspend,
-          // maxspend: this.state.maxspend,
-          // minridedistance: this.state.minDist,
-          // maxridedistance: this.state.maxDist,
-          // maxridetime: this.state.maxTime
+          username: this.state.username.toString(),
+          minspend: this.state.minspend,
+          maxspend: this.state.maxspend,
+          vaccpref: parseInt(this.state.vaccine),
+          minridedistance: this.state.minDist,
+          maxridedistance: this.state.maxDist,
+          maxridetime: document.getElementById("minutes").value
         })
       })
       .then(res => res.json())
@@ -147,7 +131,9 @@ class UserProfile extends Component {
       .catch(error => {
         alert(error.toString());
       })  
-            
+      this.setState({
+        showSuggestions: true
+      })
     }
     catch(err){
       alert(err);
@@ -370,7 +356,13 @@ class UserProfile extends Component {
                       </Link>
                     </div>
                   </div>
-                  {}
+                  {this.state.showSuggestions && (<div>
+                    <hr/>
+                    <div class="row py-4" id="ride-suggestions">
+                      Ride suggestions shown here
+                    </div>
+
+                  </div>)}
                 </div>
               </div>
             </div>
