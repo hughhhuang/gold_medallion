@@ -115,7 +115,7 @@ class GetUserRides extends Component {
     const notify = () => toast(this.state.serviceResponse);
 
     return (
-        <div id="query-body">
+        <div className="ml-0 mr-0 pl-4 pr-4" id="query-body">
             <div className="card" id="query-card">
                 <div className="card-body">
                     <div class="row">
@@ -144,7 +144,7 @@ class GetUserRides extends Component {
                             </div>
                             ))}
                           </div>
-                          <h3>Public Rides</h3>
+                          <h3 className="general-font">Public Rides</h3>
                           <div class="col-sm-12">
                           {this.state.publicRidesData.map(userRide => (
                             <div class="card">

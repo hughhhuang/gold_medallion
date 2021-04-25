@@ -439,6 +439,32 @@ async componentWillMount() {
                     </div>
                   </div>
                 </div>  
+                <div className="row">
+                  <div className="col-lg-6">
+                    <div className="card">
+                      <div className="card-header ">
+                        <h4 className="card-title">Number of Covid Cases Per Month of Pickup Borough</h4>
+                        <p className="card-category">Total number of cases in borough per month</p>
+                      </div>
+                      <div id="month-data" className="card-body">
+                        <ChartistGraph data={byMonthData} options={stackedOptions} type="Bar" />
+                        <hr />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-lg-6">
+                    <div className="card">
+                      <div className="card-header ">
+                        <h4 className="card-title">Number of Covid Cases Per Month of Dropoff Borough</h4>
+                        <p className="card-category">Total number of cases in borough per month</p>
+                      </div>
+                      <div className="card-body " id="day-data">
+                        <ChartistGraph data={byDayData} options={stackedOptions} type="Bar" />
+                        <hr />
+                      </div>
+                    </div>
+                  </div>
+                </div> 
               </div>)}         
             </div>
           </div>        

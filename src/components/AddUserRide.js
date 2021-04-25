@@ -122,7 +122,7 @@ class AddUserRide extends Component {
     const notify = () => toast(this.state.serviceResponse);
 
     return (
-        <div id="query-body">
+        <div className="ml-0 mr-0" id="query-body">
             <div className="card" id="query-card">
                 <div className="card-body">
                     <form id="query-selection" onSubmit={this.handleClick}>
