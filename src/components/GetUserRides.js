@@ -22,6 +22,7 @@ class GetUserRides extends Component {
       userRidesData:[],
       publicRidesData:[],
       rideStats:[],
+      isPublicRide: ""
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -40,6 +41,7 @@ class GetUserRides extends Component {
       "rideId":e.target.id
       };
     client.send(JSON.stringify(inputObj));
+    window.href = "/getuserrides";
   }
 
     handleEditRide(e) {
@@ -101,7 +103,8 @@ class GetUserRides extends Component {
             this.setState(state=> ({
                 userRidesData: result.data,
                 publicRidesData: result.publicData
-            })); 
+            }));       
+          window.href = "/getuserrides";
         }
         else{
             //print unccessful message
@@ -153,53 +156,60 @@ class GetUserRides extends Component {
             <div className="card" id="query-card">
                 <div className="card-body">
                     <div class="row">
-                          <div class="col-sm-12">
-                          {this.state.userRidesData.map(userRide => (
+                    {this.state.userRidesData.map(userRide => (
+                          <div class="col-lg-6">
                             <div class="card">
                               <div class="card-body">
-                                <p class="card-title">From: {zoneOptions[userRide.rideDetails.pl]} </p>
-                                <p class="card-title">To: {zoneOptions[userRide.rideDetails.dl]}</p>
+                                <h4 class="general-font my-1">From: {zoneOptions[userRide.rideDetails.pl]} </h4>
+                                <h4 class="general-font my-1">To: {zoneOptions[userRide.rideDetails.dl]}</h4>
                                 <p>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                                 </svg>
                                 {userRide.rideDetails.numOfPassengers} 
                                 </p>
-                                <p>Ride Experience {userRide.rideDetails.taxiRideExperience} stars</p>
-                                <p>Public Ride? {userRide.rideDetails.exposeRideToPublic}</p>
-                                <p>Total Ride Amount: ${userRide.rideDetails.totalRideAmount}</p>
-                                <p></p>
-                                <p>Tip Amount: ${userRide.rideDetails.tipAmount}</p>
-                                <p>Total Ride Time: {userRide.rideDetails.totalRideTime} minutes</p>
-                                <a href="#" class="btn btn-primary" id={userRide.uniqueKey} onClick={this.handleDeleteRide}>Delete This Ride</a>
-                                <Link className="btn btn-primary btn-lg" to={{pathname:"/edituserride", state:JSON.stringify(userRide)}}>
+                                <p><b>Ride Experience:</b> {userRide.rideDetails.taxiRideExperience} stars</p>
+                                <p><b>Public Ride:</b> {userRide.rideDetails.exposeRideToPublic}</p>
+                                <p><b>Total Ride Amount:</b> ${userRide.rideDetails.totalRideAmount}</p>
+                                <p className="pl-5">→ 25th percentile: ${userRide.userRideStats.totalAmountPercentiles[0]}, 75th percentile: ${userRide.userRideStats.totalAmountPercentiles[1]}</p>
+                                <p><b>Tip Amount:</b> ${userRide.rideDetails.tipAmount}</p>
+                                <p className="pl-5">→ 25th percentile: ${userRide.userRideStats.tipAmountPercentiles[0]}, 75th percentile: ${userRide.userRideStats.tipAmountPercentiles[1]}</p>
+                                <p><b>Total Ride Time:</b> {userRide.rideDetails.totalRideTime} minutes</p>
+                                <div className="mb-4">
+                                <a href="#" className="btn btn-primary yellow-btn" id={userRide.uniqueKey} onClick={this.handleDeleteRide}>
+                                  <b>Delete This Ride</b>
+                                </a>
+                                <Link className="ml-3 btn btn-primary yellow-btn" to={{pathname:"/edituserride", state:JSON.stringify(userRide)}}>
                                     <b>Edit This Ride</b>
                                 </Link>
                               </div>
                             </div>
-                            ))}
                           </div>
-                          <h3 className="general-font">Public Rides</h3>
-                          <div class="col-sm-12">
-                          {this.state.publicRidesData.map(userRide => (
-                            <div class="card">
-                              <div class="card-body">
-                                <p class="card-title">From: {zoneOptions[userRide.rideDetails.pl]}</p>
-                                <p class="card-title">To: {zoneOptions[userRide.rideDetails.dl]}</p>
-                                <p>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                </svg>
-                                {userRide.rideDetails.numOfPassengers} 
-                                </p>
-                                <p>Ride Experience {userRide.rideDetails.taxiRideExperience} stars</p>
-                                <p>Total Ride Amount: ${userRide.rideDetails.totalRideAmount}</p>
-                                <p>Tip Amount: ${userRide.rideDetails.tipAmount}</p>
-                                <p>Total Ride Time: {userRide.rideDetails.totalRideTime} minutes</p>
+                        </div>
+                    ))}</div>
+                          <div className="row">
+                            <h3 className="general-font">Public Rides</h3>
+                            <hr/>
+                            <div class="col-sm-12">
+                            {this.state.publicRidesData.map(userRide => (
+                              <div class="card">
+                                <div class="card-body">
+                                  <p class="card-title">From: {zoneOptions[userRide.rideDetails.pl]}</p>
+                                  <p class="card-title">To: {zoneOptions[userRide.rideDetails.dl]}</p>
+                                  <p>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                  </svg>
+                                  {userRide.rideDetails.numOfPassengers} 
+                                  </p>
+                                  <p>Ride Experience {userRide.rideDetails.taxiRideExperience} stars</p>
+                                  <p>Total Ride Amount: ${userRide.rideDetails.totalRideAmount}</p>
+                                  <p>Tip Amount: ${userRide.rideDetails.tipAmount}</p>
+                                  <p>Total Ride Time: {userRide.rideDetails.totalRideTime} minutes</p>
+                                </div>
                               </div>
+                              ))}
                             </div>
-                            ))}
-                          </div>
                         </div>
                         <Modal show={this.state.isOpen} onHide={this.closeModal}>
                           <Modal.Header closeButton>
