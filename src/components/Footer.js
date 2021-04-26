@@ -10,13 +10,13 @@ class Footer extends Component {
             <ul className="footer-menu">
               <li>
                 <Link to="/">
-                  Home
+                  Return Home
                 </Link>
               </li>
 
             </ul>
             <p className="copyright text-center">
-              © 2019
+              © 2021
           </p>
           </nav>
         </div>
