@@ -36,6 +36,10 @@ class Query extends Component {
         byHourGraphHeaders:['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
         byHourGraphValues:[],
         mlTip: 0,
+        showCovidStats: false,
+        covidLabels:['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+        covidValues: [[5, 2, 4, 2, 0]],
+        dropoffBurough: ''      
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -51,7 +55,7 @@ async componentWillMount() {
     this.setState(state=> ({
         zoneData: zones,
     }))
-
+    
     client.onopen = () => {
       console.log('WebSocket Client Connected');
     };
@@ -168,6 +172,19 @@ async componentWillMount() {
 
   handleChangeDO = (dropoffZone) => {
     this.setState({ dropoffZone });
+    this.setState({
+      showCovidStats:true,
+
+    });
+    // const url = "http://172.22.152.9:8000/api/covidDataByDay"
+    // const response = await fetch(url);
+    // const zones = await response.json();
+    
+    // this.setState(state=> ({
+    //     zoneData: zones,
+    // }))
+    
+    this.setState({showCovidStats:true});
     console.log(`Option selected:`, dropoffZone);
   }
 
@@ -233,6 +250,7 @@ async componentWillMount() {
       chartPadding: 40,
       labelOffset: 60,
       labelDirection: 'explode',
+      height: "300px"
     }
 
     let month = [
@@ -297,7 +315,18 @@ async componentWillMount() {
       series: this.state.byHourGraphValues
     }
 
+    let covidData = {
+      labels: this.state.covidLabels,
+      series: this.state.covidValues
+    }
 
+    let covidOptions = {
+      high:5,
+      low:0,
+      showPoint: false,
+      width: '300px',
+      height: '100px'
+    }
     const stackedOptions = {
       stackBars: true,
       // axisY: {
@@ -333,8 +362,15 @@ async componentWillMount() {
                         <Select id="dropoff" onChange = {this.handleChangeDO} options={zoneOptions} />                      
                       </div>
                     </div>
-                    <div className="form-row justify-content-center">
-                      <div className="col-6 mt-5">
+                    {this.state.showCovidStats && (<div className="form-row justify-content-center py-0">
+                      <div className="col-6 my-0 py-0 text-center" id="covid-graph">
+                        <h6 className="text-center pt-3">Trend in Covid Cases for Dropoff Burough</h6>
+                        <hr/>
+                        <ChartistGraph id="covid" data={covidData} options={covidOptions} type="Line" />
+                      </div>
+                    </div>)}
+                    <div className="form-row justify-content-center pt-4">
+                      <div className="col-6">
                         <h6 className="text-center">Specify optional time details below for more precise analytics</h6>
                         <hr></hr>
                       </div>
@@ -378,6 +414,22 @@ async componentWillMount() {
                   <div className="col justify-content-center">
                     <h4 className="general-font text-center">The average total amount paid for this trip is ${this.state.averageTotalAmount}</h4>
                     <h5 className="general-font text-center"><i>Although the average rider tips ${tip}, our algorithms recommend that you tip ${this.state.mlTip}</i></h5>
+                  </div> 
+                </div>
+                <div className="row justify-content-center">
+                  <div className="col-lg-5 text-center">
+                    <div className="card">
+                      <div className="card-header ">
+                        <h4 className="card-title">Color Scheme Used in Plots</h4>
+                        <p className="card-category">Miscellaneous costs include toll, surcharge, and congestion cost</p>
+                      </div>
+                      <div className="card-body">
+                        <i className="fa fa-square ct-series-a"></i>Fare
+                        <i className="fa fa-square ct-series-b pl-5 mr-3"></i> MTA 
+                        <i className="fa fa-square ct-series-c pl-5 mr-3"></i> Tip
+                        <i className="fa fa-square ct-series-d pl-5 mr-3"></i> Misc 
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="row">
@@ -390,7 +442,7 @@ async componentWillMount() {
                       <div className="card-body ">
                         <div className="row">
                           <div className="col-8">
-                            <ChartistGraph data={dataPie} options={pieOptions} type="Pie" />
+                            <ChartistGraph className="mt-0" data={dataPie} options={pieOptions} type="Pie" />
                           </div>
                           <div className="col-4 pt-5 mt-4">
                             <div className="legend">

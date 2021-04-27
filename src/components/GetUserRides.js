@@ -22,11 +22,12 @@ class GetUserRides extends Component {
       userRidesData:[],
       publicRidesData:[],
       rideStats:[],
-      isPublicRide: ""
+      isPublicRide: "",
     };
 
     // This binding is necessary to make `this` work in the callback
     this.handleDeleteRide = this.handleDeleteRide.bind(this);
+    this.handleMedian = this.handleMedian.bind(this);
   }
 
   openModal = () => this.setState({ isOpen: true });
@@ -63,6 +64,20 @@ class GetUserRides extends Component {
         currState[field] = e.value;
     }
     this.setState({ form:currState });
+  }
+
+  handleMedian(average,median){
+    var text = '';
+    var diff = 0;
+    if (median>average){
+      diff=median-average;
+      text= "($"+diff.toString()+" lower than the median ride)"
+    }
+    else if (median<average){
+      diff=average-median;
+      text= "($"+diff.toString()+" higher than the median ride)"
+    }
+    return text;
   }
 
   async componentWillMount() {
@@ -170,10 +185,14 @@ class GetUserRides extends Component {
                                 </p>
                                 <p><b>Ride Experience:</b> {userRide.rideDetails.taxiRideExperience} stars</p>
                                 <p><b>Public Ride:</b> {userRide.rideDetails.exposeRideToPublic}</p>
-                                <p><b>Total Ride Amount:</b> ${userRide.rideDetails.totalRideAmount}</p>
-                                <p className="pl-5">→ 25th percentile: ${userRide.userRideStats.totalAmountPercentiles[0]}, 75th percentile: ${userRide.userRideStats.totalAmountPercentiles[1]}</p>
-                                <p><b>Tip Amount:</b> ${userRide.rideDetails.tipAmount}</p>
-                                <p className="pl-5">→ 25th percentile: ${userRide.userRideStats.tipAmountPercentiles[0]}, 75th percentile: ${userRide.userRideStats.tipAmountPercentiles[1]}</p>
+                                <p><b>Total Ride Amount:</b> ${userRide.rideDetails.totalRideAmount} <i>{this.handleMedian(
+                                  userRide.rideDetails.totalRideAmount, userRide.userRideStats.totalAmountPercentiles[1]
+                                )}</i></p>
+                                <p className="pl-5"><b>→ 25th percentile: </b>${userRide.userRideStats.totalAmountPercentiles[0]}, <b>75th percentile: </b>${userRide.userRideStats.totalAmountPercentiles[2]}</p>
+                                <p><b>Tip Amount:</b> ${userRide.rideDetails.tipAmount} <i> {this.handleMedian(
+                                  userRide.rideDetails.tipAmount, userRide.userRideStats.tipAmountPercentiles[1]
+                                )}</i></p>
+                                <p className="pl-5">→ <b>25th percentile: </b>${userRide.userRideStats.tipAmountPercentiles[0]},<b> 75th percentile:</b> ${userRide.userRideStats.tipAmountPercentiles[2]}</p>
                                 <p><b>Total Ride Time:</b> {userRide.rideDetails.totalRideTime} minutes</p>
                                 <div className="mb-4">
                                 <a href="#" className="btn btn-primary yellow-btn" id={userRide.uniqueKey} onClick={this.handleDeleteRide}>
@@ -211,63 +230,7 @@ class GetUserRides extends Component {
                               ))}
                             </div>
                         </div>
-                        <Modal show={this.state.isOpen} onHide={this.closeModal}>
-                          <Modal.Header closeButton>
-                            <Modal.Title>Updating User Information for <i><b>{username}</b></i></Modal.Title>
-                          </Modal.Header>
-                          <Modal.Body>
-                            <form id="query-selection" onSubmit={this.handleClick}>
-                              <div className = "form-row justify-content-center">
-                                <div className="col-md-6 text-center">
-                                    <label for="new-firstname">First Name</label>
-                                    <input id="new-firstname" defaultValue={this.state.firstname}></input>
-                                </div>
-                                <div className="col-md-6 text-center">
-                                    <label for="new-lastname">Last Name</label>
-                                    <input id="new-lastname" defaultValue={this.state.lastname}></input>                            
-                                </div>
-                              </div>
-                              <div className = "form-row justify-content-center">
-                                <div className="col-md-6 text-center">
-                                    <label for="new-age">Age</label>
-                                    <input id="new-age" defaultValue={this.state.age}></input>
-                                </div>
-                                <div className="col-md-6 text-center">
-                                    <label for="new-zipcode">Home Zip Code</label>
-                                    <input id="new-zipcode" defaultValue={this.state.zipcode}></input>
-                                </div>
-                              </div>
-                              <div className = "form-row justify-content-center">
-                                <div className="col-md-6 text-center">
-                                    <label for="new-vaccine">Preferred % Vaccinated of Destination Zone</label>
-                                    <input type="text" defaultValue={this.state.vaccine} id="new-vaccine" ></input>
-                                </div>
-                                <div className="col-md-6 text-center">
-                                    <br/><label for="new-prefride">Preferred Ride</label><br/>
-                                    {/* <Select id="new-prefride" options={taxiType} onChange={this.handleChangePrefRide}/>                          */}
-                                </div>
-                              </div>
-                              <div className = "form-row justify-content-center">
-                                <div className="col-md-6 text-center">
-                                    <label for="new-homezone">Home Zone</label>
-                                    <Select id="new-homezone" options={zoneOptions} onChange={this.handleChangeHomeZone} />                         
-                                </div>
-                                <div className="col-md-6 text-center">
-                                    <label for="new-favzone">Favorite Zone to Travel To</label>
-                                    <Select id="new-favzone" options={zoneOptions} onChange={this.handleChangeFavZone} />                         
-                                </div>
-                              </div>
-                              <div className="form-row py-3 justify-content-center">
-                                  <button id="query-submit" type="submit">Update User Information</button>   
-                              </div>
-                            </form>
-                          </Modal.Body>
-                          <Modal.Footer>
-                            <Button variant="secondary" onClick={this.closeModal}>
-                              Close
-                            </Button>
-                          </Modal.Footer>
-                        </Modal>
+                       
                     <div>
                         <ToastContainer />
                     </div>

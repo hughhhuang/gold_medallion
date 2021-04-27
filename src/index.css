@@ -450,3 +450,23 @@ code {
 .rc-slider-track{
   background-color: #FFB727;
 }
+
+#covid-graph{
+  width:300px;
+  height:200px;
+}
+
+#covid-graph * {
+  stroke: #FFB727;
+}
+
+/* .css-1pahdxg-control:hover{
+  border-color: #FFB727 !important;
+  box-shadow: 0px 0px 0px 1px #FFB727 !important; 
+}
+
+.css-1pahdxg-control{
+  border-color: #FFB727 !important;
+  box-shadow: 0px 0px 0px 1px #FFB727 !important; 
+  background-color: #FFB727;
+} */
