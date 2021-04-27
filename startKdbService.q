@@ -65,6 +65,7 @@ getUserEstimatedFare:{[pl;dl;optionalFields]
 	dataByHour:getDataByHour[pl;dl;requiredConds];
 	result,:(`dataByMonth`dataByDay`dataByHour)!(dataByMonth;dataByDay;dataByHour);
 	result,:(enlist `getPlanRideStats)!enlist getPlanRideStats[requiredConds];
+	result,:(enlist `mlRecommendedTipAmount)!(enlist getMlRecommendedTipValue[pl;dl;0N;1;0N]);
 	result
 	}
 
@@ -202,10 +203,10 @@ getPercentileStats:{[pl;dl;m;st;d;pc]
 	totalAmountData:exec totalAmount from data;
 	tipAmountData:exec tipAmount from data;
 	tripDistance:exec tripDistance from data;
-	totalAmountPercentiles:(percentile[totalAmountData;25];percentile[totalAmountData;75]);
-	tipAmountPercentiles:(percentile[tipAmountData;25];percentile[tipAmountData;75]);
-	tripDistancePercentiles:(percentile[tripDistance;25];percentile[tripDistance;75]);
-	:(`farePercentiles`tipAmountPercentiles`tripDistancePercentiles)!(farePercentiles;tipAmountPercentiles;tripDistancePercentiles)
+	totalAmountPercentiles:(percentile[totalAmountData;25];percentile[totalAmountData;50];percentile[totalAmountData;75]);
+	tipAmountPercentiles:(percentile[tipAmountData;25];percentile[tipAmountData;50];percentile[tipAmountData;75]);
+	tripDistancePercentiles:(percentile[tripDistance;25];percentile[tripDistance;50];percentile[tripDistance;75]);
+	:(`totalAmountPercentiles`tipAmountPercentiles`tripDistancePercentiles)!(totalAmountPercentiles;tipAmountPercentiles;tripDistancePercentiles)
 	}
 
 
@@ -220,7 +221,7 @@ olsfit:{[x;y] (inv (flip x) mmu x) mmu ((flip x) mmu y) }
 
 getMlRecommendedTipValue:{[pl;dl;tripDistance;passengerCount;fareAmount]
 	if[null tripDistance;tripDistance:exec first tripDistance from select avg tripDistance from taxiData where pickupLoc=pl,dropoffLoc=dl, not tripDistance=0];
-	if[null fareAmount;fareAmount:exec first fareAmount from select avg tripDistance from taxiData where pickupLoc=pl,dropoffLoc=dl,not fareAmount=0];
+	if[null fareAmount;fareAmount:exec first fareAmount from select avg fareAmount from taxiData where pickupLoc=pl,dropoffLoc=dl,not fareAmount=0];
 	numericalDataToUse:select tripDistance:"f"$tripDistance,passengerCount:"f"$passengerCount,fareAmount:"f"$fareAmount,tipAmount:"f"$tipAmount from taxiData where pickupLoc=pl,dropoffLoc=dl, not tripDistance=0, not null tripDistance, not null passengerCount, not null fareAmount,not null tipAmount,not passengerCount=0;
 	if[not count numericalDataToUse;:0N];
 	res:olsfit[flip value exec tripDistance,passengerCount, fareAmount from numericalDataToUse;enlist each exec tipAmount from numericalDataToUse];
