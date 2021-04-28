@@ -88,6 +88,7 @@ class AddUserRide extends Component {
             //print success
             toast("Successfully added ride");
             // this.state.serviceResponse="Successfully added ride";
+            window.location.href = "/adduserride"
         }
         else{
             //print unccessful message

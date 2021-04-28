@@ -23,6 +23,7 @@ class GetUserRides extends Component {
       publicRidesData:[],
       rideStats:[],
       isPublicRide: "",
+      showRides: false
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -97,29 +98,57 @@ class GetUserRides extends Component {
     client.onmessage = (message) => {
       console.log(message);
       var result=JSON.parse(message.data);
+      if (result.data != null){
+        this.setState({
+          showRides: true, 
+        })
+      }
+      else {
+        this.setState({
+          showRides: false, 
+        })
+      }
       if(result.function=="getUserRides"){
-        this.setState(state=> ({
-          userRidesData: result.data,
-          publicRidesData: result.publicData
-        }));  
+        console.log(result.data == null) 
+        if (result.data == null){
+          this.setState({
+            userRidesData: [],
+            publicRidesData: result.publicData
+          })
+        }
+        else{
+          this.setState(state=> ({
+            userRidesData: result.data,
+            publicRidesData: result.publicData
+          })); 
+        }
       }
       
       if(result.function=="getUserRides"){
         if(result.result!="OK"){
-                        //print unccessful message
-            toast("Failed to get rides");
+          //print unccessful message
+            console.log("Failed to get rides");
         }
+        
       }
 
       if(result.function=="deleteUserRide"){
         if(result.result=="OK"){
             //print success
             toast("Successfully Deleted ride");
-            this.setState(state=> ({
+            if (result.data == null){
+              this.setState({
+                userRidesData: [],
+                publicRidesData: result.publicData
+              })
+            }
+            else{
+              this.setState(state=> ({
                 userRidesData: result.data,
                 publicRidesData: result.publicData
-            }));       
-          window.href = "/getuserrides";
+              })); 
+            }      
+          window.location.href = "/getuserrides";
         }
         else{
             //print unccessful message
@@ -170,7 +199,9 @@ class GetUserRides extends Component {
         <div className="ml-0 mr-0 pl-4 pr-4" id="query-body">
             <div className="card" id="query-card">
                 <div className="card-body">
-                    <div class="row">
+                   
+                    {this.state.showRides && (
+                       <div class="row"> 
                     {this.state.userRidesData.map(userRide => (
                           <div class="col-lg-6">
                             <div class="card">
@@ -205,11 +236,12 @@ class GetUserRides extends Component {
                             </div>
                           </div>
                         </div>
-                    ))}</div>
+                    ))}</div>)}
                           <div className="row">
                             <h3 className="general-font">Public Rides</h3>
                             <hr/>
-                            <div class="col-sm-12">
+                            {this.state.showRides && 
+                            (<div class="col-sm-12">
                             {this.state.publicRidesData.map(userRide => (
                               <div class="card">
                                 <div class="card-body">
@@ -228,7 +260,7 @@ class GetUserRides extends Component {
                                 </div>
                               </div>
                               ))}
-                            </div>
+                            </div>)}
                         </div>
                        
                     <div>
