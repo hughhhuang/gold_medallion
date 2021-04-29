@@ -456,8 +456,13 @@ code {
   height:200px;
 }
 
-#covid-graph * {
-  stroke: #FFB727;
+/* #covid-graph > { */
+  .ct-line{
+  stroke: #FFB727 !important;
+}
+
+.ct-grid {
+  stroke: rgb(0,0,0,.1) !important;
 }
 
 /* .css-1pahdxg-control:hover{
