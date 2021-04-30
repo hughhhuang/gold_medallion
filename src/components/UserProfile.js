@@ -174,44 +174,64 @@ class UserProfile extends Component {
   async componentWillMount() {
 
     // Getting data for zones
-    const zonesUrl = "http://172.22.152.9:8000/api/nygm/?format=json"
-    const zonesRes = await fetch(zonesUrl);
-    const zones = await zonesRes.json();
+    // const zonesUrl = "http://172.22.152.9:8000/api/nygm/?format=json"
+    // const zonesRes = await fetch(zonesUrl);
+    // const zones = await zonesRes.json();
     
-    this.setState(state=> ({
-        zoneData: zones,
-    }))
-    console.log(this.state.zoneData);
+    // this.setState(state=> ({
+    //     zoneData: zones,
+    // }))
+    // console.log(this.state.zoneData);
 
     // Getting user data from the user table
-    const userTableUrl = "http://172.22.152.9:8000/api/usertable/?format=json";
-    const userTableRes = await fetch(userTableUrl);
-    const user = await userTableRes.json();
-    for (var u in user){
-      console.log(user[u].username);
-      if (user[u].username === this.state.username){
-        console.log('ture');
-        this.setState(state=> ({
-          firstname: user[u].firstname,
-          lastname: user[u].lastname,
-          age: user[u].age,
-          prefride: user[u].prefride,
-          vaccine: user[u].vaccine,
-          zoneid: this.state.zoneData[user[u].zoneid-1].zonename,
-          newHomezone: this.state.zoneData[user[u].zoneid-1].zoneid,
-          zipcode: user[u].zipcode,
-          favzoneid: this.state.zoneData[user[u].favzoneid-1].zonename,
-          newFavzoneid: this.state.zoneData[user[u].favzoneid-1].zoneid
-        }))
-      }
-    }
+    // const userTableUrl = "http://172.22.152.9:8000/api/usertable/?format=json";
+    // const userTableRes = await fetch(userTableUrl);
+    // const user = await userTableRes.json();
+    // for (var u in user){
+    //   console.log(user[u].username);
+    //   if (user[u].username === this.state.username){
+    //     console.log('ture');
+    //     this.setState(state=> ({
+    //       firstname: user[u].firstname,
+    //       lastname: user[u].lastname,
+    //       age: user[u].age,
+    //       prefride: user[u].prefride,
+    //       vaccine: user[u].vaccine,
+    //       zoneid: this.state.zoneData[user[u].zoneid-1].zonename,
+    //       newHomezone: this.state.zoneData[user[u].zoneid-1].zoneid,
+    //       zipcode: user[u].zipcode,
+    //       favzoneid: this.state.zoneData[user[u].favzoneid-1].zonename,
+    //       newFavzoneid: this.state.zoneData[user[u].favzoneid-1].zoneid
+    //     }))
+    //   }
+    // }
     client.onopen = () => {
       console.log('WebSocket Client Connected');
+      // Getting recommended rides
+    var inputObj = {
+      "function":"createUserRideRecommendations",
+      "userZone":236,
+      "zoneIds": [238,235,234,231],
+      "minSpendature": 10,
+      "maxSpendature": 20,
+      "maxDistance": 5
+      // "minSpendature": this.state.minspend,
+      // "maxSpendature": this.state.maxspend,
+      // "maxDistance": this.state.maxDist
+      };
+    client.send(JSON.stringify(inputObj));
+    client.onmessage = (message) => {
+      console.log(message)
+      var result=JSON.parse(message.data);
+      console.log(result);
+    }
     };
     client.onmessage = (message) => {
       console.log(message);
       var result=JSON.parse(message.data);
     };
+
+  
   }
 
   render() {
