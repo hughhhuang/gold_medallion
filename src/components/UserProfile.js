@@ -7,6 +7,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import Tab from 'react-bootstrap/Tab'
+import Tabs from 'react-bootstrap/Tabs'
 // import StarRating from 'react-star-rating'
 
 import {username} from "./LoginSignUp";
@@ -41,7 +43,8 @@ class UserProfile extends Component {
       showSuggestions: false,
       userNeigh: [],
       userZones: [],
-      recommendedRides: []
+      recommendedRides: [],
+      randIndices: []
     }
      
     this.handleClick = this.handleClick.bind(this);
@@ -158,10 +161,26 @@ class UserProfile extends Component {
         })
         .then(res => res.json())
         .then(data => {
-          console.log(data)
+          // Getting 5 random indices to show for recommended neighborhoods
+          var a = Object.keys(data);
+          var n;
+          var r=[];
+          for (n=1; n<=5; ++n)
+          {
+            var i = Math.floor((Math.random() * (a.length-n)) + 1);
+            r.push(parseInt(a[i]));
+            a[i] = a[20-n];
+          }
+          var userNeigh = []
+          for (var i in r){
+            userNeigh.push(data[i])
+          }
+
           this.setState({
-            userNeigh: data,
+            userNeigh: userNeigh,
+            randIndices: r
           })
+
         })
 
         const zoneUrl = "http://172.22.152.9:8000/api/getUserZoneIDs/";
@@ -208,11 +227,6 @@ class UserProfile extends Component {
             "maxSpendature": this.state.maxspend,
             "maxDistance": this.state.maxDist
           };
-          console.log(this.state.newHomezone)
-          console.log(this.state.userZones)
-          console.log(this.state.minspend)
-          console.log(this.state.maxspend)
-          console.log(this.state.maxDist)
           client.send(JSON.stringify(inputObj));
           client.onmessage = (message) => {
             var result=JSON.parse(message.data);
@@ -449,19 +463,35 @@ class UserProfile extends Component {
                   </div>
                   {this.state.showSuggestions && (<div>
                     <hr/>
-                    {this.state.recommendedRides.map(ride => (
-                      <div>
-                        <div className="mx-3 py-2">
-                          {/* <h4 class="general-font my-1">From: {ride.pickupLoc} </h4>
-                          <h4 class="general-font my-1">To: {ride.dropoffLoc}</h4> */}
-                          <h4 class="general-font my-1">From: {zoneOptions[ride.pickupLoc].label} </h4>
-                          <h4 class="general-font mt-1">To: {zoneOptions[ride.dropoffLoc].label}</h4>
-                          <p><b>Total Amount: </b>${ride.avgTotalAmount.toFixed(2)}</p>
-                          <p><b>Total Trip Distance: </b>{ride.avgTripDistance.toFixed(2)} miles</p>
-                          <hr/>
+                    <Tabs defaultActiveKey="rides" id="uncontrolled-tab-example">
+                      <Tab eventKey = "rides" title="Recommended Rides">
+                        {this.state.recommendedRides.map(ride => (
+                        <div>
+                          <div className="mx-3 py-2">
+                            {/* <h4 class="general-font my-1">From: {ride.pickupLoc} </h4>
+                            <h4 class="general-font my-1">To: {ride.dropoffLoc}</h4> */}
+                            <h4 class="general-font my-1">From: {zoneOptions[ride.pickupLoc].label} </h4>
+                            <h4 class="general-font mt-1">To: {zoneOptions[ride.dropoffLoc].label}</h4>
+                            <p><b>Total Amount: </b>${ride.avgTotalAmount.toFixed(2)}</p>
+                            <p><b>Total Trip Distance: </b>{ride.avgTripDistance.toFixed(2)} miles</p>
+                            <hr/>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                        ))}
+                      </Tab>
+                      <Tab eventKey = "neighborhoods" title="Recommended Neighborhoods">
+                        {this.state.userNeigh.map(neigh => (
+                          <div>
+                            <div className="mx-3 py-2">
+                              <h4 class="general-font my-1">{neigh['NEIGHBORHOOD_NAME']} </h4>
+                              <p><b>Percent Fully Vaccinated: </b>{neigh['PERC_FULLY']}%</p>
+                              <p><b>Percent Partially Vaccinated (at Least 1 Dose): </b>{neigh["PERC_at least 1 dose"]}%</p>
+                              <hr/>
+                            </div>
+                          </div>
+                        ))}
+                      </Tab>
+                    </Tabs>
                   </div>)}
                 </div>
               </div>
