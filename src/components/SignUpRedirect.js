@@ -27,7 +27,6 @@ class SignUpRedirect extends Component {
 
   }
   async componentWillMount() {
-    // console.log(username);
     const url = "http://172.22.152.9:8000/api/nygm/?format=json"
     const response = await fetch(url);
     const zones = await response.json();
@@ -58,6 +57,7 @@ class SignUpRedirect extends Component {
     this.setState({ prefride });
     console.log(`Option selected:`, prefride);
   }
+  
 
   handleClickSignUp(e) {
     e.preventDefault();
@@ -77,11 +77,15 @@ class SignUpRedirect extends Component {
           prefride: this.state.prefride.value,
           vaccine: document.getElementById("vaccine").value,
           zoneid: this.state.homezone.value,
-          zipcode: parseInt(document.getElementById("zipcode").value),
+          zipcode: document.getElementById("zipcode").value,
           favzoneid: this.state.favzoneid.value,
-          minspend:"null",
-          maxspend:"null",
-          vaccpref:"null"
+          favborough: this.state.zoneData[this.state.favzoneid.value-1].boroughname,
+          minspend: 0,
+          maxspend: 1,
+          vaccpref: 50,
+          minridedistance: 0,
+          maxridedistance: 1,
+          maxridetime: 10
         })
       })
       .then(res => res.json())
@@ -146,27 +150,22 @@ class SignUpRedirect extends Component {
                           <input type="text" id="zipcode" placeholder="Enter home zip code"></input>
                           <div className="row justify-content-center">
                             <div className="col-5">
-
-                            <label for="prefride">Select Preferred Ride Type:</label><br></br>
-                            <Select id="prefride" onChange = {this.handleChangePrefRide} options={taxiType} />
+                              <label for="prefride">Select Preferred Ride Type:</label><br></br>
+                              <Select id="prefride" onChange = {this.handleChangePrefRide} options={taxiType} />
                             </div>
                           </div>
-
                           <div className="row justify-content-center">
                             <div className="col-5">
-
-                            <label for="homezone">Select Home Zone:</label><br></br>
-                            <Select id="homezone" onChange = {this.handleChangeHomeZone} options={zoneOptions} />
+                              <label for="homezone">Select Home Zone:</label><br></br>
+                              <Select id="homezone" onChange = {this.handleChangeHomeZone} options={zoneOptions} />
                             </div>
                           </div>                          
                           <div className="row justify-content-center">
                             <div className="col-5">
-
-                            <label for="favzoneid">Select Favorite Zone To Visit:</label><br></br>
-                            <Select id="favzoneid" onChange = {this.handleChangeFavZone} options={zoneOptions} />
+                              <label for="favzoneid">Select Favorite Zone To Visit:</label><br></br>
+                              <Select id="favzoneid" onChange = {this.handleChangeFavZone} options={zoneOptions} />
                             </div>
                           </div>
-
                           <div>
                             <button type="submit" id="update-info" className="btn btn-primary mt-4 yellow-btn" onClick={this.handleClickSignUp}>Update Info</button>
                           </div>
