@@ -209,11 +209,11 @@ class UserProfile extends Component {
       console.log('WebSocket Client Connected');
       // Getting recommended rides
     var inputObj = {
-      "function":"createUserRideRecommendations",
+      "function":"getUserRideRecommendations",
       "userZone":236,
       "zoneIds": [238,235,234,231],
       "minSpendature": 10,
-      "maxSpendature": 20,
+      "maxSpendature": 40,
       "maxDistance": 5
       // "minSpendature": this.state.minspend,
       // "maxSpendature": this.state.maxspend,

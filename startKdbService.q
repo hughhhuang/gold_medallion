@@ -24,6 +24,11 @@ run:{
 	if[`editUserRide=`$userQuery[`function];
 		:@[editUserRide;userQuery;(`function;`result)!(`editUserRide;`NOTOK)]
 		];
+	/ break;
+	if[`getUserRideRecommendations=`$userQuery[`function];
+		:getUserRideRecommendations[userQuery]
+		/ :@[getUserRideRecommendations;userQuery;(`function;`result)!(`getUserRideRecommendations;`NOTOK)]
+		];
 	}
 
 getTaxiData:{[maxCount;fields] 
@@ -129,10 +134,14 @@ getUserRidesStats:{[rides]
 	getUserRideStats each rides
 	}
 
+getUserRideRecommendations:{[userQuery]
+	createUserRideRecommendations[userQuery[`userZone];userQuery[`zoneIds];userQuery[`minSpendature];userQuery[`maxSpendature];userQuery[`maxDistance]]
+	}
+
 /createUserRideRecommendations[236;(238;235;234;231);10;20;5]
 createUserRideRecommendations:{[userZone;zoneIds;minSpendature;maxSpendature;maxDistance]
 	timeConstraint:`true;
-	data:select totalAmount,tripDistance,dropoffLoc from taxiData where pickupLoc=userZone,dropoffLoc in zoneIds, not tripDistance=0,startTime=`hh$.z.P;
+	data:select totalAmount,tripDistance,dropoffLoc from taxiData where pickupLoc="i"$userZone,dropoffLoc in "i"$zoneIds, not tripDistance=0,startTime=`hh$.z.P;
 	/too few samples, going to relax time constraint
 	if[100>count data;
 		timeConstraint:`false;
