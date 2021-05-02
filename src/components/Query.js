@@ -155,7 +155,7 @@ async componentWillMount() {
       const res = await respoe.json();
       for (var val in res){
         let newDate = Date.parse(res[val].date_of_interest)
-        vacBurroughs[key][newDate] = res[val].case_count
+        vacBurroughs[key][newDate] = res[val].case_count_7day_avg
       }
       Object.keys(vacBurroughs[key]).sort().reduce((r, k) => (r[k] = vacBurroughs[key][k], r), {})
     }
@@ -203,7 +203,7 @@ async componentWillMount() {
     this.setState({ dropoffZone });
 
     try{
-      let borough = this.state.zoneData[dropoffZone.value-1].boroughname.replace(/\s/g, '');
+      let borough = this.state.zoneData[dropoffZone.value-1].boroughName.replace(/\s/g, '');
       var vals = this.state.vaccineDataByBur[borough];
 
       console.log(vals)
@@ -219,7 +219,7 @@ async componentWillMount() {
         covidLabels: [covidLabels],
         covidValues: [covidVals],
         showCovidStats: true,
-        dropoffBurough: this.state.zoneData[dropoffZone.value-1].boroughname
+        dropoffBurough: this.state.zoneData[dropoffZone.value-1].boroughName
       })
     }
     catch{

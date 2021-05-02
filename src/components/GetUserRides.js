@@ -72,11 +72,11 @@ class GetUserRides extends Component {
     var diff = 0;
     if (median>average){
       diff=median-average;
-      text= "($"+diff.toString()+" lower than the median ride)"
+      text= "($"+diff.toFixed(2).toString()+" lower than the median ride)"
     }
     else if (median<average){
       diff=average-median;
-      text= "($"+diff.toString()+" higher than the median ride)"
+      text= "($"+diff.toFixed(2).toString()+" higher than the median ride)"
     }
     return text;
   }
@@ -109,7 +109,7 @@ class GetUserRides extends Component {
         })
       }
       if(result.function=="getUserRides"){
-        console.log(result.data == null) 
+        console.log(result) 
         if (result.data == null){
           this.setState({
             userRidesData: [],
@@ -125,10 +125,11 @@ class GetUserRides extends Component {
       }
       
       if(result.function=="getUserRides"){
-        if(result.result!="OK"){
-          //print unccessful message
-            console.log("Failed to get rides");
-        }
+        console.log(result)
+        // if(result.result!="OK"){
+        //   //print unccessful message
+        //     console.log("Failed to get rides");
+        // }
         
       }
 
