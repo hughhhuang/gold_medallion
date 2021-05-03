@@ -40,7 +40,8 @@ class Query extends Component {
         covidLabels:['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
         covidValues: [[5, 2, 4, 2, 0]],
         dropoffBurough: '',
-        vaccineDataByBur: []      
+        vaccineDataByBur: [],
+        noRideData: false     
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -60,7 +61,6 @@ async componentWillMount() {
       console.log('WebSocket Client Connected');
     };
     client.onmessage = (message) => {
-      console.log(message);
       var result=JSON.parse(message.data).data;
       var dataByDay=JSON.parse(message.data).dataByDay.data;
       var dataByMonth=JSON.parse(message.data).dataByMonth.data;
@@ -73,7 +73,6 @@ async componentWillMount() {
       var byHourGraphValues=[];
       var mlTipAmount=JSON.parse(message.data).mlRecommendedTipAmount;
       
-      console.log(JSON.parse(message.data).mlRecommendedTipAmount)
 
       // Function that returns the data to be used in stacked bars
       function assignStack(vals, plotHeaders, plotVals, type){
@@ -119,7 +118,6 @@ async componentWillMount() {
         let monthData = assignStack(dataByMonth,byMonthGraphHeaders,byMonthGraphValues,'month');
         let hourData = assignStack(dataByHour,byHourGraphHeaders,byHourGraphValues,'hour');
 
-        console.log(result);
         this.setState(state => ({
           averageTotalAmount: parseFloat(result.totalAmount).toFixed(2),
           averageMtaAmount: parseFloat(result.mtaTax).toFixed(2),
@@ -133,6 +131,12 @@ async componentWillMount() {
           byHourGraphValues:hourData[1],
           mlTip: parseFloat(mlTipAmount).toFixed(2)
         }));
+        if(this.state.averageTotalAmount === "0" || Number.isNaN(parseInt(this.state.averageTotalAmount))){
+          this.setState({ toggleOnOpen : false, noRideData: true });
+        }
+        else{
+          this.setState({ toggleOnOpen : true, noRideData: false });
+        }
     };
 
     // Pulling the vaccine data by borough
@@ -159,7 +163,6 @@ async componentWillMount() {
       }
       Object.keys(vacBurroughs[key]).sort().reduce((r, k) => (r[k] = vacBurroughs[key][k], r), {})
     }
-    console.log(vacBurroughs);
     this.setState({
       vaccineDataByBur: vacBurroughs
     })
@@ -169,7 +172,6 @@ async componentWillMount() {
   handleClick(e) {
     e.preventDefault();
     try{
-      console.log(e);
       var inputObj = {
         "function":"getUserEstimatedFare",
         "pl": this.state.pickupZone.value.toString(),
@@ -184,13 +186,12 @@ async componentWillMount() {
       if(this.state.day!="" && this.state.day.value.toString()!=""){
         inputObj.day= this.state.day.value.toString()
       }
-      console.log(this.state.pickupZone.value)
       client.send(JSON.stringify(inputObj));
-      this.setState({ toggleOnOpen : true });
-      console.log(this.state.toggleOnOpen);
+      this.setState({ toggleOnOpen : true, noRideData: false });
     }
     catch(err){
       alert("Please select a pickup and dropoff location");
+      console.log(err)
     }
   }
 
@@ -206,15 +207,13 @@ async componentWillMount() {
       let borough = this.state.zoneData[dropoffZone.value-1].boroughName.replace(/\s/g, '');
       var vals = this.state.vaccineDataByBur[borough];
 
-      console.log(vals)
       let covidLabels = Object.keys(vals).sort();
       let covidVals = [];
 
       for (var val in covidLabels){
         covidVals.push(vals[covidLabels[val]]);
       }
-      console.log(covidLabels)
-      console.log(covidVals)
+
       this.setState({
         covidLabels: [covidLabels],
         covidValues: [covidVals],
@@ -223,7 +222,7 @@ async componentWillMount() {
       })
     }
     catch{
-      alert("Covid data unavailable for this zone");
+      console.log("Covid Data Unavailable for this Zone")
       this.setState({
         showCovidStats: false
       })
@@ -280,7 +279,6 @@ async componentWillMount() {
     let fare = parseFloat(this.state.averageFareAmount);
     let misc = parseFloat((total - (mta+tip+fare)),2);
 
-    console.log([mta,tip,fare,misc]);
     let dataPie = {
       labels: [' ',' ',' ',' '],
       series: [
@@ -358,20 +356,30 @@ async componentWillMount() {
       labels: this.state.byHourGraphHeaders,
       series: this.state.byHourGraphValues
     }
+    
+    let tempLabels = [];
+    for (var i in this.state.covidLabels[0]){
+      tempLabels.push(' ');
+    }
+    tempLabels[0] = '11/2020';
+    tempLabels[this.state.covidLabels[0].length-8] = 'Now';
 
     let covidData = {
-      labels: this.state.covidLabels,
+      labels: tempLabels,
       series: this.state.covidValues
     }
 
+
     let covidOptions = {
       // high:1000,
+      labels:tempLabels,
       low:0,
       showPoint: false,
       width: '600px',
       height: '200px',
       axisX:{
-        showLabel:false
+        // showLabel:false,
+        labels:tempLabels,
       },
       axisY:{
         showLabel:false
@@ -417,6 +425,7 @@ async componentWillMount() {
                         <h6 className="text-center pt-3">Trend in Covid Cases for Dropoff Burough since November 2020 ({this.state.dropoffBurough})</h6>
                         <hr/>
                         <ChartistGraph id="covid" data={covidData} options={covidOptions} type="Line" />
+                        {/* <p>Nov 2020 <span>Now</span></p> */}
                       </div>
                     </div>)}
                     <div className="form-row justify-content-center pt-4">
@@ -459,6 +468,13 @@ async componentWillMount() {
                   </form>
                 </div>
               </div> 
+              {this.state.noRideData && (<div>
+                <div className="row pb-4">
+                  <div className="col justify-content-center">
+                    <h4 className="general-font text-center">No ride data available for this trip. Please adjust the options to plan another ride</h4>
+                  </div> 
+                </div>
+              </div>)}
               {this.state.toggleOnOpen && (<div>
                 <div className="row pb-4">
                   <div className="col justify-content-center">
