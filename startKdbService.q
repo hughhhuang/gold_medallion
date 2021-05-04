@@ -75,7 +75,7 @@ getUserEstimatedFare:{[pl;dl;optionalFields]
 getDataByMonth:{[pl;dl;requiredConds]
 	monthMap:(0j;1j;2j;3j;4j;5j;6j;7j;8j;9j;10j;11j)!`Jan`Feb`Mar`Apr`May`Jun`Jul`Aug`Sep`Oct`Nov`Dec;
 	/ data:select avg totalAmount,avg mtaTax,avg tipAmount,avg fareAmount by month:(`mm$pickup) from taxiData where pickupLoc=pl, dropoffLoc=dl;
-	data:?[`taxiData;requiredConds;(enlist `month)!enlist ($;enlist `mm;`pickup);(`totalAmount`mtaTax`tipAmount`fareAmount)!((avg;`totalAmount);(avg;`mtaTax);(avg;`tipAmount);(avg;`fareAmount))];
+	data:?[`taxiData;requiredConds;(enlist `month)!enlist (`month);(`totalAmount`mtaTax`tipAmount`fareAmount)!((avg;`totalAmount);(avg;`mtaTax);(avg;`tipAmount);(avg;`fareAmount))];
 	data:0!update month:monthMap month from data;
 	result:(`pl`dl`data)!(pl;dl;data)
 	}
