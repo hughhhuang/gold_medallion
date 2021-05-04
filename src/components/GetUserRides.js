@@ -40,7 +40,7 @@ class GetUserRides extends Component {
     var inputObj = {
       "function":"deleteUserRide",
       "userName":username,
-      "rideId":e.target.id
+      "rideId":e.currentTarget.id
       };
     client.send(JSON.stringify(inputObj));
     window.href = "/getuserrides";
@@ -149,7 +149,7 @@ class GetUserRides extends Component {
                 publicRidesData: result.publicData
               })); 
             }      
-          window.location.href = "/getuserrides";
+          // window.location.href = "/getuserrides";
         }
         else{
             //print unccessful message

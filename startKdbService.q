@@ -3,7 +3,7 @@ system"l kdbData"
 connectedClients:();
 `taxiData set update `g#pickup,`g#dropoffLoc,month:("i"$"m"$pickup) mod 12,startTime:`hh$pickup,day:?[1<(`date$pickup) mod 7;0i;1i] from taxiData;
 if[`userRides in tables[];`userRides set `uniqueKey xkey select from userRides];
-if[not `userRides in tables[];`userRides set enlist (`uniqueKey`userName`publicRide`rideDetails)!(first 0Ng;`;0b;enlist ())]
+if[not `userRides in tables[];`userRides set enlist (`uniqueKey`userName`publicRide`rideDetails)!(`$string "j"$.z.P;`;0b;enlist ())]
 .z.ws:{connectedClients,:.z.w;neg[.z.w].j.j @[value;x;run x]}
 / run:{userQuery:.j.k x;show userQuery;:getTaxiData["I"$userQuery[`maxCount];"S"$userQuery[`fields]]}
 run:{
@@ -24,10 +24,8 @@ run:{
 	if[`editUserRide=`$userQuery[`function];
 		:@[editUserRide;userQuery;(`function;`result)!(`editUserRide;`NOTOK)]
 		];
-	/ break;
 	if[`getUserRideRecommendations=`$userQuery[`function];
-		:getUserRideRecommendations[userQuery]
-		/ :@[getUserRideRecommendations;userQuery;(`function;`result)!(`getUserRideRecommendations;`NOTOK)]
+		:@[getUserRideRecommendations;userQuery;(`function;`result)!(`getUserRideRecommendations;`NOTOK)]
 		];
 	}
 
@@ -155,9 +153,9 @@ createUserRideRecommendations:{[userZone;zoneIds;minSpendature;maxSpendature;max
 	}
 
 updateUserRide:{[userRide;userRides]
-	if[not ("g"$userRide[`uniqueKey]) in exec uniqueKey from userRides;'NotValid];
+	if[not (`$string userRide[`uniqueKey]) in exec uniqueKey from userRides;'NotValid];
 	/ `userRides set userRides upsert (`pl`dl`numOfPassengers`taxiType`multiDestinationRide`taxiRideExperi)!(`$userRide[`pl];`$userRide[`dl];`$string userRide[`numOfPassengers];`$userRide[`taxiType]);
-	`userRides set (`uniqueKey xkey userRides) upsert enlist (`uniqueKey`userName`publicRide`rideDetails)!("g"$userRide[`uniqueKey];`$userRide[`userName];"b"$userRide[`exposeRideToPublic];transformUserRideToValue[userRide]);
+	`userRides set (`uniqueKey xkey userRides) upsert enlist (`uniqueKey`userName`publicRide`rideDetails)!(`$string userRide[`uniqueKey];`$userRide[`userName];"b"$userRide[`exposeRideToPublic];transformUserRideToValue[userRide]);
 	:(`function;`result)!(`addUserRide;`OK)
 	}
 
@@ -165,7 +163,7 @@ addUserRide:{[data]
 	userRide:data[0];
 	userRides:data[1];
 	/ `userRides set userRides upsert (`pl`dl`numOfPassengers`taxiType`multiDestinationRide`taxiRideExperi)!(`$userRide[`pl];`$userRide[`dl];`$string userRide[`numOfPassengers];`$userRide[`taxiType]);
-	`userRides set (`uniqueKey xkey userRides) upsert enlist (`uniqueKey`userName`publicRide`rideDetails)!(first 1?0Ng;`$userRide[`userName];"b"$userRide[`exposeRideToPublic];transformUserRideToValue[userRide]);
+	`userRides set (`uniqueKey xkey userRides) upsert enlist (`uniqueKey`userName`publicRide`rideDetails)!(`$string "j"$.z.P;`$userRide[`userName];"b"$userRide[`exposeRideToPublic];transformUserRideToValue[userRide]);
 	save `:userRides;
 	:(`function;`result)!(`addUserRide;`OK)
 	}
@@ -173,6 +171,9 @@ addUserRide:{[data]
 getUserRides:{[username]
 	data:0!select from userRides where userName=username;
 	publicData:0!select from userRides where not userName=username, publicRide=1b;
+	if[not count data;
+		:(`username`data`function`publicData`result)!(username;();`getUserRides;publicData;`OK)	
+		];
 	userRidesStats:getUserRidesStats[data];
 	data:0!(`uniqueKey xkey data) lj (`uniqueKey xkey userRidesStats);
 	result:(`username`data`function`publicData`result)!(username;data;`getUserRides;publicData;`OK)
@@ -180,7 +181,7 @@ getUserRides:{[username]
 
 deleteUserRide:{[data]
 	username:`$data[`userName];
-	rideId:"G"$data[`rideId];
+	rideId:`$data[`rideId];
 	delete from `userRides where userName=username, uniqueKey=rideId;
 	save `:userRides;
 	updatedUserRides:getUserRides[username];
@@ -189,7 +190,7 @@ deleteUserRide:{[data]
 
 editUserRide:{[data]
 	userRide:data;
-	`userRides set (`uniqueKey xkey userRides) upsert enlist (`uniqueKey`userName`publicRide`rideDetails)!("G"$userRide[`rideId];`$userRide[`userName];"b"$userRide[`exposeRideToPublic];transformUserRideToValue[userRide]);
+	`userRides set (`uniqueKey xkey userRides) upsert enlist (`uniqueKey`userName`publicRide`rideDetails)!(`$userRide[`rideId];`$userRide[`userName];"b"$userRide[`exposeRideToPublic];transformUserRideToValue[userRide]);
 	save `:userRides;
 	:(`function;`result)!(`editUserRide;`OK)
 	}
