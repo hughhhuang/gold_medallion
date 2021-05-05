@@ -99,9 +99,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'nygmdb',
+        #'NAME': 'nygm_test',
         'USER': 'hughh3',
+        #'USER': 'root',
         'PASSWORD': 'Password123#@!',
+        #'PASSWORD': 'password123',
         'HOST': 'sp21-cs411-09.cs.illinois.edu',
+        #'HOST': 'localhost',
         'PORT': '3306',
     }
 }
