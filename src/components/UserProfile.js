@@ -25,7 +25,7 @@ class UserProfile extends Component {
       firstname: ' ',
       lastname: ' ',
       age: 0,
-      prefride: ' ',
+      prefride: 'Sedan',
       newPrefride: ' ',
       vaccine: ' ',
       homezone: 0,
@@ -33,18 +33,18 @@ class UserProfile extends Component {
       zipcode: 0,
       favzoneid: 0,
       newFavzoneid: 0,
-      // zoneData: [],
-      zoneData: [{"zoneid": 1, "zonename": "Newark Airport", "boroughName": "EWR"}, {"zoneid": 2, "zonename": "Jamaica Bay", "boroughName": "Queens"}, {"zoneid": 3, "zonename": "Allerton/Pelham Gardens", "boroughName": "Bronx"}, {"zoneid": 4, "zonename": "Alphabet City", "boroughName": "Manhattan"}, {"zoneid": 5, "zonename": "Arden Heights", "boroughName": "Staten Island"}, {"zoneid": 6, "zonename": "Arrochar/Fort Wadsworth", "boroughName": "Staten Island"}, {"zoneid": 7, "zonename": "Astoria", "boroughName": "Queens"}, {"zoneid": 8, "zonename": "Astoria Park", "boroughName": "Queens"}, {"zoneid": 9, "zonename": "Auburndale", "boroughName": "Queens"}, {"zoneid": 10, "zonename": "Baisley Park", "boroughName": "Queens"}, {"zoneid": 11, "zonename": "Bath Beach", "boroughName": "Brooklyn"}, {"zoneid": 12, "zonename": "Battery Park", "boroughName": "Manhattan"}, {"zoneid": 13, "zonename": "Battery Park City", "boroughName": "Manhattan"}, {"zoneid": 14, "zonename": "Bay Ridge", "boroughName": "Brooklyn"}, {"zoneid": 15, "zonename": "Bay Terrace/Fort Totten", "boroughName": "Queens"}, {"zoneid": 16, "zonename": "Bayside", "boroughName": "Queens"}, {"zoneid": 17, "zonename": "Bedford", "boroughName": "Brooklyn"}, {"zoneid": 18, "zonename": "Bedford Park", "boroughName": "Bronx"}, {"zoneid": 19, "zonename": "Bellerose", "boroughName": "Queens"}, {"zoneid": 20, "zonename": "Belmont", "boroughName": "Bronx"}, {"zoneid": 21, "zonename": "Bensonhurst East", "boroughName": "Brooklyn"}, {"zoneid": 22, "zonename": "Bensonhurst West", "boroughName": "Brooklyn"}, {"zoneid": 23, "zonename": "Bloomfield/Emerson Hill", "boroughName": "Staten Island"}, {"zoneid": 24, "zonename": "Bloomingdale", "boroughName": "Manhattan"}, {"zoneid": 25, "zonename": "Boerum Hill", "boroughName": "Brooklyn"}, {"zoneid": 26, "zonename": "Borough Park", "boroughName": "Brooklyn"}, {"zoneid": 27, "zonename": "Breezy Point/Fort Tilden/Riis Beach", "boroughName": "Queens"}, {"zoneid": 28, "zonename": "Briarwood/Jamaica Hills", "boroughName": "Queens"}, {"zoneid": 29, "zonename": "Brighton Beach", "boroughName": "Brooklyn"}, {"zoneid": 30, "zonename": "Broad Channel", "boroughName": "Queens"}, {"zoneid": 31, "zonename": "Bronx Park", "boroughName": "Bronx"}, {"zoneid": 32, "zonename": "Bronxdale", "boroughName": "Bronx"}, {"zoneid": 33, "zonename": "Brooklyn Heights", "boroughName": "Brooklyn"}, {"zoneid": 34, "zonename": "Brooklyn Navy Yard", "boroughName": "Brooklyn"}, {"zoneid": 35, "zonename": "Brownsville", "boroughName": "Brooklyn"}, {"zoneid": 36, "zonename": "Bushwick North", "boroughName": "Brooklyn"}, {"zoneid": 37, "zonename": "Bushwick South", "boroughName": "Brooklyn"}, {"zoneid": 38, "zonename": "Cambria Heights", "boroughName": "Queens"}, {"zoneid": 39, "zonename": "Canarsie", "boroughName": "Brooklyn"}, {"zoneid": 40, "zonename": "Carroll Gardens", "boroughName": "Brooklyn"}, {"zoneid": 41, "zonename": "Central Harlem", "boroughName": "Manhattan"}, {"zoneid": 42, "zonename": "Central Harlem North", "boroughName": "Manhattan"}, {"zoneid": 43, "zonename": "Central Park", "boroughName": "Manhattan"}, {"zoneid": 44, "zonename": "Charleston/Tottenville", "boroughName": "Staten Island"}, {"zoneid": 45, "zonename": "Chinatown", "boroughName": "Manhattan"}, {"zoneid": 46, "zonename": "City Island", "boroughName": "Bronx"}, {"zoneid": 47, "zonename": "Claremont/Bathgate", "boroughName": "Bronx"}, {"zoneid": 48, "zonename": "Clinton East", "boroughName": "Manhattan"}, {"zoneid": 49, "zonename": "Clinton Hill", "boroughName": "Brooklyn"}, {"zoneid": 50, "zonename": "Clinton West", "boroughName": "Manhattan"}, {"zoneid": 51, "zonename": "Co-Op City", "boroughName": "Bronx"}, {"zoneid": 52, "zonename": "Cobble Hill", "boroughName": "Brooklyn"}, {"zoneid": 53, "zonename": "College Point", "boroughName": "Queens"}, {"zoneid": 54, "zonename": "Columbia Street", "boroughName": "Brooklyn"}, {"zoneid": 55, "zonename": "Coney Island", "boroughName": "Brooklyn"}, {"zoneid": 56, "zonename": "Corona", "boroughName": "Queens"}, {"zoneid": 57, "zonename": "Corona", "boroughName": "Queens"}, {"zoneid": 58, "zonename": "Country Club", "boroughName": "Bronx"}, {"zoneid": 59, "zonename": "Crotona Park", "boroughName": "Bronx"}, {"zoneid": 60, "zonename": "Crotona Park East", "boroughName": "Bronx"}, {"zoneid": 61, "zonename": "Crown Heights North", "boroughName": "Brooklyn"}, {"zoneid": 62, "zonename": "Crown Heights South", "boroughName": "Brooklyn"}, {"zoneid": 63, "zonename": "Cypress Hills", "boroughName": "Brooklyn"}, {"zoneid": 64, "zonename": "Douglaston", "boroughName": "Queens"}, {"zoneid": 65, "zonename": "Downtown Brooklyn/MetroTech", "boroughName": "Brooklyn"}, {"zoneid": 66, "zonename": "DUMBO/Vinegar Hill", "boroughName": "Brooklyn"}, {"zoneid": 67, "zonename": "Dyker Heights", "boroughName": "Brooklyn"}, {"zoneid": 68, "zonename": "East Chelsea", "boroughName": "Manhattan"}, {"zoneid": 69, "zonename": "East Concourse/Concourse Village", "boroughName": "Bronx"}, {"zoneid": 70, "zonename": "East Elmhurst", "boroughName": "Queens"}, {"zoneid": 71, "zonename": "East Flatbush/Farragut", "boroughName": "Brooklyn"}, {"zoneid": 72, "zonename": "East Flatbush/Remsen Village", "boroughName": "Brooklyn"}, {"zoneid": 73, "zonename": "East Flushing", "boroughName": "Queens"}, {"zoneid": 74, "zonename": "East Harlem North", "boroughName": "Manhattan"}, {"zoneid": 75, "zonename": "East Harlem South", "boroughName": "Manhattan"}, {"zoneid": 76, "zonename": "East New York", "boroughName": "Brooklyn"}, {"zoneid": 77, "zonename": "East New York/Pennsylvania Avenue", "boroughName": "Brooklyn"}, {"zoneid": 78, "zonename": "East Tremont", "boroughName": "Bronx"}, {"zoneid": 79, "zonename": "East Village", "boroughName": "Manhattan"}, {"zoneid": 80, "zonename": "East Williamsburg", "boroughName": "Brooklyn"}, {"zoneid": 81, "zonename": "Eastchester", "boroughName": "Bronx"}, {"zoneid": 82, "zonename": "Elmhurst", "boroughName": "Queens"}, {"zoneid": 83, "zonename": "Elmhurst/Maspeth", "boroughName": "Queens"}, {"zoneid": 84, "zonename": "Eltingville/Annadale/Prince's Bay", "boroughName": "Staten Island"}, {"zoneid": 85, "zonename": "Erasmus", "boroughName": "Brooklyn"}, {"zoneid": 86, "zonename": "Far Rockaway", "boroughName": "Queens"}, {"zoneid": 87, "zonename": "Financial District North", "boroughName": "Manhattan"}, {"zoneid": 88, "zonename": "Financial District South", "boroughName": "Manhattan"}, {"zoneid": 89, "zonename": "Flatbush/Ditmas Park", "boroughName": "Brooklyn"}, {"zoneid": 90, "zonename": "Flatiron", "boroughName": "Manhattan"}, {"zoneid": 91, "zonename": "Flatlands", "boroughName": "Brooklyn"}, {"zoneid": 92, "zonename": "Flushing", "boroughName": "Queens"}, {"zoneid": 93, "zonename": "Flushing Meadows-Corona Park", "boroughName": "Queens"}, {"zoneid": 94, "zonename": "Fordham South", "boroughName": "Bronx"}, {"zoneid": 95, "zonename": "Forest Hills", "boroughName": "Queens"}, {"zoneid": 96, "zonename": "Forest Park/Highland Park", "boroughName": "Queens"}, {"zoneid": 97, "zonename": "Fort Greene", "boroughName": "Brooklyn"}, {"zoneid": 98, "zonename": "Fresh Meadows", "boroughName": "Queens"}, {"zoneid": 99, "zonename": "Freshkills Park", "boroughName": "Staten Island"}, {"zoneid": 100, "zonename": "Garment District", "boroughName": "Manhattan"}, {"zoneid": 101, "zonename": "Glen Oaks", "boroughName": "Queens"}, {"zoneid": 102, "zonename": "Glendale", "boroughName": "Queens"}, {"zoneid": 103, "zonename": "Governor's Island/Ellis Island/Liberty Island", "boroughName": "Manhattan"}, {"zoneid": 104, "zonename": "Governor's Island/Ellis Island/Liberty Island", "boroughName": "Manhattan"}, {"zoneid": 105, "zonename": "Governor's Island/Ellis Island/Liberty Island", "boroughName": "Manhattan"}, {"zoneid": 106, "zonename": "Gowanus", "boroughName": "Brooklyn"}, {"zoneid": 107, "zonename": "Gramercy", "boroughName": "Manhattan"}, {"zoneid": 108, "zonename": "Gravesend", "boroughName": "Brooklyn"}, {"zoneid": 109, "zonename": "Great Kills", "boroughName": "Staten Island"}, {"zoneid": 110, "zonename": "Great Kills Park", "boroughName": "Staten Island"}, {"zoneid": 111, "zonename": "Green-Wood Cemetery", "boroughName": "Brooklyn"}, {"zoneid": 112, "zonename": "Greenpoint", "boroughName": "Brooklyn"}, {"zoneid": 113, "zonename": "Greenwich Village North", "boroughName": "Manhattan"}, {"zoneid": 114, "zonename": "Greenwich Village South", "boroughName": "Manhattan"}, {"zoneid": 115, "zonename": "Grymes Hill/Clifton", "boroughName": "Staten Island"}, {"zoneid": 116, "zonename": "Hamilton Heights", "boroughName": "Manhattan"}, {"zoneid": 117, "zonename": "Hammels/Arverne", "boroughName": "Queens"}, {"zoneid": 118, "zonename": "Heartland Village/Todt Hill", "boroughName": "Staten Island"}, {"zoneid": 119, "zonename": "Highbridge", "boroughName": "Bronx"}, {"zoneid": 120, "zonename": "Highbridge Park", "boroughName": "Manhattan"}, {"zoneid": 121, "zonename": "Hillcrest/Pomonok", "boroughName": "Queens"}, {"zoneid": 122, "zonename": "Hollis", "boroughName": "Queens"}, {"zoneid": 123, "zonename": "Homecrest", "boroughName": "Brooklyn"}, {"zoneid": 124, "zonename": "Howard Beach", "boroughName": "Queens"}, {"zoneid": 125, "zonename": "Hudson Sq", "boroughName": "Manhattan"}, {"zoneid": 126, "zonename": "Hunts Point", "boroughName": "Bronx"}, {"zoneid": 127, "zonename": "Inwood", "boroughName": "Manhattan"}, {"zoneid": 128, "zonename": "Inwood Hill Park", "boroughName": "Manhattan"}, {"zoneid": 129, "zonename": "Jackson Heights", "boroughName": "Queens"}, {"zoneid": 130, "zonename": "Jamaica", "boroughName": "Queens"}, {"zoneid": 131, "zonename": "Jamaica Estates", "boroughName": "Queens"}, {"zoneid": 132, "zonename": "JFK Airport", "boroughName": "Queens"}, {"zoneid": 133, "zonename": "Kensington", "boroughName": "Brooklyn"}, {"zoneid": 134, "zonename": "Kew Gardens", "boroughName": "Queens"}, {"zoneid": 135, "zonename": "Kew Gardens Hills", "boroughName": "Queens"}, {"zoneid": 136, "zonename": "Kingsbridge Heights", "boroughName": "Bronx"}, {"zoneid": 137, "zonename": "Kips Bay", "boroughName": "Manhattan"}, {"zoneid": 138, "zonename": "LaGuardia Airport", "boroughName": "Queens"}, {"zoneid": 139, "zonename": "Laurelton", "boroughName": "Queens"}, {"zoneid": 140, "zonename": "Lenox Hill East", "boroughName": "Manhattan"}, {"zoneid": 141, "zonename": "Lenox Hill West", "boroughName": "Manhattan"}, {"zoneid": 142, "zonename": "Lincoln Square East", "boroughName": "Manhattan"}, {"zoneid": 143, "zonename": "Lincoln Square West", "boroughName": "Manhattan"}, {"zoneid": 144, "zonename": "Little Italy/NoLiTa", "boroughName": "Manhattan"}, {"zoneid": 145, "zonename": "Long Island City/Hunters Point", "boroughName": "Queens"}, {"zoneid": 146, "zonename": "Long Island City/Queens Plaza", "boroughName": "Queens"}, {"zoneid": 147, "zonename": "Longwood", "boroughName": "Bronx"}, {"zoneid": 148, "zonename": "Lower East Side", "boroughName": "Manhattan"}, {"zoneid": 149, "zonename": "Madison", "boroughName": "Brooklyn"}, {"zoneid": 150, "zonename": "Manhattan Beach", "boroughName": "Brooklyn"}, {"zoneid": 151, "zonename": "Manhattan Valley", "boroughName": "Manhattan"}, {"zoneid": 152, "zonename": "Manhattanville", "boroughName": "Manhattan"}, {"zoneid": 153, "zonename": "Marble Hill", "boroughName": "Manhattan"}, {"zoneid": 154, "zonename": "Marine Park/Floyd Bennett Field", "boroughName": "Brooklyn"}, {"zoneid": 155, "zonename": "Marine Park/Mill Basin", "boroughName": "Brooklyn"}, {"zoneid": 156, "zonename": "Mariners Harbor", "boroughName": "Staten Island"}, {"zoneid": 157, "zonename": "Maspeth", "boroughName": "Queens"}, {"zoneid": 158, "zonename": "Meatpacking/West Village West", "boroughName": "Manhattan"}, {"zoneid": 159, "zonename": "Melrose South", "boroughName": "Bronx"}, {"zoneid": 160, "zonename": "Middle Village", "boroughName": "Queens"}, {"zoneid": 161, "zonename": "Midtown Center", "boroughName": "Manhattan"}, {"zoneid": 162, "zonename": "Midtown East", "boroughName": "Manhattan"}, {"zoneid": 163, "zonename": "Midtown North", "boroughName": "Manhattan"}, {"zoneid": 164, "zonename": "Midtown South", "boroughName": "Manhattan"}, {"zoneid": 165, "zonename": "Midwood", "boroughName": "Brooklyn"}, {"zoneid": 166, "zonename": "Morningside Heights", "boroughName": "Manhattan"}, {"zoneid": 167, "zonename": "Morrisania/Melrose", "boroughName": "Bronx"}, {"zoneid": 168, "zonename": "Mott Haven/Port Morris", "boroughName": "Bronx"}, {"zoneid": 169, "zonename": "Mount Hope", "boroughName": "Bronx"}, {"zoneid": 170, "zonename": "Murray Hill", "boroughName": "Manhattan"}, {"zoneid": 171, "zonename": "Murray Hill-Queens", "boroughName": "Queens"}, {"zoneid": 172, "zonename": "New Dorp/Midland Beach", "boroughName": "Staten Island"}, {"zoneid": 173, "zonename": "North Corona", "boroughName": "Queens"}, {"zoneid": 174, "zonename": "Norwood", "boroughName": "Bronx"}, {"zoneid": 175, "zonename": "Oakland Gardens", "boroughName": "Queens"}, {"zoneid": 176, "zonename": "Oakwood", "boroughName": "Staten Island"}, {"zoneid": 177, "zonename": "Ocean Hill", "boroughName": "Brooklyn"}, {"zoneid": 178, "zonename": "Ocean Parkway South", "boroughName": "Brooklyn"}, {"zoneid": 179, "zonename": "Old Astoria", "boroughName": "Queens"}, {"zoneid": 180, "zonename": "Ozone Park", "boroughName": "Queens"}, {"zoneid": 181, "zonename": "Park Slope", "boroughName": "Brooklyn"}, {"zoneid": 182, "zonename": "Parkchester", "boroughName": "Bronx"}, {"zoneid": 183, "zonename": "Pelham Bay", "boroughName": "Bronx"}, {"zoneid": 184, "zonename": "Pelham Bay Park", "boroughName": "Bronx"}, {"zoneid": 185, "zonename": "Pelham Parkway", "boroughName": "Bronx"}, {"zoneid": 186, "zonename": "Penn Station/Madison Sq West", "boroughName": "Manhattan"}, {"zoneid": 187, "zonename": "Port Richmond", "boroughName": "Staten Island"}, {"zoneid": 188, "zonename": "Prospect-Lefferts Gardens", "boroughName": "Brooklyn"}, {"zoneid": 189, "zonename": "Prospect Heights", "boroughName": "Brooklyn"}, {"zoneid": 190, "zonename": "Prospect Park", "boroughName": "Brooklyn"}, {"zoneid": 191, "zonename": "Queens Village", "boroughName": "Queens"}, {"zoneid": 192, "zonename": "Queensboro Hill", "boroughName": "Queens"}, {"zoneid": 193, "zonename": "Queensbridge/Ravenswood", "boroughName": "Queens"}, {"zoneid": 194, "zonename": "Randalls Island", "boroughName": "Manhattan"}, {"zoneid": 195, "zonename": "Red Hook", "boroughName": "Brooklyn"}, {"zoneid": 196, "zonename": "Rego Park", "boroughName": "Queens"}, {"zoneid": 197, "zonename": "Richmond Hill", "boroughName": "Queens"}, {"zoneid": 198, "zonename": "Ridgewood", "boroughName": "Queens"}, {"zoneid": 199, "zonename": "Rikers Island", "boroughName": "Bronx"}, {"zoneid": 200, "zonename": "Riverdale/North Riverdale/Fieldston", "boroughName": "Bronx"}, {"zoneid": 201, "zonename": "Rockaway Park", "boroughName": "Queens"}, {"zoneid": 202, "zonename": "Roosevelt Island", "boroughName": "Manhattan"}, {"zoneid": 203, "zonename": "Rosedale", "boroughName": "Queens"}, {"zoneid": 204, "zonename": "Rossville/Woodrow", "boroughName": "Staten Island"}, {"zoneid": 205, "zonename": "Saint Albans", "boroughName": "Queens"}, {"zoneid": 206, "zonename": "Saint George/New Brighton", "boroughName": "Staten Island"}, {"zoneid": 207, "zonename": "Saint Michaels Cemetery/Woodside", "boroughName": "Queens"}, {"zoneid": 208, "zonename": "Schuylerville/Edgewater Park", "boroughName": "Bronx"}, {"zoneid": 209, "zonename": "Seaport", "boroughName": "Manhattan"}, {"zoneid": 210, "zonename": "Sheepshead Bay", "boroughName": "Brooklyn"}, {"zoneid": 211, "zonename": "SoHo", "boroughName": "Manhattan"}, {"zoneid": 212, "zonename": "Soundview/Bruckner", "boroughName": "Bronx"}, {"zoneid": 213, "zonename": "Soundview/Castle Hill", "boroughName": "Bronx"}, {"zoneid": 214, "zonename": "South Beach/Dongan Hills", "boroughName": "Staten Island"}, {"zoneid": 215, "zonename": "South Jamaica", "boroughName": "Queens"}, {"zoneid": 216, "zonename": "South Ozone Park", "boroughName": "Queens"}, {"zoneid": 217, "zonename": "South Williamsburg", "boroughName": "Brooklyn"}, {"zoneid": 218, "zonename": "Springfield Gardens North", "boroughName": "Queens"}, {"zoneid": 219, "zonename": "Springfield Gardens South", "boroughName": "Queens"}, {"zoneid": 220, "zonename": "Spuyten Duyvil/Kingsbridge", "boroughName": "Bronx"}, {"zoneid": 221, "zonename": "Stapleton", "boroughName": "Staten Island"}, {"zoneid": 222, "zonename": "Starrett City", "boroughName": "Brooklyn"}, {"zoneid": 223, "zonename": "Steinway", "boroughName": "Queens"}, {"zoneid": 224, "zonename": "Stuy Town/Peter Cooper Village", "boroughName": "Manhattan"}, {"zoneid": 225, "zonename": "Stuyvesant Heights", "boroughName": "Brooklyn"}, {"zoneid": 226, "zonename": "Sunnyside", "boroughName": "Queens"}, {"zoneid": 227, "zonename": "Sunset Park East", "boroughName": "Brooklyn"}, {"zoneid": 228, "zonename": "Sunset Park West", "boroughName": "Brooklyn"}, {"zoneid": 229, "zonename": "Sutton Place/Turtle Bay North", "boroughName": "Manhattan"}, {"zoneid": 230, "zonename": "Times Sq/Theatre District", "boroughName": "Manhattan"}, {"zoneid": 231, "zonename": "TriBeCa/Civic Center", "boroughName": "Manhattan"}, {"zoneid": 232, "zonename": "Two Bridges/Seward Park", "boroughName": "Manhattan"}, {"zoneid": 233, "zonename": "UN/Turtle Bay South", "boroughName": "Manhattan"}, {"zoneid": 234, "zonename": "Union Sq", "boroughName": "Manhattan"}, {"zoneid": 235, "zonename": "University Heights/Morris Heights", "boroughName": "Bronx"}, {"zoneid": 236, "zonename": "Upper East Side North", "boroughName": "Manhattan"}, {"zoneid": 237, "zonename": "Upper East Side South", "boroughName": "Manhattan"}, {"zoneid": 238, "zonename": "Upper West Side North", "boroughName": "Manhattan"}, {"zoneid": 239, "zonename": "Upper West Side South", "boroughName": "Manhattan"}, {"zoneid": 240, "zonename": "Van Cortlandt Park", "boroughName": "Bronx"}, {"zoneid": 241, "zonename": "Van Cortlandt Village", "boroughName": "Bronx"}, {"zoneid": 242, "zonename": "Van Nest/Morris Park", "boroughName": "Bronx"}, {"zoneid": 243, "zonename": "Washington Heights North", "boroughName": "Manhattan"}, {"zoneid": 244, "zonename": "Washington Heights South", "boroughName": "Manhattan"}, {"zoneid": 245, "zonename": "West Brighton", "boroughName": "Staten Island"}, {"zoneid": 246, "zonename": "West Chelsea/Hudson Yards", "boroughName": "Manhattan"}, {"zoneid": 247, "zonename": "West Concourse", "boroughName": "Bronx"}, {"zoneid": 248, "zonename": "West Farms/Bronx River", "boroughName": "Bronx"}, {"zoneid": 249, "zonename": "West Village", "boroughName": "Manhattan"}, {"zoneid": 250, "zonename": "Westchester Village/Unionport", "boroughName": "Bronx"}, {"zoneid": 251, "zonename": "Westerleigh", "boroughName": "Staten Island"}, {"zoneid": 252, "zonename": "Whitestone", "boroughName": "Queens"}, {"zoneid": 253, "zonename": "Willets Point", "boroughName": "Queens"}, {"zoneid": 254, "zonename": "Williamsbridge/Olinville", "boroughName": "Bronx"}, {"zoneid": 255, "zonename": "Williamsburg (North Side)", "boroughName": "Brooklyn"}, {"zoneid": 256, "zonename": "Williamsburg (South Side)", "boroughName": "Brooklyn"}, {"zoneid": 257, "zonename": "Windsor Terrace", "boroughName": "Brooklyn"}, {"zoneid": 258, "zonename": "Woodhaven", "boroughName": "Queens"}, {"zoneid": 259, "zonename": "Woodlawn/Wakefield", "boroughName": "Bronx"}, {"zoneid": 260, "zonename": "Woodside", "boroughName": "Queens"}, {"zoneid": 261, "zonename": "World Trade Center", "boroughName": "Manhattan"}, {"zoneid": 262, "zonename": "Yorkville East", "boroughName": "Manhattan"}, {"zoneid": 263, "zonename": "Yorkville West", "boroughName": "Manhattan"}, {"zoneid": 264, "zonename": "NV", "boroughName": "Unknown"}, {"zoneid": 265, "zonename": "NA", "boroughName": "Unknown"}],
-      minspend:10,
-      maxspend:20,
-      minDist:20,
-      maxDist:40,
+      zoneData: [],
+      // zoneData: [{"zoneid": 1, "zonename": "Newark Airport", "boroughName": "EWR"}, {"zoneid": 2, "zonename": "Jamaica Bay", "boroughName": "Queens"}, {"zoneid": 3, "zonename": "Allerton/Pelham Gardens", "boroughName": "Bronx"}, {"zoneid": 4, "zonename": "Alphabet City", "boroughName": "Manhattan"}, {"zoneid": 5, "zonename": "Arden Heights", "boroughName": "Staten Island"}, {"zoneid": 6, "zonename": "Arrochar/Fort Wadsworth", "boroughName": "Staten Island"}, {"zoneid": 7, "zonename": "Astoria", "boroughName": "Queens"}, {"zoneid": 8, "zonename": "Astoria Park", "boroughName": "Queens"}, {"zoneid": 9, "zonename": "Auburndale", "boroughName": "Queens"}, {"zoneid": 10, "zonename": "Baisley Park", "boroughName": "Queens"}, {"zoneid": 11, "zonename": "Bath Beach", "boroughName": "Brooklyn"}, {"zoneid": 12, "zonename": "Battery Park", "boroughName": "Manhattan"}, {"zoneid": 13, "zonename": "Battery Park City", "boroughName": "Manhattan"}, {"zoneid": 14, "zonename": "Bay Ridge", "boroughName": "Brooklyn"}, {"zoneid": 15, "zonename": "Bay Terrace/Fort Totten", "boroughName": "Queens"}, {"zoneid": 16, "zonename": "Bayside", "boroughName": "Queens"}, {"zoneid": 17, "zonename": "Bedford", "boroughName": "Brooklyn"}, {"zoneid": 18, "zonename": "Bedford Park", "boroughName": "Bronx"}, {"zoneid": 19, "zonename": "Bellerose", "boroughName": "Queens"}, {"zoneid": 20, "zonename": "Belmont", "boroughName": "Bronx"}, {"zoneid": 21, "zonename": "Bensonhurst East", "boroughName": "Brooklyn"}, {"zoneid": 22, "zonename": "Bensonhurst West", "boroughName": "Brooklyn"}, {"zoneid": 23, "zonename": "Bloomfield/Emerson Hill", "boroughName": "Staten Island"}, {"zoneid": 24, "zonename": "Bloomingdale", "boroughName": "Manhattan"}, {"zoneid": 25, "zonename": "Boerum Hill", "boroughName": "Brooklyn"}, {"zoneid": 26, "zonename": "Borough Park", "boroughName": "Brooklyn"}, {"zoneid": 27, "zonename": "Breezy Point/Fort Tilden/Riis Beach", "boroughName": "Queens"}, {"zoneid": 28, "zonename": "Briarwood/Jamaica Hills", "boroughName": "Queens"}, {"zoneid": 29, "zonename": "Brighton Beach", "boroughName": "Brooklyn"}, {"zoneid": 30, "zonename": "Broad Channel", "boroughName": "Queens"}, {"zoneid": 31, "zonename": "Bronx Park", "boroughName": "Bronx"}, {"zoneid": 32, "zonename": "Bronxdale", "boroughName": "Bronx"}, {"zoneid": 33, "zonename": "Brooklyn Heights", "boroughName": "Brooklyn"}, {"zoneid": 34, "zonename": "Brooklyn Navy Yard", "boroughName": "Brooklyn"}, {"zoneid": 35, "zonename": "Brownsville", "boroughName": "Brooklyn"}, {"zoneid": 36, "zonename": "Bushwick North", "boroughName": "Brooklyn"}, {"zoneid": 37, "zonename": "Bushwick South", "boroughName": "Brooklyn"}, {"zoneid": 38, "zonename": "Cambria Heights", "boroughName": "Queens"}, {"zoneid": 39, "zonename": "Canarsie", "boroughName": "Brooklyn"}, {"zoneid": 40, "zonename": "Carroll Gardens", "boroughName": "Brooklyn"}, {"zoneid": 41, "zonename": "Central Harlem", "boroughName": "Manhattan"}, {"zoneid": 42, "zonename": "Central Harlem North", "boroughName": "Manhattan"}, {"zoneid": 43, "zonename": "Central Park", "boroughName": "Manhattan"}, {"zoneid": 44, "zonename": "Charleston/Tottenville", "boroughName": "Staten Island"}, {"zoneid": 45, "zonename": "Chinatown", "boroughName": "Manhattan"}, {"zoneid": 46, "zonename": "City Island", "boroughName": "Bronx"}, {"zoneid": 47, "zonename": "Claremont/Bathgate", "boroughName": "Bronx"}, {"zoneid": 48, "zonename": "Clinton East", "boroughName": "Manhattan"}, {"zoneid": 49, "zonename": "Clinton Hill", "boroughName": "Brooklyn"}, {"zoneid": 50, "zonename": "Clinton West", "boroughName": "Manhattan"}, {"zoneid": 51, "zonename": "Co-Op City", "boroughName": "Bronx"}, {"zoneid": 52, "zonename": "Cobble Hill", "boroughName": "Brooklyn"}, {"zoneid": 53, "zonename": "College Point", "boroughName": "Queens"}, {"zoneid": 54, "zonename": "Columbia Street", "boroughName": "Brooklyn"}, {"zoneid": 55, "zonename": "Coney Island", "boroughName": "Brooklyn"}, {"zoneid": 56, "zonename": "Corona", "boroughName": "Queens"}, {"zoneid": 57, "zonename": "Corona", "boroughName": "Queens"}, {"zoneid": 58, "zonename": "Country Club", "boroughName": "Bronx"}, {"zoneid": 59, "zonename": "Crotona Park", "boroughName": "Bronx"}, {"zoneid": 60, "zonename": "Crotona Park East", "boroughName": "Bronx"}, {"zoneid": 61, "zonename": "Crown Heights North", "boroughName": "Brooklyn"}, {"zoneid": 62, "zonename": "Crown Heights South", "boroughName": "Brooklyn"}, {"zoneid": 63, "zonename": "Cypress Hills", "boroughName": "Brooklyn"}, {"zoneid": 64, "zonename": "Douglaston", "boroughName": "Queens"}, {"zoneid": 65, "zonename": "Downtown Brooklyn/MetroTech", "boroughName": "Brooklyn"}, {"zoneid": 66, "zonename": "DUMBO/Vinegar Hill", "boroughName": "Brooklyn"}, {"zoneid": 67, "zonename": "Dyker Heights", "boroughName": "Brooklyn"}, {"zoneid": 68, "zonename": "East Chelsea", "boroughName": "Manhattan"}, {"zoneid": 69, "zonename": "East Concourse/Concourse Village", "boroughName": "Bronx"}, {"zoneid": 70, "zonename": "East Elmhurst", "boroughName": "Queens"}, {"zoneid": 71, "zonename": "East Flatbush/Farragut", "boroughName": "Brooklyn"}, {"zoneid": 72, "zonename": "East Flatbush/Remsen Village", "boroughName": "Brooklyn"}, {"zoneid": 73, "zonename": "East Flushing", "boroughName": "Queens"}, {"zoneid": 74, "zonename": "East Harlem North", "boroughName": "Manhattan"}, {"zoneid": 75, "zonename": "East Harlem South", "boroughName": "Manhattan"}, {"zoneid": 76, "zonename": "East New York", "boroughName": "Brooklyn"}, {"zoneid": 77, "zonename": "East New York/Pennsylvania Avenue", "boroughName": "Brooklyn"}, {"zoneid": 78, "zonename": "East Tremont", "boroughName": "Bronx"}, {"zoneid": 79, "zonename": "East Village", "boroughName": "Manhattan"}, {"zoneid": 80, "zonename": "East Williamsburg", "boroughName": "Brooklyn"}, {"zoneid": 81, "zonename": "Eastchester", "boroughName": "Bronx"}, {"zoneid": 82, "zonename": "Elmhurst", "boroughName": "Queens"}, {"zoneid": 83, "zonename": "Elmhurst/Maspeth", "boroughName": "Queens"}, {"zoneid": 84, "zonename": "Eltingville/Annadale/Prince's Bay", "boroughName": "Staten Island"}, {"zoneid": 85, "zonename": "Erasmus", "boroughName": "Brooklyn"}, {"zoneid": 86, "zonename": "Far Rockaway", "boroughName": "Queens"}, {"zoneid": 87, "zonename": "Financial District North", "boroughName": "Manhattan"}, {"zoneid": 88, "zonename": "Financial District South", "boroughName": "Manhattan"}, {"zoneid": 89, "zonename": "Flatbush/Ditmas Park", "boroughName": "Brooklyn"}, {"zoneid": 90, "zonename": "Flatiron", "boroughName": "Manhattan"}, {"zoneid": 91, "zonename": "Flatlands", "boroughName": "Brooklyn"}, {"zoneid": 92, "zonename": "Flushing", "boroughName": "Queens"}, {"zoneid": 93, "zonename": "Flushing Meadows-Corona Park", "boroughName": "Queens"}, {"zoneid": 94, "zonename": "Fordham South", "boroughName": "Bronx"}, {"zoneid": 95, "zonename": "Forest Hills", "boroughName": "Queens"}, {"zoneid": 96, "zonename": "Forest Park/Highland Park", "boroughName": "Queens"}, {"zoneid": 97, "zonename": "Fort Greene", "boroughName": "Brooklyn"}, {"zoneid": 98, "zonename": "Fresh Meadows", "boroughName": "Queens"}, {"zoneid": 99, "zonename": "Freshkills Park", "boroughName": "Staten Island"}, {"zoneid": 100, "zonename": "Garment District", "boroughName": "Manhattan"}, {"zoneid": 101, "zonename": "Glen Oaks", "boroughName": "Queens"}, {"zoneid": 102, "zonename": "Glendale", "boroughName": "Queens"}, {"zoneid": 103, "zonename": "Governor's Island/Ellis Island/Liberty Island", "boroughName": "Manhattan"}, {"zoneid": 104, "zonename": "Governor's Island/Ellis Island/Liberty Island", "boroughName": "Manhattan"}, {"zoneid": 105, "zonename": "Governor's Island/Ellis Island/Liberty Island", "boroughName": "Manhattan"}, {"zoneid": 106, "zonename": "Gowanus", "boroughName": "Brooklyn"}, {"zoneid": 107, "zonename": "Gramercy", "boroughName": "Manhattan"}, {"zoneid": 108, "zonename": "Gravesend", "boroughName": "Brooklyn"}, {"zoneid": 109, "zonename": "Great Kills", "boroughName": "Staten Island"}, {"zoneid": 110, "zonename": "Great Kills Park", "boroughName": "Staten Island"}, {"zoneid": 111, "zonename": "Green-Wood Cemetery", "boroughName": "Brooklyn"}, {"zoneid": 112, "zonename": "Greenpoint", "boroughName": "Brooklyn"}, {"zoneid": 113, "zonename": "Greenwich Village North", "boroughName": "Manhattan"}, {"zoneid": 114, "zonename": "Greenwich Village South", "boroughName": "Manhattan"}, {"zoneid": 115, "zonename": "Grymes Hill/Clifton", "boroughName": "Staten Island"}, {"zoneid": 116, "zonename": "Hamilton Heights", "boroughName": "Manhattan"}, {"zoneid": 117, "zonename": "Hammels/Arverne", "boroughName": "Queens"}, {"zoneid": 118, "zonename": "Heartland Village/Todt Hill", "boroughName": "Staten Island"}, {"zoneid": 119, "zonename": "Highbridge", "boroughName": "Bronx"}, {"zoneid": 120, "zonename": "Highbridge Park", "boroughName": "Manhattan"}, {"zoneid": 121, "zonename": "Hillcrest/Pomonok", "boroughName": "Queens"}, {"zoneid": 122, "zonename": "Hollis", "boroughName": "Queens"}, {"zoneid": 123, "zonename": "Homecrest", "boroughName": "Brooklyn"}, {"zoneid": 124, "zonename": "Howard Beach", "boroughName": "Queens"}, {"zoneid": 125, "zonename": "Hudson Sq", "boroughName": "Manhattan"}, {"zoneid": 126, "zonename": "Hunts Point", "boroughName": "Bronx"}, {"zoneid": 127, "zonename": "Inwood", "boroughName": "Manhattan"}, {"zoneid": 128, "zonename": "Inwood Hill Park", "boroughName": "Manhattan"}, {"zoneid": 129, "zonename": "Jackson Heights", "boroughName": "Queens"}, {"zoneid": 130, "zonename": "Jamaica", "boroughName": "Queens"}, {"zoneid": 131, "zonename": "Jamaica Estates", "boroughName": "Queens"}, {"zoneid": 132, "zonename": "JFK Airport", "boroughName": "Queens"}, {"zoneid": 133, "zonename": "Kensington", "boroughName": "Brooklyn"}, {"zoneid": 134, "zonename": "Kew Gardens", "boroughName": "Queens"}, {"zoneid": 135, "zonename": "Kew Gardens Hills", "boroughName": "Queens"}, {"zoneid": 136, "zonename": "Kingsbridge Heights", "boroughName": "Bronx"}, {"zoneid": 137, "zonename": "Kips Bay", "boroughName": "Manhattan"}, {"zoneid": 138, "zonename": "LaGuardia Airport", "boroughName": "Queens"}, {"zoneid": 139, "zonename": "Laurelton", "boroughName": "Queens"}, {"zoneid": 140, "zonename": "Lenox Hill East", "boroughName": "Manhattan"}, {"zoneid": 141, "zonename": "Lenox Hill West", "boroughName": "Manhattan"}, {"zoneid": 142, "zonename": "Lincoln Square East", "boroughName": "Manhattan"}, {"zoneid": 143, "zonename": "Lincoln Square West", "boroughName": "Manhattan"}, {"zoneid": 144, "zonename": "Little Italy/NoLiTa", "boroughName": "Manhattan"}, {"zoneid": 145, "zonename": "Long Island City/Hunters Point", "boroughName": "Queens"}, {"zoneid": 146, "zonename": "Long Island City/Queens Plaza", "boroughName": "Queens"}, {"zoneid": 147, "zonename": "Longwood", "boroughName": "Bronx"}, {"zoneid": 148, "zonename": "Lower East Side", "boroughName": "Manhattan"}, {"zoneid": 149, "zonename": "Madison", "boroughName": "Brooklyn"}, {"zoneid": 150, "zonename": "Manhattan Beach", "boroughName": "Brooklyn"}, {"zoneid": 151, "zonename": "Manhattan Valley", "boroughName": "Manhattan"}, {"zoneid": 152, "zonename": "Manhattanville", "boroughName": "Manhattan"}, {"zoneid": 153, "zonename": "Marble Hill", "boroughName": "Manhattan"}, {"zoneid": 154, "zonename": "Marine Park/Floyd Bennett Field", "boroughName": "Brooklyn"}, {"zoneid": 155, "zonename": "Marine Park/Mill Basin", "boroughName": "Brooklyn"}, {"zoneid": 156, "zonename": "Mariners Harbor", "boroughName": "Staten Island"}, {"zoneid": 157, "zonename": "Maspeth", "boroughName": "Queens"}, {"zoneid": 158, "zonename": "Meatpacking/West Village West", "boroughName": "Manhattan"}, {"zoneid": 159, "zonename": "Melrose South", "boroughName": "Bronx"}, {"zoneid": 160, "zonename": "Middle Village", "boroughName": "Queens"}, {"zoneid": 161, "zonename": "Midtown Center", "boroughName": "Manhattan"}, {"zoneid": 162, "zonename": "Midtown East", "boroughName": "Manhattan"}, {"zoneid": 163, "zonename": "Midtown North", "boroughName": "Manhattan"}, {"zoneid": 164, "zonename": "Midtown South", "boroughName": "Manhattan"}, {"zoneid": 165, "zonename": "Midwood", "boroughName": "Brooklyn"}, {"zoneid": 166, "zonename": "Morningside Heights", "boroughName": "Manhattan"}, {"zoneid": 167, "zonename": "Morrisania/Melrose", "boroughName": "Bronx"}, {"zoneid": 168, "zonename": "Mott Haven/Port Morris", "boroughName": "Bronx"}, {"zoneid": 169, "zonename": "Mount Hope", "boroughName": "Bronx"}, {"zoneid": 170, "zonename": "Murray Hill", "boroughName": "Manhattan"}, {"zoneid": 171, "zonename": "Murray Hill-Queens", "boroughName": "Queens"}, {"zoneid": 172, "zonename": "New Dorp/Midland Beach", "boroughName": "Staten Island"}, {"zoneid": 173, "zonename": "North Corona", "boroughName": "Queens"}, {"zoneid": 174, "zonename": "Norwood", "boroughName": "Bronx"}, {"zoneid": 175, "zonename": "Oakland Gardens", "boroughName": "Queens"}, {"zoneid": 176, "zonename": "Oakwood", "boroughName": "Staten Island"}, {"zoneid": 177, "zonename": "Ocean Hill", "boroughName": "Brooklyn"}, {"zoneid": 178, "zonename": "Ocean Parkway South", "boroughName": "Brooklyn"}, {"zoneid": 179, "zonename": "Old Astoria", "boroughName": "Queens"}, {"zoneid": 180, "zonename": "Ozone Park", "boroughName": "Queens"}, {"zoneid": 181, "zonename": "Park Slope", "boroughName": "Brooklyn"}, {"zoneid": 182, "zonename": "Parkchester", "boroughName": "Bronx"}, {"zoneid": 183, "zonename": "Pelham Bay", "boroughName": "Bronx"}, {"zoneid": 184, "zonename": "Pelham Bay Park", "boroughName": "Bronx"}, {"zoneid": 185, "zonename": "Pelham Parkway", "boroughName": "Bronx"}, {"zoneid": 186, "zonename": "Penn Station/Madison Sq West", "boroughName": "Manhattan"}, {"zoneid": 187, "zonename": "Port Richmond", "boroughName": "Staten Island"}, {"zoneid": 188, "zonename": "Prospect-Lefferts Gardens", "boroughName": "Brooklyn"}, {"zoneid": 189, "zonename": "Prospect Heights", "boroughName": "Brooklyn"}, {"zoneid": 190, "zonename": "Prospect Park", "boroughName": "Brooklyn"}, {"zoneid": 191, "zonename": "Queens Village", "boroughName": "Queens"}, {"zoneid": 192, "zonename": "Queensboro Hill", "boroughName": "Queens"}, {"zoneid": 193, "zonename": "Queensbridge/Ravenswood", "boroughName": "Queens"}, {"zoneid": 194, "zonename": "Randalls Island", "boroughName": "Manhattan"}, {"zoneid": 195, "zonename": "Red Hook", "boroughName": "Brooklyn"}, {"zoneid": 196, "zonename": "Rego Park", "boroughName": "Queens"}, {"zoneid": 197, "zonename": "Richmond Hill", "boroughName": "Queens"}, {"zoneid": 198, "zonename": "Ridgewood", "boroughName": "Queens"}, {"zoneid": 199, "zonename": "Rikers Island", "boroughName": "Bronx"}, {"zoneid": 200, "zonename": "Riverdale/North Riverdale/Fieldston", "boroughName": "Bronx"}, {"zoneid": 201, "zonename": "Rockaway Park", "boroughName": "Queens"}, {"zoneid": 202, "zonename": "Roosevelt Island", "boroughName": "Manhattan"}, {"zoneid": 203, "zonename": "Rosedale", "boroughName": "Queens"}, {"zoneid": 204, "zonename": "Rossville/Woodrow", "boroughName": "Staten Island"}, {"zoneid": 205, "zonename": "Saint Albans", "boroughName": "Queens"}, {"zoneid": 206, "zonename": "Saint George/New Brighton", "boroughName": "Staten Island"}, {"zoneid": 207, "zonename": "Saint Michaels Cemetery/Woodside", "boroughName": "Queens"}, {"zoneid": 208, "zonename": "Schuylerville/Edgewater Park", "boroughName": "Bronx"}, {"zoneid": 209, "zonename": "Seaport", "boroughName": "Manhattan"}, {"zoneid": 210, "zonename": "Sheepshead Bay", "boroughName": "Brooklyn"}, {"zoneid": 211, "zonename": "SoHo", "boroughName": "Manhattan"}, {"zoneid": 212, "zonename": "Soundview/Bruckner", "boroughName": "Bronx"}, {"zoneid": 213, "zonename": "Soundview/Castle Hill", "boroughName": "Bronx"}, {"zoneid": 214, "zonename": "South Beach/Dongan Hills", "boroughName": "Staten Island"}, {"zoneid": 215, "zonename": "South Jamaica", "boroughName": "Queens"}, {"zoneid": 216, "zonename": "South Ozone Park", "boroughName": "Queens"}, {"zoneid": 217, "zonename": "South Williamsburg", "boroughName": "Brooklyn"}, {"zoneid": 218, "zonename": "Springfield Gardens North", "boroughName": "Queens"}, {"zoneid": 219, "zonename": "Springfield Gardens South", "boroughName": "Queens"}, {"zoneid": 220, "zonename": "Spuyten Duyvil/Kingsbridge", "boroughName": "Bronx"}, {"zoneid": 221, "zonename": "Stapleton", "boroughName": "Staten Island"}, {"zoneid": 222, "zonename": "Starrett City", "boroughName": "Brooklyn"}, {"zoneid": 223, "zonename": "Steinway", "boroughName": "Queens"}, {"zoneid": 224, "zonename": "Stuy Town/Peter Cooper Village", "boroughName": "Manhattan"}, {"zoneid": 225, "zonename": "Stuyvesant Heights", "boroughName": "Brooklyn"}, {"zoneid": 226, "zonename": "Sunnyside", "boroughName": "Queens"}, {"zoneid": 227, "zonename": "Sunset Park East", "boroughName": "Brooklyn"}, {"zoneid": 228, "zonename": "Sunset Park West", "boroughName": "Brooklyn"}, {"zoneid": 229, "zonename": "Sutton Place/Turtle Bay North", "boroughName": "Manhattan"}, {"zoneid": 230, "zonename": "Times Sq/Theatre District", "boroughName": "Manhattan"}, {"zoneid": 231, "zonename": "TriBeCa/Civic Center", "boroughName": "Manhattan"}, {"zoneid": 232, "zonename": "Two Bridges/Seward Park", "boroughName": "Manhattan"}, {"zoneid": 233, "zonename": "UN/Turtle Bay South", "boroughName": "Manhattan"}, {"zoneid": 234, "zonename": "Union Sq", "boroughName": "Manhattan"}, {"zoneid": 235, "zonename": "University Heights/Morris Heights", "boroughName": "Bronx"}, {"zoneid": 236, "zonename": "Upper East Side North", "boroughName": "Manhattan"}, {"zoneid": 237, "zonename": "Upper East Side South", "boroughName": "Manhattan"}, {"zoneid": 238, "zonename": "Upper West Side North", "boroughName": "Manhattan"}, {"zoneid": 239, "zonename": "Upper West Side South", "boroughName": "Manhattan"}, {"zoneid": 240, "zonename": "Van Cortlandt Park", "boroughName": "Bronx"}, {"zoneid": 241, "zonename": "Van Cortlandt Village", "boroughName": "Bronx"}, {"zoneid": 242, "zonename": "Van Nest/Morris Park", "boroughName": "Bronx"}, {"zoneid": 243, "zonename": "Washington Heights North", "boroughName": "Manhattan"}, {"zoneid": 244, "zonename": "Washington Heights South", "boroughName": "Manhattan"}, {"zoneid": 245, "zonename": "West Brighton", "boroughName": "Staten Island"}, {"zoneid": 246, "zonename": "West Chelsea/Hudson Yards", "boroughName": "Manhattan"}, {"zoneid": 247, "zonename": "West Concourse", "boroughName": "Bronx"}, {"zoneid": 248, "zonename": "West Farms/Bronx River", "boroughName": "Bronx"}, {"zoneid": 249, "zonename": "West Village", "boroughName": "Manhattan"}, {"zoneid": 250, "zonename": "Westchester Village/Unionport", "boroughName": "Bronx"}, {"zoneid": 251, "zonename": "Westerleigh", "boroughName": "Staten Island"}, {"zoneid": 252, "zonename": "Whitestone", "boroughName": "Queens"}, {"zoneid": 253, "zonename": "Willets Point", "boroughName": "Queens"}, {"zoneid": 254, "zonename": "Williamsbridge/Olinville", "boroughName": "Bronx"}, {"zoneid": 255, "zonename": "Williamsburg (North Side)", "boroughName": "Brooklyn"}, {"zoneid": 256, "zonename": "Williamsburg (South Side)", "boroughName": "Brooklyn"}, {"zoneid": 257, "zonename": "Windsor Terrace", "boroughName": "Brooklyn"}, {"zoneid": 258, "zonename": "Woodhaven", "boroughName": "Queens"}, {"zoneid": 259, "zonename": "Woodlawn/Wakefield", "boroughName": "Bronx"}, {"zoneid": 260, "zonename": "Woodside", "boroughName": "Queens"}, {"zoneid": 261, "zonename": "World Trade Center", "boroughName": "Manhattan"}, {"zoneid": 262, "zonename": "Yorkville East", "boroughName": "Manhattan"}, {"zoneid": 263, "zonename": "Yorkville West", "boroughName": "Manhattan"}, {"zoneid": 264, "zonename": "NV", "boroughName": "Unknown"}, {"zoneid": 265, "zonename": "NA", "boroughName": "Unknown"}],
+      minspend:20,
+      maxspend:40,
+      maxDist:20,
       maxTime:20,
       showSuggestions: false,
       userNeigh: [],
       userZones: [],
       recommendedRides: [],
-      randIndices: []
+      blankRides: true,
+      blankNeighborhoods: true
     }
      
     this.handleClick = this.handleClick.bind(this);
@@ -71,17 +71,17 @@ class UserProfile extends Component {
           firstname: document.getElementById("new-firstname").value,
           lastname: document.getElementById("new-lastname").value,
           age: document.getElementById("new-age").value,
-          prefride: this.state.newPrefride.value,
+          prefride: this.state.newPrefride,
           vaccine: document.getElementById("new-vaccine").value,
-          zoneid: this.state.newHomezone.value,
+          zoneid: this.state.newHomezone,
           zipcode: parseInt(document.getElementById("new-zipcode").value),
-          favzoneid: this.state.newFavzoneid.value,
+          favzoneid: this.state.newFavzoneid,
           minspend: this.state.minspend,
           maxspend: this.state.maxspend,
-          minRideDistance: this.state.minDist,
+          minRideDistance: 0,
           maxRideDistance: this.state.maxDist,
           maxRideTime: this.state.maxTime,
-          favborough: this.state.zoneData[this.state.newFavzoneid.value-1].boroughname
+          favborough: this.state.zoneData[this.state.newFavzoneid-1].boroughname
         })
       })
       .then(res => res.json())
@@ -112,6 +112,17 @@ class UserProfile extends Component {
   handlePreferences(e) {
     // Updating the user's ride preferences in the user table
     e.preventDefault();
+    function getRandomFive(list){
+      var a = Object.keys(list);
+      var n;
+      var r=[];
+      for (n=1; n<=5; ++n){
+        var i = Math.floor((Math.random() * (a.length-n)) + 1);
+        r.push(parseInt(a[i]));
+        a[i] = a[20-n];
+      }
+      return r.filter(Number)
+    }
     try{
       const url = "http://172.22.152.9:8000/api/planRide/";
       const response = fetch(url, {
@@ -125,14 +136,13 @@ class UserProfile extends Component {
           minspend: this.state.minspend,
           maxspend: this.state.maxspend,
           vaccpref: parseInt(this.state.vaccine),
-          minridedistance: this.state.minDist,
+          minridedistance: 0,
           maxridedistance: this.state.maxDist,
-          maxridetime: document.getElementById("minutes").value
+          maxridetime: this.state.maxTime
         })
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         const neighUrl = "http://172.22.152.9:8000/api/getUserNeighborhoods/";
         const response = fetch(neighUrl, {
           method: 'POST',
@@ -145,7 +155,7 @@ class UserProfile extends Component {
             firstname: " ",
             lastname: " ",
             age: 1,
-            prefride: " ",
+            prefride: this.state.prefride,
             vaccine: " ",
             zoneid: 1,
             zipcode: 11101,
@@ -162,25 +172,24 @@ class UserProfile extends Component {
         .then(res => res.json())
         .then(data => {
           // Getting 5 random indices to show for recommended neighborhoods
-          var a = Object.keys(data);
-          var n;
-          var r=[];
-          for (n=1; n<=5; ++n)
-          {
-            var i = Math.floor((Math.random() * (a.length-n)) + 1);
-            r.push(parseInt(a[i]));
-            a[i] = a[20-n];
-          }
-          var userNeigh = []
+          var r = getRandomFive(data);
+          console.log(r)
+          console.log(data)
+          var userNeighs = []
           for (var i in r){
-            userNeigh.push(data[i])
+            console.log(r[i])
+            userNeighs.push(data[r[i]])
           }
-
           this.setState({
-            userNeigh: userNeigh,
-            randIndices: r
+            userNeigh: userNeighs,
           })
 
+          console.log(userNeighs[0]===null)
+          if (userNeighs[0] !== null){
+            this.setState({
+              blankNeighborhoods: false
+            })
+          }
         })
 
         const zoneUrl = "http://172.22.152.9:8000/api/getUserZoneIDs/";
@@ -195,7 +204,7 @@ class UserProfile extends Component {
             firstname: " ",
             lastname: " ",
             age: 1,
-            prefride: " ",
+            prefride: this.state.prefride,
             vaccine: " ",
             zoneid: 1,
             zipcode: 11101,
@@ -218,22 +227,45 @@ class UserProfile extends Component {
             userZones: userZoneIds,
           })
 
+          // Used to get the user's original zone ids
+          let defaultZones = {}
+          this.state.zoneData.map((zone) =>
+              defaultZones[zone.zonename.toString()] = zone.zoneid
+          )
+          console.log(this.state.userZones)
           // Getting recommended rides
+          console.log(typeof this.state.minspend)
           var inputObj = {
             "function":"getUserRideRecommendations",
-            "userZone":this.state.newHomezone,
+            "userZone": parseInt(defaultZones[this.state.zoneid]),
             "zoneIds": this.state.userZones,
-            "minSpendature": this.state.minspend,
-            "maxSpendature": this.state.maxspend,
-            "maxDistance": this.state.maxDist
+            "minSpendature": parseInt(this.state.minspend),
+            "maxSpendature": parseInt(this.state.maxspend),
+            "maxDistance": parseInt(this.state.maxDist)
           };
           client.send(JSON.stringify(inputObj));
           client.onmessage = (message) => {
             var result=JSON.parse(message.data);
             console.log(result)
-            this.setState({
-              recommendedRides: result.recommendations
-            });
+            // Getting 5 random indices to show for recommended rides
+            console.log(result.recommendations == null)
+            if(result.recommendations != null){
+              var r = getRandomFive(result.recommendations);
+              var userRides = []
+              for (var i in r){
+                userRides.push(result.recommendations[i])
+              }
+              console.log(userRides)
+              this.setState({
+                recommendedRides: userRides,
+              })
+              console.log(userRides[0])
+              if (userRides[0] !== null){
+                this.setState({
+                  blankRides: false
+                })
+              }
+            }
           }
         })
       }).then(data => {
@@ -248,20 +280,21 @@ class UserProfile extends Component {
     catch(err){
       alert(err);
     }
+
   }
 
   handleChangePrefRide = (newPrefride) => {
-    this.setState({ newPrefride });
+    this.setState({ newPrefride:newPrefride.value });
     console.log(`Option selected:`, newPrefride);
   }
 
   handleChangeHomeZone = (newHomezone) => {
-    this.setState({ newHomezone });
+    this.setState({ newHomezone:newHomezone.value });
     console.log(`Option selected:`, newHomezone);
   }
 
   handleChangeFavZone = (newFavzoneid) => {
-    this.setState({ newFavzoneid });
+    this.setState({ newFavzoneid:newFavzoneid.value });
     console.log(`Option selected:`, newFavzoneid);
   }
 
@@ -274,11 +307,15 @@ class UserProfile extends Component {
 
   handleChangeDistance = (distRange) => {
     this.setState({
-      minDist: distRange[0],
-      maxDist: distRange[1]
+      maxDist: distRange
     })
   }
 
+  handleChangeTime = (timeRange) => {
+    this.setState({
+      maxTime: timeRange
+    })
+  }
 
   async componentWillMount() {
 
@@ -323,7 +360,7 @@ class UserProfile extends Component {
   render() {
 
     let taxiType = [{value:'Sedan',label:'Sedan'},{value:'SUV',label:'SUV'},{value:'Compact SUV',label:'Compact SUV'}];
-    let vaccineOptions = []
+
     // Creating zones for the select options
     let zones = this.state.zoneData;
     let zoneOptions = [{}];
@@ -333,6 +370,11 @@ class UserProfile extends Component {
             label : zone.zonename
         })
     );
+    // Used to get the user's original zone ids
+    let defaultZones = {}
+    zones.map((zone) =>
+        defaultZones[zone.zonename.toString()] = zone.zoneid
+    )
     // Adding marks for slider
     const budgetMarks = {
       0: '$0', 10: '$10', 20: '$20', 30: '$30', 40: '$40', 50: '$50',
@@ -446,13 +488,13 @@ class UserProfile extends Component {
                     <div className="col">
                       <label for="miles" className="text-center pr-3">Specify maximum distance of trip (miles)</label>
                     </div>
-                    <Slider.Range id='distance' marks={distanceMarks} max={50} defaultValue={[10, 20]} onChange={this.handleChangeDistance}></Slider.Range> 
+                    <Slider id='distance' marks={distanceMarks} max={50} defaultValue={20} onChange={this.handleChangeDistance}></Slider> 
                   </div>
                   <div className="row pt-2">
                     <div className="col">
                       <label for="minutes" className="text-center pr-2">Specify maximum length of trip (minutes)</label>
-                      <input size="5" type="text" id="minutes"></input>
-                    </div>
+                    </div>  
+                    <Slider id='minutes' marks={distanceMarks} max={50} defaultValue={20} onChange={this.handleChangeTime}></Slider> 
                   </div>
                   <div className="row py-4">
                     <div className="col text-center">
@@ -465,6 +507,10 @@ class UserProfile extends Component {
                     <hr/>
                     <Tabs defaultActiveKey="rides" id="uncontrolled-tab-example">
                       <Tab eventKey = "rides" title="Recommended Rides">
+                        {this.state.blankRides && (<div className='row general-font pt-3'>
+                          <h5><b>Sorry! No recommended rides based on your preferences. Please adjust the sliders to see recommendations.</b></h5>
+                        </div>)}
+                        {!this.state.blankRides && (<div>
                         {this.state.recommendedRides.map(ride => (
                         <div>
                           <div className="mx-3 py-2">
@@ -478,55 +524,30 @@ class UserProfile extends Component {
                           </div>
                         </div>
                         ))}
+                        </div>)}
                       </Tab>
                       <Tab eventKey = "neighborhoods" title="Recommended Neighborhoods">
+                        {this.state.blankNeighborhoods && (<div className='row general-font pt-3'>
+                          <h5><b>Sorry! No recommended neighborhood based on your preferences. Please adjust your vaccine preference to see recommendations.</b></h5>
+                        </div>)}
+                        {!this.state.blankNeighborhoods && (<div>
                         {this.state.userNeigh.map(neigh => (
                           <div>
                             <div className="mx-3 py-2">
-                              <h4 class="general-font my-1">{neigh['NEIGHBORHOOD_NAME']} </h4>
+                              <h4 class="general-font my-1">{neigh['neighborhood_name']} </h4>
                               <p><b>Percent Fully Vaccinated: </b>{neigh['PERC_FULLY']}%</p>
                               <p><b>Percent Partially Vaccinated (at Least 1 Dose): </b>{neigh["PERC_at least 1 dose"]}%</p>
                               <hr/>
                             </div>
                           </div>
                         ))}
+                        </div>)}
                       </Tab>
                     </Tabs>
                   </div>)}
                 </div>
               </div>
             </div>
-              
-              {/* <div className="row">
-                <div className="card">
-                  <div className="card-body">
-                    <div className="row ml-4">
-                      <h4 className="general-font">User Uploaded Rides</h4>
-                    </div>
-                    
-                    <hr></hr>
-                    <div className="row ml-4">
-                    <Form >
-                      {['checkbox', 'radio'].map((type) => (
-                        <div key={`default-${type}`} className="mb-3">
-                          <Form.Check 
-                            type={type}
-                            id={`default-${type}`}
-                            label={`default ${type}`}
-                          />
-
-                          <Form.Check
-                            disabled
-                            type={type}
-                            label={`disabled ${type}`}
-                            id={`disabled-default-${type}`}
-                          />
-                        </div>
-                      ))}
-                    <Link className="btn btn-primary yellow-btn"  onClick={this.openModal}>
-                      <b>Update Selected Ride</b>
-                    </Link>
-                    </Form> */}
                     <Modal show={this.state.isOpen} onHide={this.closeModal}>
                       <Modal.Header closeButton>
                         <Modal.Title>Updating User Information for <i><b>{username}</b></i></Modal.Title>
@@ -560,17 +581,17 @@ class UserProfile extends Component {
                             </div>
                             <div className="col-md-6 text-center">
                                 <br/><label for="new-prefride">Preferred Ride</label><br/>
-                                <Select id="new-prefride" options={taxiType} onChange={this.handleChangePrefRide}/>                         
+                                <Select id="new-prefride" options={taxiType} defaultValue={{label:this.state.prefride, value:this.state.prefride}} onChange={this.handleChangePrefRide}/>                         
                             </div>
                           </div>
                           <div className = "form-row justify-content-center">
                             <div className="col-md-6 text-center">
                                 <label for="new-homezone">Home Zone</label>
-                                <Select id="new-homezone" options={zoneOptions} onChange={this.handleChangeHomeZone} />                         
+                                <Select id="new-homezone" options={zoneOptions} defaultValue={{label:this.state.zoneid, value:defaultZones[this.state.zoneid]}} onChange={this.handleChangeHomeZone} />                         
                             </div>
                             <div className="col-md-6 text-center">
                                 <label for="new-favzone">Favorite Zone to Travel To</label>
-                                <Select id="new-favzone" options={zoneOptions} onChange={this.handleChangeFavZone} />                         
+                                <Select id="new-favzone" options={zoneOptions} defaultValue={{label:this.state.favzoneid, value:defaultZones[this.state.favzoneid]}} onChange={this.handleChangeFavZone} />                         
                             </div>
                           </div>
                           <div className="form-row py-3 justify-content-center">
