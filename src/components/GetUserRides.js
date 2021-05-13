@@ -29,6 +29,7 @@ class GetUserRides extends Component {
     // This binding is necessary to make `this` work in the callback
     this.handleDeleteRide = this.handleDeleteRide.bind(this);
     this.handleMedian = this.handleMedian.bind(this);
+    this.handlePublicRide = this.handlePublicRide.bind(this);
   }
 
   openModal = () => this.setState({ isOpen: true });
@@ -67,6 +68,13 @@ class GetUserRides extends Component {
     this.setState({ form:currState });
   }
 
+  handlePublicRide(val){
+    var text = "No";
+    if (parseInt(val)==1){
+      text="Yes";
+    }
+    return text;
+  }
   handleMedian(average,median){
     var text = '';
     var diff = 0;
@@ -219,7 +227,7 @@ class GetUserRides extends Component {
                                 {userRide.rideDetails.numOfPassengers} 
                                 </p>
                                 <p><b>Ride Experience:</b> {userRide.rideDetails.taxiRideExperience} stars</p>
-                                <p><b>Public Ride:</b> {userRide.rideDetails.exposeRideToPublic}</p>
+                                <p><b>Public Ride:</b> {this.handlePublicRide(userRide.rideDetails.exposeRideToPublic)}</p>
                                 <p><b>Total Ride Amount:</b> ${userRide.rideDetails.totalRideAmount} <i>{this.handleMedian(
                                   userRide.rideDetails.totalRideAmount, userRide.userRideStats.totalAmountPercentiles[1]
                                 )}</i></p>
@@ -259,7 +267,7 @@ class GetUserRides extends Component {
                                     {userRide.rideDetails.numOfPassengers} 
                                     </p>
                                     <p><b>Ride Experience:</b> {userRide.rideDetails.taxiRideExperience} stars</p>
-                                    <p><b>Public Ride:</b> {userRide.rideDetails.exposeRideToPublic}</p>
+                                    <p><b>Public Ride:</b> {this.handlePublicRide(userRide.rideDetails.exposeRideToPublic)}</p>
                                     <p><b>Total Ride Amount:</b> ${userRide.rideDetails.totalRideAmount}</p>
                                     <p><b>Tip Amount:</b> ${userRide.rideDetails.tipAmount}</p>
                                     <p><b>Total Ride Time:</b> {userRide.rideDetails.totalRideTime} minutes</p>
